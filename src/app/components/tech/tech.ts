@@ -1,44 +1,77 @@
 import { Component } from '@angular/core';
 import { Glow } from '../../shared/glow';
 
-interface Tool {
-  badge: string;
+interface Skill {
   name: string;
-  desc: string;
-}
-
-interface ToolGroup {
   icon: string;
-  title: string;
-  items: Tool[];
+  /** dark logos are turned white so they stay visible on the dark background */
+  light?: boolean;
 }
 
-const TOOLS: ToolGroup[] = [
+interface SkillGroup {
+  title: string;
+  symbol: string;
+  skills: Skill[];
+}
+
+const devicon = (path: string) => `https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${path}.svg`;
+
+const GROUPS: SkillGroup[] = [
   {
-    icon: '</>',
-    title: 'Frontend',
-    items: [
-      { badge: 'TS', name: 'TypeScript', desc: 'Type-safe foundations' },
-      { badge: 'R', name: 'React & Next.js', desc: 'Interfaces that feel effortless' },
-      { badge: 'tw', name: 'Tailwind CSS', desc: 'Consistent, responsive styling' },
+    title: 'Languages',
+    symbol: '</>',
+    skills: [
+      { name: 'C', icon: devicon('c/c-original') },
+      { name: 'C++', icon: devicon('cplusplus/cplusplus-original') },
+      { name: 'Python', icon: devicon('python/python-original') },
+      { name: 'Java', icon: devicon('java/java-original') },
+      { name: 'JavaScript', icon: devicon('javascript/javascript-original') },
+      { name: 'Rust', icon: devicon('rust/rust-original'), light: true },
+      { name: 'Bash', icon: devicon('bash/bash-original'), light: true },
     ],
   },
   {
-    icon: '⛁',
-    title: 'Backend & data',
-    items: [
-      { badge: 'JS', name: 'Node.js', desc: 'Reliable APIs and services' },
-      { badge: 'Py', name: 'Python', desc: 'Automation and data workflows' },
-      { badge: 'Pg', name: 'PostgreSQL', desc: 'Structured data, built to scale' },
+    title: 'Frameworks',
+    symbol: '◇',
+    skills: [
+      { name: 'Spring Boot', icon: devicon('spring/spring-original') },
+      { name: 'React', icon: devicon('react/react-original') },
+      { name: 'Next.js', icon: devicon('nextjs/nextjs-original'), light: true },
+      { name: 'Express', icon: devicon('express/express-original'), light: true },
+      { name: 'FastAPI', icon: devicon('fastapi/fastapi-original') },
+      { name: 'Kafka', icon: devicon('apachekafka/apachekafka-original'), light: true },
+      { name: 'PyTorch', icon: devicon('pytorch/pytorch-original') },
+      { name: 'Wordpress', icon: devicon('wordpress/wordpress-plain'), light: true },
+      { name: 'WooCommerce', icon: devicon('woocommerce/woocommerce-original') },
     ],
   },
   {
-    icon: '>_',
-    title: 'Workflow & delivery',
-    items: [
-      { badge: 'git', name: 'Git & GitHub', desc: 'Versioned, collaborative work' },
-      { badge: '>_', name: 'Docker & Vercel', desc: 'From local to live' },
-      { badge: 'F', name: 'Figma & Vitest', desc: 'Designed with care. Tested, too.' },
+    title: 'Cloud & Infra',
+    symbol: '☁',
+    skills: [
+      { name: 'AWS', icon: devicon('amazonwebservices/amazonwebservices-plain-wordmark'), light: true },
+      { name: 'Docker', icon: devicon('docker/docker-original') },
+      { name: 'Kubernetes', icon: devicon('kubernetes/kubernetes-original') },
+      { name: 'Grafana', icon: devicon('grafana/grafana-original') },
+      { name: 'Terraform', icon: devicon('terraform/terraform-original') },
+      { name: 'GraphQL', icon: devicon('graphql/graphql-plain') },
+      { name: 'Cloudflare', icon: devicon('cloudflare/cloudflare-original') },
+    ],
+  },
+  {
+    title: 'AI & Data',
+    symbol: '✦',
+    skills: [
+      { name: 'LangChain', icon: devicon('python/python-original') },
+      // local files: put them in your Angular `public/` folder
+      { name: 'LangGraph', icon: 'langgraph.png' },
+      { name: 'Ollama', icon: 'ollama.webp' },
+      { name: 'Claude', icon: 'claude.png' },
+      { name: 'MySQL', icon: devicon('mysql/mysql-original') },
+      { name: 'MongoDB', icon: devicon('mongodb/mongodb-original') },
+      { name: 'Redis', icon: devicon('redis/redis-original') },
+      { name: 'PostgreSQL', icon: devicon('postgresql/postgresql-original') },
+      { name: 'Cassandra', icon: devicon('cassandra/cassandra-original') },
     ],
   },
 ];
@@ -46,30 +79,30 @@ const TOOLS: ToolGroup[] = [
 @Component({
   selector: 'app-tech',
   imports: [Glow],
-  styleUrl: './tech.scss',
+  styleUrl: 'tech.scss',
   template: `
     <section id="tech" class="sec">
       <p class="eyebrow"><b>03</b><u></u>MY TOOLKIT</p>
 
-      <h2>The tools behind the craft.</h2>
+      <h2>Tools I think in.</h2>
+      <p class="sub">From systems programming to orchestration to inference — the full picture.</p>
 
       <div class="grid">
-        @for (group of tools; track group.title) {
-          <div class="card" appGlow>
+        @for (group of groups; track group.title) {
+          <div class="card" >
             <h4>
-              <span class="acc">{{ group.icon }}</span>
+              <span class="acc">{{ group.symbol }}</span>
               {{ group.title }}
             </h4>
 
-            @for (tool of group.items; track tool.name) {
-              <div class="tool">
-                <span class="badge mono">{{ tool.badge }}</span>
-                <div>
-                  <strong>{{ tool.name }}</strong>
-                  <small>{{ tool.desc }}</small>
-                </div>
-              </div>
-            }
+            <div class="pills">
+              @for (skill of group.skills; track skill.name) {
+                <span class="pill mono">
+                  <img [src]="skill.icon" [class.light]="skill.light" alt="" loading="lazy" />
+                  {{ skill.name }}
+                </span>
+              }
+            </div>
           </div>
         }
       </div>
@@ -77,5 +110,5 @@ const TOOLS: ToolGroup[] = [
   `,
 })
 export class Tech {
-  protected readonly tools = TOOLS;
+  protected readonly groups = GROUPS;
 }
