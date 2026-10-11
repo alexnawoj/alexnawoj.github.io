@@ -1,10 +1,7 @@
-import { Component, computed, signal } from '@angular/core';
-import { Glow } from '../../shared/glow';
+export type Category = 'languages' | 'frontend' | 'backend' | 'databases' | 'tools';
+export type Filter = Category | 'all';
 
-type Category = 'languages' | 'frontend' | 'backend' | 'databases' | 'tools';
-type Filter = Category | 'all';
-
-interface Skill {
+export interface Skill {
   name: string;
   category: Category;
   icon: string;
@@ -14,7 +11,7 @@ interface Skill {
 
 const devicon = (path: string) => `https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${path}.svg`;
 
-const SKILLS: Skill[] = [
+export const SKILLS: Skill[] = [
   // languages
   { name: 'C', category: 'languages', icon: devicon('c/c-original') },
   { name: 'C++', category: 'languages', icon: devicon('cplusplus/cplusplus-original') },
@@ -48,7 +45,7 @@ const SKILLS: Skill[] = [
 
 ];
 
-const LABELS: Record<Filter, string> = {
+export const LABELS: Record<Filter, string> = {
   all: 'All',
   languages: 'Languages',
   frontend: 'Frontend',
@@ -57,57 +54,8 @@ const LABELS: Record<Filter, string> = {
   tools: 'Tools'
 };
 
-const TABS = (Object.keys(LABELS) as Filter[]).map((id) => ({
+export const TABS = (Object.keys(LABELS) as Filter[]).map((id) => ({
   id,
   label: LABELS[id],
   count: id === 'all' ? SKILLS.length : SKILLS.filter((s) => s.category === id).length,
 }));
-
-@Component({
-  selector: 'app-tech',
-  imports: [Glow],
-  styleUrl: 'tech.scss',
-  template: `
-    <section id="tech" class="sec">
-      <p class="eyebrow"><b>03</b><u></u>MY TOOLKIT</p>
-
-      <h2>Tools I think in.</h2>
-      <p class="sub">From systems programming to orchestration to inference — the full picture.</p>
-
-      <div class="tabs" role="group" aria-label="Filter tools by category">
-        @for (tab of tabs; track tab.id) {
-          <button
-            type="button"
-            class="tab"
-            [class.on]="active() === tab.id"
-            [attr.aria-pressed]="active() === tab.id"
-            (click)="active.set(tab.id)"
-          >
-            {{ tab.label }}
-            <small class="mono">{{ tab.count }}</small>
-          </button>
-        }
-      </div>
-
-      <div class="grid">
-        <!-- tracking by tab + name re-creates the tiles on every switch, so they animate in again -->
-        @for (skill of visible(); track active() + skill.name; let i = $index) {
-          <div class="tile" appGlow [style.--i]="i">
-            <img [src]="skill.icon" [class.light]="skill.light" alt="" loading="lazy" />
-            <span class="mono">{{ skill.name }}</span>
-          </div>
-        }
-      </div>
-    </section>
-  `,
-})
-export class Tech {
-  protected readonly tabs = TABS;
-  protected readonly total = SKILLS.length;
-  protected readonly active = signal<Filter>('all');
-
-  protected readonly visible = computed(() => {
-    const filter = this.active();
-    return filter === 'all' ? SKILLS : SKILLS.filter((s) => s.category === filter);
-  });
-}

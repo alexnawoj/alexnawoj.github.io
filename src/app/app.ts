@@ -5,11 +5,11 @@ import { Hello } from './components/hello/hello';
 import { ProjectsComponent } from './components/projects/projects.component';
 import { Side } from './components/side/side';
 import { Sky } from './components/sky/sky';
-import { Tech } from './components/tech/tech';
+import { TechComponent } from './components/tech/tech.component';
 
 @Component({
   selector: 'app-root',
-  imports: [Sky, Side, Hello, About, Tech, ProjectsComponent, Contact],
+  imports: [Sky, Side, Hello, About, TechComponent, ProjectsComponent, Contact],
   styleUrl: './app.scss',
   template: `
  <!--   <app-sky /> -->
