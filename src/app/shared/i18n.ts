@@ -37,9 +37,10 @@ export class I18n {
         saved = localStorage.getItem('lang');
       } catch {}
 
-      const browser = navigator.language.slice(0, 2);
-      const pick = [saved, browser].find((l): l is Lang => LANGUAGES.includes(l as Lang));
-      this.set(pick ?? 'en');
+      // saved choice first, then the browser's language list in order of preference (e.g. pl-PL, en-US)
+      const browser = (navigator.languages ?? [navigator.language]).map((l) => l.slice(0, 2));
+      const pick = [saved, ...browser].find((l): l is Lang => LANGUAGES.includes(l as Lang));
+      this.set(pick ?? 'en'); // detected, not saved: it keeps following the browser until the visitor picks one
     });
   }
 
@@ -50,7 +51,7 @@ export class I18n {
 
     // no View Transitions support, or animations are off: switch instantly
     if (!doc.startViewTransition || this.motion.off()) {
-      this.set(next);
+      this.set(next, true);
       return;
     }
 
@@ -59,7 +60,7 @@ export class I18n {
     root.classList.add('lang-switching');
     doc
       .startViewTransition(() => {
-        this.set(next);
+        this.set(next, true);
         this.appRef.tick(); // render the new texts right now, so the "after" snapshot already has them
       })
       .finished.finally(() => root.classList.remove('lang-switching'));
@@ -82,9 +83,10 @@ export class I18n {
     return this.translate(key).split('|');
   }
 
-  private set(lang: Lang) {
+  private set(lang: Lang, save = false) {
     this.lang.set(lang);
     document.documentElement.lang = lang;
+    if (!save) return;
     try {
       localStorage.setItem('lang', lang);
     } catch {}
