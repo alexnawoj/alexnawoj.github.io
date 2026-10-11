@@ -115,14 +115,15 @@ a {
 // ─── Section scaffolding ───────────────────────────────
 .sec {
   max-width: 1180px;
-  padding: 140px 0 0;
+  padding: 140px 0 60px;
+}
 
-  &:hover .eyebrow u {
-    transform: scaleX(1.65);
-  }
+:root:not([data-motion='off']) .sec:hover .eyebrow u {
+  width: 56px;
 }
 
 .eyebrow {
+  contain: layout;
   display: flex;
   align-items: center;
   gap: 14px;
@@ -140,8 +141,7 @@ a {
     width: 34px;
     height: 1px;
     background: var(--acc);
-    transform-origin: left; // scale instead of animating width (no layout work)
-    transition: transform 0.5s;
+    transition: width 0.5s;
   }
 }
 
@@ -212,6 +212,24 @@ h2 {
     *::before,
     *::after {
       @include no-motion;
+    }
+  }
+}
+
+// Hover effects that MOVE things are cancelled when animations are off
+// (colour / border / shadow changes still apply).
+$hover-movers:
+  '.btn', '.tab', '.tile', '.card', '.social', '.round', '.proj', '.chips span', '.links a', '.soc a', '.email',
+  '.send', 'footer a';
+
+:root[data-motion='off'] {
+  @each $selector in $hover-movers {
+    #{$selector}:hover,
+    #{$selector}:hover * {
+      transform: none !important;
+      translate: none !important;
+      rotate: none !important;
+      scale: none !important;
     }
   }
 }
