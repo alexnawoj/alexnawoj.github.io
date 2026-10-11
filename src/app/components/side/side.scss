@@ -1,7 +1,5 @@
 @use '../../../styles/tokens' as *;
 
-// Three rows: [spacer 1fr] [nav] [tools 1fr]. The two 1fr rows are always equal,
-// so the nav sits at the exact vertical centre no matter how tall the buttons are.
 .side {
   position: fixed;
   inset: 0 auto 0 0;
@@ -12,11 +10,13 @@
   padding: 0 0 28px 50px;
 
   @media (max-width: #{$bp-mobile}) {
-    // no room for the section list on phones: keep only the two buttons, bottom right
-    inset: auto 16px 16px auto;
-    display: block;
-    width: auto;
-    padding: 0;
+    inset: 0 0 auto 0;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 56px;
+    padding: 0 16px;
+    background: color-mix(in srgb, var(--bg) 82%, transparent);
 
     nav {
       display: none;
@@ -97,6 +97,11 @@
   align-self: end;
   display: flex;
   gap: 12px;
+
+  @media (max-width: #{$bp-mobile}) {
+    align-self: auto;
+    width: 100%; // menu button on the left, the other three on the right
+  }
 }
 
 .round {
@@ -134,10 +139,6 @@
     background: var(--acc2);
     box-shadow: 0 6px 22px -6px rgba(139, 92, 246, 0.8);
     transform: translateY(-3px);
-
-    svg {
-      transform: rotate(40deg);
-    }
   }
 
   &:focus-visible {
@@ -151,6 +152,7 @@
 
   @media (max-width: #{$bp-mobile}) {
     display: grid;
+    margin-right: auto;
   }
 }
 

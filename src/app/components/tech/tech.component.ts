@@ -1,7 +1,7 @@
 import { Component, computed, signal } from '@angular/core';
 import { Glow } from '../../shared/glow';
 import { T } from '../../shared/i18n';
-import { Category, Filter, TABS, SKILLS } from './tech.data'
+import { Filter, TABS, SKILLS } from './tech.data'
 
 @Component({
   selector: 'app-tech',
@@ -30,10 +30,10 @@ import { Category, Filter, TABS, SKILLS } from './tech.data'
       </div>
 
       <div class="grid">
-        @for (skill of visible(); track active() + skill.name; let i = $index) {
+        @for (item of visible(); track item.id; let i = $index) {
           <div class="tile" appGlow [style.--i]="i">
-            <img [src]="skill.icon" [class.light]="skill.light" alt="" loading="lazy" />
-            <span class="mono">{{ skill.name }}</span>
+            <img [src]="item.skill.icon" [class.light]="item.skill.light" alt="" loading="lazy" />
+            <span class="mono">{{ item.skill.name }}</span>
           </div>
         }
       </div>
@@ -47,6 +47,7 @@ export class TechComponent {
 
   protected readonly visible = computed(() => {
     const filter = this.active();
-    return filter === 'all' ? SKILLS : SKILLS.filter((s) => s.category === filter);
+    const skills = filter === 'all' ? SKILLS : SKILLS.filter((s) => s.category === filter);
+    return skills.map((skill) => ({ id: `${filter}:${skill.name}`, skill }));
   });
 }
