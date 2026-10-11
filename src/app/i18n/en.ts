@@ -84,8 +84,11 @@ export const EN = {
   'contact.form.sending': 'Sending…',
   'contact.form.send': 'Send message',
   'contact.form.fail': 'Something went wrong. Please try again, or email me directly.',
-  'contact.footer.built': 'Built with intention. A little stardust, too. ✦',
+  'contact.footer.built': 'Music by Sub_Clair from Pixabay',
   'contact.footer.top': 'Back to top ↑',
+
+  'ctl.musicPlay': 'Play music',
+  'ctl.musicStop': 'Stop music',
 } as const;
 
 export type Key = keyof typeof EN;

@@ -1,6 +1,7 @@
 import { afterNextRender, Component, DestroyRef, inject, signal } from '@angular/core';
 import { I18n, T } from '../../shared/i18n';
 import { Motion } from '../../shared/motion';
+import { Music } from '../../shared/music';
 import { ScrollTo } from '../../shared/scroll-to';
 import { Theme } from '../../shared/theme';
 
@@ -69,8 +70,8 @@ const SECTIONS = [
           type="button"
           class="round"
           (click)="theme.toggle()"
-          [attr.aria-label]="(theme.mode() === 'dark' ? 'ctl.themeDark' : 'ctl.themeDark') | t"
-          [title]="(theme.mode() === 'dark' ? 'ctl.themeDark' : 'ctl.themeDark') | t"
+          [attr.aria-label]="(theme.mode() === 'dark' ? 'ctl.themeLight' : 'ctl.themeDark') | t"
+          [title]="(theme.mode() === 'dark' ? 'ctl.themeLight' : 'ctl.themeDark') | t"
         >
           <svg viewBox="0 0 24 24" aria-hidden="true">
             @if (theme.mode() === 'dark') {
@@ -108,6 +109,24 @@ const SECTIONS = [
             }
           </svg>
         </button>
+
+        <button
+          type="button"
+          class="round"
+          (click)="music.toggle()"
+          [attr.aria-pressed]="music.playing()"
+          [attr.aria-label]="(music.playing() ? 'ctl.musicStop' : 'ctl.musicPlay') | t"
+          [title]="(music.playing() ? 'ctl.musicStop' : 'ctl.musicPlay') | t"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M11 5L6 9H2v6h4l5 4V5z" />
+            @if (music.playing()) {
+              <path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13" />
+            } @else {
+              <path d="M22 9l-6 6M16 9l6 6" />
+            }
+          </svg>
+        </button>
       </div>
     </aside>
   `,
@@ -119,6 +138,7 @@ export class Side {
   protected readonly theme = inject(Theme);
   protected readonly i18n = inject(I18n);
   protected readonly motion = inject(Motion);
+  protected readonly music = inject(Music);
 
   constructor() {
     const destroyRef = inject(DestroyRef);

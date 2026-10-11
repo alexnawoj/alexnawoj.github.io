@@ -82,4 +82,7 @@ export const PL: Record<Key, string> = {
   'contact.form.fail': 'Coś poszło nie tak. Spróbuj ponownie lub napisz do mnie bezpośrednio.',
   'contact.footer.built': 'Zbudowane z namysłem. Z odrobiną gwiezdnego pyłu. ✦',
   'contact.footer.top': 'Do góry ↑',
+
+  'ctl.musicPlay': 'Włącz muzykę',
+  'ctl.musicStop': 'Wyłącz muzykę',
 };
