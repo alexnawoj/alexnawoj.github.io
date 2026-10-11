@@ -12,7 +12,7 @@ import { TechComponent } from './components/tech/tech.component';
   imports: [Sky, Side, Hello, About, TechComponent, ProjectsComponent, Contact],
   styleUrl: './app.scss',
   template: `
- <!--   <app-sky /> -->
+  <app-sky />
     <app-side />
 
     <main>
