@@ -13,7 +13,7 @@ h1 {
 
   .acc {
     color: transparent;
-    background: linear-gradient(100deg, #c4b5fd, #8b5cf6 70%);
+    background: var(--grad);
     -webkit-background-clip: text;
     background-clip: text;
   }
@@ -63,7 +63,7 @@ h1 {
   }
 
   &.ghost {
-    background: rgba(255, 255, 255, 0.02);
+    background: var(--surface);
     border: 1px solid var(--line);
 
     &:hover {
@@ -74,6 +74,7 @@ h1 {
 }
 
 .typed {
+      contain: layout style; // typing changes never re-layout the rest of the page
       display: block;
       height: 1.1em;
       white-space: nowrap;

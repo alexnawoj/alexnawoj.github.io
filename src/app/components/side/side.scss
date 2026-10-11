@@ -1,20 +1,37 @@
 @use '../../../styles/tokens' as *;
 
+// Three rows: [spacer 1fr] [nav] [tools 1fr]. The two 1fr rows are always equal,
+// so the nav sits at the exact vertical centre no matter how tall the buttons are.
 .side {
   position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
+  inset: 0 auto 0 0;
   z-index: 15;
+  display: grid;
+  grid-template-rows: 1fr auto 1fr;
   width: var(--side);
-  padding: 10% 0 0 50px;
+  padding: 0 0 28px 50px;
 
   @media (max-width: #{$bp-mobile}) {
-    display: none;
+    // no room for the section list on phones: keep only the two buttons, bottom right
+    inset: auto 16px 16px auto;
+    display: block;
+    width: auto;
+    padding: 0;
+
+    nav {
+      display: none;
+    }
+  }
+
+  nav {
+    grid-row: 2;
   }
 
   ul {
     position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 56px;
     padding: 0;
     list-style: none;
 
@@ -22,29 +39,25 @@
     &::before {
       content: '';
       position: absolute;
-      top: 8px;
-      bottom: 8px;
-      left: 2.5px;
+      top: 10px;
+      bottom: 10px;
+      left: 3px;
       width: 1px;
       background: var(--line);
     }
   }
 
-  li {
-    margin-bottom: 40%;
+  li.active {
+    a {
+      font-weight: 500;
+      color: var(--ink);
+    }
 
-    &.active {
-      a {
-        font-weight: 500;
-        color: var(--ink);
-      }
-
-      .dot {
-        background: var(--acc);
-        border-color: var(--acc);
-        box-shadow: 0 0 14px var(--acc);
-        transform: scale(1.5);
-      }
+    .dot {
+      background: var(--acc);
+      border-color: var(--acc);
+      box-shadow: 0 0 14px var(--acc);
+      transform: scale(1.5);
     }
   }
 
@@ -66,8 +79,142 @@
   z-index: 1;
   width: 7px;
   height: 7px;
-  background: #0a0912;
+  background: var(--bg);
   border: 1px solid var(--dim);
   border-radius: 50%;
-  transition: all 0.35s;
+  transition:
+    background 0.35s,
+    border-color 0.35s,
+    box-shadow 0.35s,
+    transform 0.35s;
+}
+
+// ─── buttons: menu (phones only), theme, language, animations ───
+.tools {
+  position: relative;
+  z-index: 2; // stays above the full-screen menu so it can be closed
+  grid-row: 3;
+  align-self: end;
+  display: flex;
+  gap: 12px;
+}
+
+.round {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  font: 500 11px/1 'JetBrains Mono', monospace;
+  letter-spacing: 0.04em;
+  color: var(--acc);
+  background: transparent;
+  border: 1px solid var(--acc2);
+  border-radius: 50%;
+  cursor: pointer;
+  transition:
+    transform 0.3s $ease,
+    background 0.3s,
+    color 0.3s,
+    box-shadow 0.3s;
+
+  svg {
+    width: 17px;
+    height: 17px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: transform 0.5s $ease;
+  }
+
+  &:hover {
+    color: #fff;
+    background: var(--acc2);
+    box-shadow: 0 6px 22px -6px rgba(139, 92, 246, 0.8);
+    transform: translateY(-3px);
+
+    svg {
+      transform: rotate(40deg);
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--acc);
+    outline-offset: 3px;
+  }
+}
+
+.menu {
+  display: none;
+
+  @media (max-width: #{$bp-mobile}) {
+    display: grid;
+  }
+}
+
+// ─── phone menu ────────────────────────────────────────
+.overlay {
+  display: none;
+
+  @media (max-width: #{$bp-mobile}) {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    padding: 0 12vw;
+    background: var(--bg);
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity 0.3s,
+      visibility 0.3s;
+
+    &.open {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    opacity: 0;
+    transform: translateY(16px);
+    transition:
+      opacity 0.4s,
+      transform 0.4s $ease;
+    transition-delay: calc(var(--i) * 60ms);
+  }
+
+  &.open li {
+    opacity: 1;
+    transform: none;
+  }
+
+  a {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    font-size: 30px;
+    font-weight: 300;
+    color: var(--mut);
+  }
+
+  .num {
+    font-size: 11px;
+    color: var(--acc);
+  }
+
+  li.active a {
+    color: var(--ink);
+  }
 }

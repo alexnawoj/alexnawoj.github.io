@@ -1,21 +1,23 @@
-import { afterNextRender, Component, DestroyRef, ElementRef, inject, viewChild } from '@angular/core';
+import { afterNextRender, Component, DestroyRef, ElementRef, inject, viewChildren } from '@angular/core';
 
-interface Star {
-  x: number; // 0–1, relative to the viewport
-  y: number;
-  size: number;
-  phase: number;
-  speed: number;
-  color: string;
-}
-
-const STAR_COUNT = 140;
-const FRAME_MS = 1000 / 30; // twinkling doesn't need 60 fps
+const LAYERS = [
+  { stars: 50, duration: '4.2s', delay: '0s' },
+  { stars: 50, duration: '6.1s', delay: '-2.3s' },
+  { stars: 50, duration: '8.7s', delay: '-5s' },
+];
 const COLORS = ['#ffffff', '#ffffff', '#ffffff', '#ddd6fe', '#c4b5fd'];
 
+/**
+ * The stars are painted ONCE onto a few canvases. Each canvas fades in and out with a CSS
+ * opacity animation, which runs on the GPU compositor, so there is no JavaScript per frame.
+ */
 @Component({
   selector: 'app-sky',
-  template: '<canvas #canvas></canvas>',
+  template: `
+    @for (layer of layers; track $index) {
+      <canvas #layer [style.--d]="layer.duration" [style.--delay]="layer.delay"></canvas>
+    }
+  `,
   styles: `
     :host {
       position: fixed;
@@ -25,85 +27,63 @@ const COLORS = ['#ffffff', '#ffffff', '#ffffff', '#ddd6fe', '#c4b5fd'];
     }
 
     canvas {
-      display: block;
+      position: absolute;
+      inset: 0;
       width: 100%;
       height: 100%;
+      animation: twinkle var(--d) ease-in-out var(--delay) infinite alternate;
+    }
+
+    @keyframes twinkle {
+      from {
+        opacity: 0.12;
+      }
+      to {
+        opacity: 1;
+      }
     }
   `,
 })
 export class Sky {
-  private readonly canvas = viewChild.required<ElementRef<HTMLCanvasElement>>('canvas');
-
-  private readonly stars: Star[] = Array.from({ length: STAR_COUNT }, () => ({
-    x: Math.random(),
-    y: Math.random(),
-    size: 0.5 + Math.random() * 1.1,
-    phase: Math.random() * Math.PI * 2,
-    speed: 0.6 + Math.random() * 1.6,
-    color: COLORS[Math.floor(Math.random() * COLORS.length)],
-  }));
-
-  private width = 0;
-  private height = 0;
-  private frame = 0;
-  private last = 0;
+  protected readonly layers = LAYERS;
+  private readonly canvases = viewChildren<ElementRef<HTMLCanvasElement>>('layer');
 
   constructor() {
     const destroyRef = inject(DestroyRef);
 
     afterNextRender(() => {
-      const el = this.canvas().nativeElement;
-      const ctx = el.getContext('2d')!;
-      const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-      const resize = () => {
-        const dpr = Math.min(devicePixelRatio || 1, 1.5);
-        this.width = innerWidth;
-        this.height = innerHeight;
-        el.width = this.width * dpr;
-        el.height = this.height * dpr;
-        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-        if (reduceMotion) this.draw(ctx, 0); // static sky, nothing to animate
+      let timer: ReturnType<typeof setTimeout>;
+      const paint = () => this.canvases().forEach((c, i) => this.paintLayer(c.nativeElement, LAYERS[i].stars));
+      const onResize = () => {
+        clearTimeout(timer);
+        timer = setTimeout(paint, 200); // repaint after resizing stops
       };
 
-      const loop = (now: number) => {
-        this.frame = requestAnimationFrame(loop);
-        if (now - this.last < FRAME_MS) return;
-        this.last = now;
-        this.draw(ctx, now / 1000);
-      };
-
-      resize();
-      addEventListener('resize', resize);
-      if (!reduceMotion) this.frame = requestAnimationFrame(loop);
-
+      paint();
+      addEventListener('resize', onResize);
       destroyRef.onDestroy(() => {
-        cancelAnimationFrame(this.frame);
-        removeEventListener('resize', resize);
+        clearTimeout(timer);
+        removeEventListener('resize', onResize);
       });
     });
   }
 
-  private draw(ctx: CanvasRenderingContext2D, time: number) {
-    ctx.clearRect(0, 0, this.width, this.height);
+  private paintLayer(canvas: HTMLCanvasElement, count: number) {
+    const dpr = Math.min(devicePixelRatio || 1, 1.5);
+    const w = innerWidth;
+    const h = innerHeight;
+    canvas.width = w * dpr;
+    canvas.height = h * dpr;
 
-    for (const s of this.stars) {
-      // smooth fade between dim and bright
-      ctx.globalAlpha = 0.15 + 0.85 * (0.5 + 0.5 * Math.sin(time * s.speed + s.phase));
-      ctx.fillStyle = s.color;
+    const ctx = canvas.getContext('2d')!;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-      const x = s.x * this.width;
-      const y = s.y * this.height;
-
-      if (s.size < 1) {
-        ctx.fillRect(x, y, s.size * 2, s.size * 2); // cheaper than an arc for tiny stars
-      } else {
-        ctx.beginPath();
-        ctx.arc(x, y, s.size, 0, Math.PI * 2);
-        ctx.fill();
-      }
+    for (let i = 0; i < count; i++) {
+      ctx.globalAlpha = 0.5 + Math.random() * 0.5;
+      ctx.fillStyle = COLORS[Math.floor(Math.random() * COLORS.length)];
+      ctx.beginPath();
+      ctx.arc(Math.random() * w, Math.random() * h, 0.5 + Math.random() * 1.1, 0, Math.PI * 2);
+      ctx.fill();
     }
-
-    ctx.globalAlpha = 1;
   }
 }

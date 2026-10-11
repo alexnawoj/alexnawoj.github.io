@@ -12,6 +12,18 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400&display=swap"
     />
+    <script>
+      // apply the saved theme and motion setting before first paint (no flash)
+      var root = document.documentElement;
+      try {
+        root.dataset.theme = localStorage.getItem('theme') === 'light' ? 'light' : 'dark';
+        root.dataset.motion =
+          localStorage.getItem('motion') || (matchMedia('(prefers-reduced-motion: reduce)').matches ? 'off' : 'on');
+      } catch (e) {
+        root.dataset.theme = 'dark';
+        root.dataset.motion = 'on';
+      }
+    </script>
   </head>
   <body>
     <app-root></app-root>

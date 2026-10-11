@@ -1,7 +1,10 @@
 export interface Project {
   name: string;
   kind: string;
+  /** still picture shown by default (png / jpg / webp) */
   image: string;
+  /** optional animated version (gif / animated webp), only loaded and played while hovering */
+  animated?: string;
   desc: string;
   stack: string[];
   meta: string;
@@ -27,7 +30,7 @@ export const PROJECTS: Project[] = [
     status: 'in-progress'
   },
   {
-    name: 'Asteroid Impact Simulator',
+    name: 'Template',
     kind: 'EDITORIAL EXPERIENCE',
     image: '/projects/template.gif',
     desc: 'A quieter corner of the internet. A content-driven travel journal with immersive storytelling, a custom CMS, and a focus on accessibility.',
@@ -38,7 +41,7 @@ export const PROJECTS: Project[] = [
 
   },
   {
-    name: 'Quantum Mail',
+    name: 'Template',
     kind: 'COLLABORATION TOOL',
     image: '/projects/template.gif',
     desc: 'Less busywork, more momentum. A collaborative project workspace with drag-and-drop boards, live updates, and a little room to breathe.',
@@ -48,7 +51,7 @@ export const PROJECTS: Project[] = [
     status: 'archived'
   },
   {
-    name: 'Yet Another Launcher',
+    name: 'Template',
     kind: 'COLLABORATION TOOL',
     image: '/projects/template.gif',
     desc: 'Less busywork, more momentum. A collaborative project workspace with drag-and-drop boards, live updates, and a little room to breathe.',

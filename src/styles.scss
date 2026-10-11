@@ -2,6 +2,7 @@
 // Everything section-specific lives in the component's own .scss file.
 
 :root {
+  color-scheme: dark;
   --bg: #0a0912;
   --ink: #f1eefb;
   --mut: #a39fb8;
@@ -10,7 +11,40 @@
   --acc2: #8b5cf6;
   --line: rgba(255, 255, 255, 0.08);
   --card: rgba(20, 17, 36, 0.72);
+  --surface: rgba(255, 255, 255, 0.03);
+  --surface-2: rgba(255, 255, 255, 0.07);
+  --overlay: rgba(10, 9, 18, 0.6);
+  --cta: linear-gradient(135deg, rgba(40, 28, 78, 0.7), rgba(16, 13, 30, 0.8));
+  --grad: linear-gradient(100deg, #c4b5fd, #8b5cf6 70%);
+  --err: #fca5a5;
+  --err-line: #f87171;
+  --logo-filter: brightness(0) invert(1); // turns dark logos white
   --side: 240px;
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+  --bg: #f5f3fb;
+  --ink: #1b1630;
+  --mut: #5a5573;
+  --dim: #8c87a6;
+  --acc: #7c3aed;
+  --acc2: #7c3aed;
+  --line: rgba(27, 22, 48, 0.12);
+  --card: rgba(255, 255, 255, 0.85);
+  --surface: rgba(27, 22, 48, 0.04);
+  --surface-2: rgba(27, 22, 48, 0.08);
+  --overlay: rgba(255, 255, 255, 0.78);
+  --cta: linear-gradient(135deg, rgba(237, 233, 254, 0.95), rgba(255, 255, 255, 0.9));
+  --grad: linear-gradient(100deg, #6d28d9, #a78bfa 90%);
+  --err: #b91c1c;
+  --err-line: #dc2626;
+  --logo-filter: brightness(0); // turns light logos dark
+
+  // stars make no sense on a light page (and hiding the sky also stops its animation)
+  app-sky {
+    display: none;
+  }
 }
 
 // ─── Base ──────────────────────────────────────────────
@@ -28,6 +62,7 @@ body {
   color: var(--ink);
   font: 400 16px/1.6 Inter, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 a {
@@ -83,7 +118,7 @@ a {
   padding: 140px 0 0;
 
   &:hover .eyebrow u {
-    width: 56px;
+    transform: scaleX(1.65);
   }
 }
 
@@ -105,7 +140,8 @@ a {
     width: 34px;
     height: 1px;
     background: var(--acc);
-    transition: width 0.5s;
+    transform-origin: left; // scale instead of animating width (no layout work)
+    transition: transform 0.5s;
   }
 }
 
@@ -152,11 +188,30 @@ h2 {
   }
 }
 
-// ─── Accessibility ─────────────────────────────────────
+// ─── Animations off ────────────────────────────────────
+// Applies when the visitor flips the switch, or (until they choose) when the OS asks for reduced motion.
+@mixin no-motion {
+  animation: none !important;
+  transition: none !important;
+  scroll-behavior: auto !important;
+}
+
+:root[data-motion='off'] {
+  &,
+  *,
+  *::before,
+  *::after {
+    @include no-motion;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  * {
-    animation: none !important;
-    transition: none !important;
-    scroll-behavior: auto !important;
+  :root:not([data-motion='on']) {
+    &,
+    *,
+    *::before,
+    *::after {
+      @include no-motion;
+    }
   }
 }

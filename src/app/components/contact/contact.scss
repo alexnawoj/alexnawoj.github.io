@@ -21,7 +21,6 @@
       background: var(--card);
       border: 1px solid var(--line);
       border-radius: 14px;
-      backdrop-filter: blur(8px);
       transition:
         transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
         border-color 0.3s,
@@ -82,10 +81,9 @@
     /* ── form ── */
     .form {
       padding: 40px 44px;
-      background: linear-gradient(135deg, rgba(40, 28, 78, 0.7), rgba(16, 13, 30, 0.8));
+      background: var(--cta);
       border: 1px solid var(--line);
       border-radius: 18px;
-      backdrop-filter: blur(8px);
     }
 
     .form h3 {
@@ -131,7 +129,7 @@
       font: inherit;
       font-size: 15px;
       color: var(--ink);
-      background: rgba(255, 255, 255, 0.03);
+      background: var(--surface);
       border: 1px solid var(--line);
       border-radius: 10px;
       outline: none;
@@ -165,13 +163,13 @@
 
     .field.bad input,
     .field.bad textarea {
-      border-color: #f87171;
+      border-color: var(--err-line);
     }
 
     .error {
       margin-top: 6px;
       font-size: 12px;
-      color: #fca5a5;
+      color: var(--err);
       animation: slide 0.25s;
     }
 
@@ -239,7 +237,7 @@
     .fail {
       margin-top: 16px;
       font-size: 13px;
-      color: #fca5a5;
+      color: var(--err);
     }
 
     /* ── success state ── */

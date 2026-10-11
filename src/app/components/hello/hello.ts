@@ -1,18 +1,12 @@
-import { afterNextRender, Component, DestroyRef, inject, signal } from '@angular/core';
+import { afterNextRender, Component, DestroyRef, effect, inject, signal } from '@angular/core';
+import { I18n, type Lang, T } from '../../shared/i18n';
+import { Motion } from '../../shared/motion';
 import { ScrollTo } from '../../shared/scroll-to';
 
-const WORDS = [
-  'the web.',
-  'the world.',
-  'scale.',
-  'impact.',
-  'fun.',
-  'production.',
-  'research.',
-  'people.',
-  'me.',
-  'you.',
-];
+const WORDS: Record<Lang, string[]> = {
+  en: ['the web.', 'the world.', 'scale.', 'impact.', 'fun.', 'production.', 'research.', 'people.', 'me.', 'you.'],
+  pl: ['sieci.', 'świata.', 'skali.', 'wpływu.', 'zabawy.', 'produkcji.', 'badań.', 'ludzi.', 'mnie.', 'ciebie.'],
+};
 
 const TYPE_MS = 150;
 const DELETE_MS = 50;
@@ -21,71 +15,86 @@ const GAP_MS = 350; // pause on an empty line
 
 @Component({
   selector: 'app-hello',
-  imports: [ScrollTo],
+  imports: [ScrollTo, T],
   styleUrl: './hello.scss',
   template: `
     <section id="hello" class="sec hero">
-      <p class="eyebrow"><b>01</b><u></u>HELLO, WORLD</p>
+      <p class="eyebrow"><b>01</b><u></u>{{ 'HELLO, WORLD' | t }}</p>
 
       <h1>
-        Building things for<br />
+        {{ 'Building things for' | t }}<br />
         <span class="typed acc">
           {{ text() }}<span class="caret" aria-hidden="true"></span>
         </span>
       </h1>
 
       <p class="lead">
-        I'm Alex, a full-stack developer who brings thoughtful design and reliable engineering to the same orbit.
+        {{
+          "I'm Alex, a full-stack developer who brings thoughtful design and reliable engineering to the same orbit."
+            | t
+        }}
       </p>
 
       <div class="btns">
         <a class="btn primary" href="#projects" appScrollTo="projects">
-          Explore my work <span class="arr down">↓</span>
+          {{ 'Explore my work' | t }} <span class="arr down">↓</span>
         </a>
         <a class="btn ghost" href="#contact" appScrollTo="contact">
-          Let's talk <span class="arr">↗</span>
+          {{ "Let's talk" | t }} <span class="arr">↗</span>
         </a>
       </div>
     </section>
   `,
 })
 export class Hello {
-  protected readonly text = signal(WORDS[0]);
+  protected readonly text = signal(WORDS.en[0]);
+  private state = { index: 0, chars: WORDS.en[0].length, deleting: true };
 
   constructor() {
+    const i18n = inject(I18n);
+    const motion = inject(Motion);
     const destroyRef = inject(DestroyRef);
 
-    afterNextRender(() => {
-      // no typing loop for people who prefer reduced motion: show the first word
-      if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    // language or motion setting changed: show the first word right away and restart from it
+    effect(() => {
+      motion.off();
+      const first = WORDS[i18n.lang()][0];
+      this.state = { index: 0, chars: first.length, deleting: true };
+      this.text.set(first);
+    });
 
-      let wordIndex = 0;
-      let charCount = WORDS[0].length;
-      let deleting = true; // first word is already on screen, so start by erasing it
+    afterNextRender(() => {
       let timer: ReturnType<typeof setTimeout>;
 
       const tick = () => {
-        const word = WORDS[wordIndex];
+        // animations off: keep the first word on screen and just check again later
+        if (motion.off()) {
+          timer = setTimeout(tick, 500);
+          return;
+        }
+
+        const s = this.state;
+        const words = WORDS[i18n.lang()];
         let delay: number;
 
-        if (deleting) {
-          charCount--;
+        if (s.deleting) {
+          s.chars--;
           delay = DELETE_MS;
-          if (charCount === 0) {
-            deleting = false;
-            wordIndex = (wordIndex + 1) % WORDS.length;
+          if (s.chars === 0) {
+            s.deleting = false;
+            s.index = (s.index + 1) % words.length;
             delay = GAP_MS;
           }
         } else {
-          charCount++;
+          s.chars++;
           delay = TYPE_MS;
-          if (charCount === word.length) {
-            deleting = true;
+          if (s.chars === words[s.index].length) {
+            s.deleting = true;
             delay = HOLD_MS;
           }
         }
 
-        this.text.set(WORDS[wordIndex].slice(0, charCount));
+        this.text.set(words[s.index].slice(0, s.chars));
         timer = setTimeout(tick, delay);
       };
 

@@ -1,5 +1,6 @@
 import { Component, computed, signal } from '@angular/core';
 import { Glow } from '../../shared/glow';
+import { T } from '../../shared/i18n';
 import { ScrollTo } from '../../shared/scroll-to';
 
 const FORM_ENDPOINT = 'https://formspree.io/f/xljgnzrn';
@@ -13,14 +14,14 @@ type Status = 'idle' | 'sending' | 'sent' | 'error';
 
 @Component({
   selector: 'app-contact',
-  imports: [Glow, ScrollTo],
+  imports: [Glow, ScrollTo, T],
   styleUrl: 'contact.scss',
   template: `
     <section id="contact" class="sec">
-      <p class="eyebrow"><b>05</b><u></u>LET'S CONNECT</p>
+      <p class="eyebrow"><b>05</b><u></u>{{ "LET'S CONNECT" | t }}</p>
 
-      <h2>Have something in mind?<br /><span class="acc">Let's make it happen.</span></h2>
-      <p class="sub">Find me around the web, or drop a message below. I read everything.</p>
+      <h2>{{ 'Have something in mind?' | t }}<br /><span class="acc">{{ "Let's make it happen." | t }}</span></h2>
+      <p class="sub">{{ 'Find me around the web, or drop a message below. I read everything.' | t }}</p>
 
       <div class="socials">
         @for (s of socials; track s.id) {
@@ -58,17 +59,17 @@ type Status = 'idle' | 'sending' | 'sent' | 'error';
         @if (status() === 'sent') {
           <div class="done">
             <span class="star">✦</span>
-            <h3>Message sent</h3>
-            <p>Thanks for reaching out — I'll get back to you soon.</p>
+            <h3>{{ 'Message sent' | t }}</h3>
+            <p>{{ "Thanks for reaching out — I'll get back to you soon." | t }}</p>
           </div>
         } @else {
-          <h3>Send me a message</h3>
-          <p class="hint">A project, a role, or just a good conversation.</p>
+          <h3>{{ 'Send me a message' | t }}</h3>
+          <p class="hint">{{ 'A project, a role, or just a good conversation.' | t }}</p>
 
           <form novalidate (submit)="submit($event)">
             <div class="row">
               <label class="field" [class.bad]="showError('name')">
-                <span class="mono">NAME</span>
+                <span class="mono">{{ 'NAME' | t }}</span>
                 <input
                   type="text"
                   name="name"
@@ -79,7 +80,7 @@ type Status = 'idle' | 'sending' | 'sent' | 'error';
                   (blur)="touch('name')"
                 />
                 @if (showError('name')) {
-                  <div class="error">Please tell me your name.</div>
+                  <div class="error">{{ 'Please tell me your name.' | t }}</div>
                 }
               </label>
 
@@ -95,37 +96,37 @@ type Status = 'idle' | 'sending' | 'sent' | 'error';
                   (blur)="touch('email')"
                 />
                 @if (showError('email')) {
-                  <div class="error">That email doesn't look right.</div>
+                  <div class="error">{{ "That email doesn't look right." | t }}</div>
                 }
               </label>
             </div>
 
             <label class="field" [class.bad]="showError('message')">
               <span class="mono">
-                MESSAGE
+                {{ 'MESSAGE' | t }}
                 <em class="dim">{{ message().length }} / {{ maxMessage }}</em>
               </span>
               <textarea
                 name="message"
-                placeholder="What are you building?"
+                [placeholder]="'What are you building?' | t"
                 [maxLength]="maxMessage"
                 [value]="message()"
                 (input)="message.set(read($event))"
                 (blur)="touch('message')"
               ></textarea>
               @if (showError('message')) {
-                <div class="error">Brevity is the soul of wit but your message does have to be at least 10 characters long.</div>
+                <div class="error">{{ 'Brevity is the soul of wit but your message does have to be at least 10 characters long.' | t }}</div>
               }
             </label>
 
             <div class="actions">
               <button class="send" type="submit" [disabled]="status() === 'sending'">
-                {{ status() === 'sending' ? 'Sending…' : 'Send message' }}
+                {{ (status() === 'sending' ? 'Sending…' : 'Send message') | t }}
               </button>
             </div>
 
             @if (status() === 'error') {
-              <p class="fail">Something went wrong. Please try again, or email me directly.</p>
+              <p class="fail">{{ 'Something went wrong. Please try again, or email me directly.' | t }}</p>
             }
           </form>
         }
@@ -133,8 +134,8 @@ type Status = 'idle' | 'sending' | 'sent' | 'error';
 
       <footer class="mono dim">
         <span>© 2026 Alex Morgan</span>
-        <span class="sans">Built with intention. A little stardust, too. ✦</span>
-        <a class="sans" href="#hello" appScrollTo="hello">Back to top ↑</a>
+        <span class="sans">{{ 'Built with intention. A little stardust, too. ✦' | t }}</span>
+        <a class="sans" href="#hello" appScrollTo="hello">{{ 'Back to top ↑' | t }}</a>
       </footer>
     </section>
   `,

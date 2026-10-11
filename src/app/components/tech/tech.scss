@@ -21,7 +21,7 @@
       font: inherit;
       font-size: 13px;
       color: var(--mut);
-      background: rgba(255, 255, 255, 0.03);
+      background: var(--surface);
       border: 1px solid var(--line);
       border-radius: 99px;
       cursor: pointer;
@@ -38,7 +38,7 @@
       padding: 1px 6px;
       font-size: 10px;
       text-align: center;
-      background: rgba(255, 255, 255, 0.07);
+      background: var(--surface-2);
       border-radius: 99px;
       transition: background 0.25s;
     }
@@ -88,7 +88,6 @@
       background: var(--card);
       border: 1px solid var(--line);
       border-radius: 14px;
-      backdrop-filter: blur(8px);
       animation: pop 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
       animation-delay: calc(var(--i) * 28ms);
       transition:
@@ -111,7 +110,7 @@
     }
 
     .tile img.light {
-      filter: brightness(0) invert(1);
+      filter: var(--logo-filter);
       opacity: 0.85;
     }
 
