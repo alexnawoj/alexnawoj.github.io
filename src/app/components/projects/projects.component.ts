@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Glow } from '../../shared/glow';
-import { PROJECTS } from './projects.data';
+import { PROJECTS, STATUS_LABELS } from './projects.data';
 
 @Component({
   selector: 'app-projects',
@@ -16,6 +16,11 @@ import { PROJECTS } from './projects.data';
         @for (project of projects; track project.name; let i = $index) {
           <article class="proj">
             <div class="thumb" appGlow [style.background-image]="'url(' + project.image + ')'">
+                <span class="status mono" [attr.data-status]="project.status">
+                <i class="dot"></i>
+                {{ statusLabels[project.status] }}
+              </span>
+
             </div>
 
             <p class="mono dim">0{{ i + 1 }} / {{ project.kind }}</p>
@@ -41,4 +46,5 @@ import { PROJECTS } from './projects.data';
 })
 export class ProjectsComponent {
   protected readonly projects = PROJECTS;
+  protected readonly statusLabels = STATUS_LABELS;
 }
