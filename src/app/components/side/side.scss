@@ -8,8 +8,6 @@
   z-index: 15;
   width: var(--side);
   padding: 10% 0 0 50px;
-  background: rgba(10, 9, 18, 0.35);
-  border-right: 1px solid var(--line);
 
   @media (max-width: #{$bp-mobile}) {
     display: none;
