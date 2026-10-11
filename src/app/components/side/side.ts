@@ -69,8 +69,8 @@ const SECTIONS = [
           type="button"
           class="round"
           (click)="theme.toggle()"
-          [attr.aria-label]="(theme.mode() === 'dark' ? 'ctl.themeLight' : 'ctl.themeDark') | t"
-          [title]="(theme.mode() === 'dark' ? 'ctl.themeLight' : 'ctl.themeDark') | t"
+          [attr.aria-label]="(theme.mode() === 'dark' ? 'ctl.themeDark' : 'ctl.themeDark') | t"
+          [title]="(theme.mode() === 'dark' ? 'ctl.themeDark' : 'ctl.themeDark') | t"
         >
           <svg viewBox="0 0 24 24" aria-hidden="true">
             @if (theme.mode() === 'dark') {
