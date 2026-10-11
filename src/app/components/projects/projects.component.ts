@@ -1,7 +1,8 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { Glow } from '../../shared/glow';
 import { T } from '../../shared/i18n';
-import { PROJECTS, STATUS_LABELS } from './projects.data';
+import { Motion } from '../../shared/motion';
+import { type Project, PROJECTS, STATUS_LABELS } from './projects.data';
 
 @Component({
   selector: 'app-projects',
@@ -14,23 +15,22 @@ import { PROJECTS, STATUS_LABELS } from './projects.data';
       <h2>{{ 'projects.title' | t }}</h2>
 
       <div class="grid">
-        @for (project of projects; track project.name; let i = $index) {
+        @for (project of projects; track $index; let i = $index) {
           <article class="proj">
             <div
               class="thumb"
               appGlow
-              [style.background-image]="'url(' + (hovered() === project.name && project.animated ? project.animated : project.image) + ')'"
-              (mouseenter)="hovered.set(project.name)"
+              [style.background-image]="background(project, i)"
+              (mouseenter)="hovered.set(i)"
               (mouseleave)="hovered.set(null)"
             >
-                <span class="status mono" [attr.data-status]="project.status">
+              <span class="status mono" [attr.data-status]="project.status">
                 <i class="dot"></i>
                 {{ statusLabels[project.status] | t }}
               </span>
-
             </div>
 
-            <p class="mono dim">0{{ i + 1 }} / {{ project.kind | t }}</p>
+            <p class="mono dim">0{{ i + 1 }}</p>
             <h3>{{ project.name }}</h3>
             <p class="body sm">{{ project.desc | t }}</p>
 
@@ -43,7 +43,9 @@ import { PROJECTS, STATUS_LABELS } from './projects.data';
             <p class="mono dim tiny">{{ project.meta | t }}</p>
 
             <p class="links">
-              <a href="{{project.url}}">{{ 'projects.source' | t }} <span class="arr">↗</span></a>
+              <a [href]="project.url" target="_blank" rel="noopener noreferrer">
+                {{ 'projects.source' | t }} <span class="arr">↗</span>
+              </a>
             </p>
           </article>
         }
@@ -54,5 +56,14 @@ import { PROJECTS, STATUS_LABELS } from './projects.data';
 export class ProjectsComponent {
   protected readonly projects = PROJECTS;
   protected readonly statusLabels = STATUS_LABELS;
-  protected readonly hovered = signal<string | null>(null);
+
+  /** index of the hovered card (names are not unique, so the index is the identity) */
+  protected readonly hovered = signal<number | null>(null);
+  private readonly motion = inject(Motion);
+
+  /** the still image, or the animated one while the card is hovered (and animations are on) */
+  protected background(project: Project, index: number) {
+    const animate = this.hovered() === index && !!project.animation && !this.motion.off();
+    return `url(${animate ? project.animation : project.image})`;
+  }
 }

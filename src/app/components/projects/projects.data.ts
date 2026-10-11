@@ -2,11 +2,10 @@ import type { Key } from '../../i18n/en';
 
 export interface Project {
   name: string;
-  kind: Key;
   /** still picture shown by default (png / jpg / webp) */
   image: string;
-  /** optional animated version (gif / animated webp), only loaded and played while hovering */
-  animated?: string;
+  /** optional animated version (gif / animated webp), shown only while hovering */
+  animation?: string;
   desc: Key;
   stack: string[];
   meta: Key;
@@ -23,43 +22,42 @@ export const STATUS_LABELS: Record<Project['status'], Key> = {
 export const PROJECTS: Project[] = [
   {
     name: 'This portfolio!',
-    kind: 'projects.portfolio.kind',
-    image: '/projects/template.gif',
+    image: '/projects/template.png',
+    animation: '/projects/template.gif',
     desc: 'projects.portfolio.desc',
     stack: ['Angular', 'TypeScript'],
     meta: 'projects.portfolio.meta',
     url: 'github.com/portfolio',
-    status: 'in-progress'
+    status: 'in-progress',
   },
   {
     name: 'Template',
-    kind: 'projects.editorial.kind',
-    image: '/projects/template.gif',
+    image: '/projects/template.png',
+    animation: '/projects/template.gif',
     desc: 'projects.editorial.desc',
     stack: ['Java', 'Swing', 'ESRI'],
     meta: 'projects.editorial.meta',
     url: 'github.com/test1',
-    status: 'done'
-
+    status: 'done',
   },
   {
     name: 'Template',
-    kind: 'projects.collab.kind',
-    image: '/projects/template.gif',
+    image: '/projects/template.png',
+    animation: '/projects/template.gif',
     desc: 'projects.collab.desc',
     stack: ['Java', 'Spring Boot', 'React'],
     meta: 'projects.collab.meta',
     url: 'github.com/test2',
-    status: 'archived'
+    status: 'archived',
   },
   {
     name: 'Template',
-    kind: 'projects.collab.kind',
-    image: '/projects/template.gif',
+    image: '/projects/template.png',
+    animation: '/projects/template.gif',
     desc: 'projects.collab.desc',
     stack: ['Kotlin', 'Android'],
     meta: 'projects.collab.meta',
     url: 'github.com/test2',
-    status: 'done'
+    status: 'done',
   },
 ];
