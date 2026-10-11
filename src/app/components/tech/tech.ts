@@ -1,7 +1,7 @@
 import { Component, computed, signal } from '@angular/core';
 import { Glow } from '../../shared/glow';
 
-type Category = 'languages' | 'frontend' | 'backend' | 'databases' | 'cloud';
+type Category = 'languages' | 'frontend' | 'backend' | 'databases' | 'tools';
 type Filter = Category | 'all';
 
 interface Skill {
@@ -43,8 +43,8 @@ const SKILLS: Skill[] = [
   { name: 'MySQL', category: 'databases', icon: devicon('mysql/mysql-original') },
 
   // tools
-  { name: 'Docker', category: 'cloud', icon: devicon('docker/docker-original') },
-  { name: 'Git', category: 'cloud', icon: devicon('git/git-original') },
+  { name: 'Docker', category: 'tools', icon: devicon('docker/docker-original') },
+  { name: 'Git', category: 'tools', icon: devicon('git/git-original') },
 
 ];
 
@@ -54,7 +54,7 @@ const LABELS: Record<Filter, string> = {
   frontend: 'Frontend',
   backend: 'Backend',
   databases: 'Databases',
-  cloud: 'Tools'
+  tools: 'Tools'
 };
 
 const TABS = (Object.keys(LABELS) as Filter[]).map((id) => ({
