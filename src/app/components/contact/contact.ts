@@ -18,10 +18,10 @@ type Status = 'idle' | 'sending' | 'sent' | 'error';
   styleUrl: 'contact.scss',
   template: `
     <section id="contact" class="sec">
-      <p class="eyebrow"><b>05</b><u></u>{{ "LET'S CONNECT" | t }}</p>
+      <p class="eyebrow"><b>05</b><u></u>{{ 'contact.eyebrow' | t }}</p>
 
-      <h2>{{ 'Have something in mind?' | t }}<br /><span class="acc">{{ "Let's make it happen." | t }}</span></h2>
-      <p class="sub">{{ 'Find me around the web, or drop a message below. I read everything.' | t }}</p>
+      <h2>{{ 'contact.title1' | t }}<br /><span class="acc">{{ 'contact.title2' | t }}</span></h2>
+      <p class="sub">{{ 'contact.sub' | t }}</p>
 
       <div class="socials">
         @for (s of socials; track s.id) {
@@ -59,17 +59,17 @@ type Status = 'idle' | 'sending' | 'sent' | 'error';
         @if (status() === 'sent') {
           <div class="done">
             <span class="star">✦</span>
-            <h3>{{ 'Message sent' | t }}</h3>
-            <p>{{ "Thanks for reaching out — I'll get back to you soon." | t }}</p>
+            <h3>{{ 'contact.sent.title' | t }}</h3>
+            <p>{{ 'contact.sent.text' | t }}</p>
           </div>
         } @else {
-          <h3>{{ 'Send me a message' | t }}</h3>
-          <p class="hint">{{ 'A project, a role, or just a good conversation.' | t }}</p>
+          <h3>{{ 'contact.form.title' | t }}</h3>
+          <p class="hint">{{ 'contact.form.hint' | t }}</p>
 
           <form novalidate (submit)="submit($event)">
             <div class="row">
               <label class="field" [class.bad]="showError('name')">
-                <span class="mono">{{ 'NAME' | t }}</span>
+                <span class="mono">{{ 'contact.form.name' | t }}</span>
                 <input
                   type="text"
                   name="name"
@@ -80,7 +80,7 @@ type Status = 'idle' | 'sending' | 'sent' | 'error';
                   (blur)="touch('name')"
                 />
                 @if (showError('name')) {
-                  <div class="error">{{ 'Please tell me your name.' | t }}</div>
+                  <div class="error">{{ 'contact.form.error.name' | t }}</div>
                 }
               </label>
 
@@ -96,37 +96,37 @@ type Status = 'idle' | 'sending' | 'sent' | 'error';
                   (blur)="touch('email')"
                 />
                 @if (showError('email')) {
-                  <div class="error">{{ "That email doesn't look right." | t }}</div>
+                  <div class="error">{{ 'contact.form.error.email' | t }}</div>
                 }
               </label>
             </div>
 
             <label class="field" [class.bad]="showError('message')">
               <span class="mono">
-                {{ 'MESSAGE' | t }}
+                {{ 'contact.form.message' | t }}
                 <em class="dim">{{ message().length }} / {{ maxMessage }}</em>
               </span>
               <textarea
                 name="message"
-                [placeholder]="'What are you building?' | t"
+                [placeholder]="'contact.form.placeholder' | t"
                 [maxLength]="maxMessage"
                 [value]="message()"
                 (input)="message.set(read($event))"
                 (blur)="touch('message')"
               ></textarea>
               @if (showError('message')) {
-                <div class="error">{{ 'Brevity is the soul of wit but your message does have to be at least 10 characters long.' | t }}</div>
+                <div class="error">{{ 'contact.form.error.message' | t }}</div>
               }
             </label>
 
             <div class="actions">
               <button class="send" type="submit" [disabled]="status() === 'sending'">
-                {{ (status() === 'sending' ? 'Sending…' : 'Send message') | t }}
+                {{ (status() === 'sending' ? 'contact.form.sending' : 'contact.form.send') | t }}
               </button>
             </div>
 
             @if (status() === 'error') {
-              <p class="fail">{{ 'Something went wrong. Please try again, or email me directly.' | t }}</p>
+              <p class="fail">{{ 'contact.form.fail' | t }}</p>
             }
           </form>
         }
@@ -134,8 +134,8 @@ type Status = 'idle' | 'sending' | 'sent' | 'error';
 
       <footer class="mono dim">
         <span>© 2026 Alex Morgan</span>
-        <span class="sans">{{ 'Built with intention. A little stardust, too. ✦' | t }}</span>
-        <a class="sans" href="#hello" appScrollTo="hello">{{ 'Back to top ↑' | t }}</a>
+        <span class="sans">{{ 'contact.footer.built' | t }}</span>
+        <a class="sans" href="#hello" appScrollTo="hello">{{ 'contact.footer.top' | t }}</a>
       </footer>
     </section>
   `,

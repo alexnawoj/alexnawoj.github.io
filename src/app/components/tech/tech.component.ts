@@ -9,10 +9,10 @@ import { Category, Filter, TABS, SKILLS } from './tech.data'
   styleUrl: 'tech.scss',
   template: `
     <section id="tech" class="sec">
-      <p class="eyebrow"><b>03</b><u></u>{{ 'MY TOOLKIT' | t }}</p>
+      <p class="eyebrow"><b>03</b><u></u>{{ 'tech.eyebrow' | t }}</p>
 
-      <h2>{{ 'Tools I think in.' | t }}</h2>
-      <p class="sub">{{ 'From systems programming to orchestration to inference — the full picture.' | t }}</p>
+      <h2>{{ 'tech.title' | t }}</h2>
+      <p class="sub">{{ 'tech.sub' | t }}</p>
 
       <div class="tabs" role="group" aria-label="Filter tools by category">
         @for (tab of tabs; track tab.id) {

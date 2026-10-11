@@ -5,11 +5,11 @@ import { ScrollTo } from '../../shared/scroll-to';
 import { Theme } from '../../shared/theme';
 
 const SECTIONS = [
-  { id: 'hello', label: 'Hello' },
-  { id: 'about', label: 'About me' },
-  { id: 'tech', label: 'Tech stack' },
-  { id: 'projects', label: 'Projects' },
-  { id: 'contact', label: 'Contact' },
+  { id: 'hello', label: 'nav.hello' },
+  { id: 'about', label: 'nav.about' },
+  { id: 'tech', label: 'nav.tech' },
+  { id: 'projects', label: 'nav.projects' },
+  { id: 'contact', label: 'nav.contact' },
 ] as const;
 
 @Component({
@@ -53,7 +53,7 @@ const SECTIONS = [
           class="round menu"
           aria-controls="mobile-menu"
           [attr.aria-expanded]="menuOpen()"
-          [attr.aria-label]="(menuOpen() ? 'Close menu' : 'Open menu') | t"
+          [attr.aria-label]="(menuOpen() ? 'ctl.menuClose' : 'ctl.menuOpen') | t"
           (click)="setMenu(!menuOpen())"
         >
           <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -69,8 +69,8 @@ const SECTIONS = [
           type="button"
           class="round"
           (click)="theme.toggle()"
-          [attr.aria-label]="(theme.mode() === 'dark' ? 'Switch to light theme' : 'Switch to dark theme') | t"
-          [title]="(theme.mode() === 'dark' ? 'Switch to light theme' : 'Switch to dark theme') | t"
+          [attr.aria-label]="(theme.mode() === 'dark' ? 'ctl.themeLight' : 'ctl.themeDark') | t"
+          [title]="(theme.mode() === 'dark' ? 'ctl.themeLight' : 'ctl.themeDark') | t"
         >
           <svg viewBox="0 0 24 24" aria-hidden="true">
             @if (theme.mode() === 'dark') {
@@ -86,10 +86,10 @@ const SECTIONS = [
           type="button"
           class="round"
           (click)="i18n.toggle()"
-          [attr.aria-label]="'Switch language' | t"
-          [title]="'Switch language' | t"
+          [attr.aria-label]="'ctl.language' | t"
+          [title]="'ctl.language' | t"
         >
-          {{ i18n.lang() === 'pl' ? 'PL' : 'EN' }}
+          {{ i18n.lang().toUpperCase() }}
         </button>
 
         <button
@@ -97,8 +97,8 @@ const SECTIONS = [
           class="round"
           (click)="motion.toggle()"
           [attr.aria-pressed]="motion.off()"
-          [attr.aria-label]="(motion.off() ? 'Play animations' : 'Pause animations') | t"
-          [title]="(motion.off() ? 'Play animations' : 'Pause animations') | t"
+          [attr.aria-label]="(motion.off() ? 'ctl.motionPlay' : 'ctl.motionPause') | t"
+          [title]="(motion.off() ? 'ctl.motionPlay' : 'ctl.motionPause') | t"
         >
           <svg viewBox="0 0 24 24" aria-hidden="true">
             @if (motion.off()) {

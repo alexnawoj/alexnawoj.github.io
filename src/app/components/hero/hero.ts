@@ -1,12 +1,7 @@
 import { afterNextRender, Component, DestroyRef, effect, inject, signal } from '@angular/core';
-import { I18n, type Lang, T } from '../../shared/i18n';
+import { I18n, T } from '../../shared/i18n';
 import { Motion } from '../../shared/motion';
 import { ScrollTo } from '../../shared/scroll-to';
-
-const WORDS: Record<Lang, string[]> = {
-  en: ['the web.', 'the world.', 'scale.', 'impact.', 'fun.', 'production.', 'research.', 'people.', 'me.', 'you.'],
-  pl: ['sieci.', 'świata.', 'skali.', 'wpływu.', 'zabawy.', 'produkcji.', 'badań.', 'ludzi.', 'mnie.', 'ciebie.'],
-};
 
 const TYPE_MS = 150;
 const DELETE_MS = 50;
@@ -16,13 +11,13 @@ const GAP_MS = 350; // pause on an empty line
 @Component({
   selector: 'app-hello',
   imports: [ScrollTo, T],
-  styleUrl: './hello.scss',
+  styleUrl: './hero.scss',
   template: `
     <section id="hello" class="sec hero">
-      <p class="eyebrow"><b>01</b><u></u>{{ 'HELLO, WORLD' | t }}</p>
+      <p class="eyebrow"><b>01</b><u></u>{{ 'hero.eyebrow' | t }}</p>
 
       <h1>
-        {{ 'Building things for' | t }}<br />
+        {{ 'hero.title' | t }}<br />
         <span class="typed acc">
           {{ text() }}<span class="caret" aria-hidden="true"></span>
         </span>
@@ -30,25 +25,25 @@ const GAP_MS = 350; // pause on an empty line
 
       <p class="lead">
         {{
-          "I'm Alex, a full-stack developer who brings thoughtful design and reliable engineering to the same orbit."
+          'hero.desc'
             | t
         }}
       </p>
 
       <div class="btns">
         <a class="btn primary" href="#projects" appScrollTo="projects">
-          {{ 'Explore my work' | t }} <span class="arr down">↓</span>
+          {{ 'hero.cta.work' | t }} <span class="arr down">↓</span>
         </a>
         <a class="btn ghost" href="#contact" appScrollTo="contact">
-          {{ "Let's talk" | t }} <span class="arr">↗</span>
+          {{ 'hero.cta.talk' | t }} <span class="arr">↗</span>
         </a>
       </div>
     </section>
   `,
 })
-export class Hello {
-  protected readonly text = signal(WORDS.en[0]);
-  private state = { index: 0, chars: WORDS.en[0].length, deleting: true };
+export class Hero {
+  protected readonly text = signal(inject(I18n).list('hero.words')[0]);
+  private state = { index: 0, chars: 0, deleting: true };
 
   constructor() {
     const i18n = inject(I18n);
@@ -58,7 +53,7 @@ export class Hello {
     // language or motion setting changed: show the first word right away and restart from it
     effect(() => {
       motion.off();
-      const first = WORDS[i18n.lang()][0];
+      const first = i18n.list('hero.words')[0];
       this.state = { index: 0, chars: first.length, deleting: true };
       this.text.set(first);
     });
@@ -74,7 +69,7 @@ export class Hello {
         }
 
         const s = this.state;
-        const words = WORDS[i18n.lang()];
+        const words = i18n.list('hero.words');
         let delay: number;
 
         if (s.deleting) {

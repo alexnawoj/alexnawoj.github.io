@@ -9,9 +9,9 @@ import { PROJECTS, STATUS_LABELS } from './projects.data';
   styleUrl: './projects.scss',
   template: `
     <section id="projects" class="sec">
-      <p class="eyebrow"><b>04</b><u></u>{{ 'SELECTED WORK' | t }}</p>
+      <p class="eyebrow"><b>04</b><u></u>{{ 'projects.eyebrow' | t }}</p>
 
-      <h2>{{ 'Ideas shipped into the world.' | t }}</h2>
+      <h2>{{ 'projects.title' | t }}</h2>
 
       <div class="grid">
         @for (project of projects; track project.name; let i = $index) {
@@ -43,7 +43,7 @@ import { PROJECTS, STATUS_LABELS } from './projects.data';
             <p class="mono dim tiny">{{ project.meta | t }}</p>
 
             <p class="links">
-              <a href="{{project.url}}">{{ 'Source code' | t }} <span class="arr">↗</span></a>
+              <a href="{{project.url}}">{{ 'projects.source' | t }} <span class="arr">↗</span></a>
             </p>
           </article>
         }

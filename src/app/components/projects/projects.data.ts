@@ -1,62 +1,64 @@
+import type { Key } from '../../i18n/en';
+
 export interface Project {
   name: string;
-  kind: string;
+  kind: Key;
   /** still picture shown by default (png / jpg / webp) */
   image: string;
   /** optional animated version (gif / animated webp), only loaded and played while hovering */
   animated?: string;
-  desc: string;
+  desc: Key;
   stack: string[];
-  meta: string;
+  meta: Key;
   url: string;
   status: 'in-progress' | 'done' | 'archived';
 }
 
-export const STATUS_LABELS: Record<Project['status'], string> = {
-  'in-progress': 'In progress',
-  done: 'Done',
-  archived: 'Archived',
+export const STATUS_LABELS: Record<Project['status'], Key> = {
+  'in-progress': 'projects.status.progress',
+  done: 'projects.status.done',
+  archived: 'projects.status.archived',
 };
 
 export const PROJECTS: Project[] = [
   {
     name: 'This portfolio!',
-    kind: 'ANALYTICS PLATFORM',
+    kind: 'projects.portfolio.kind',
     image: '/projects/template.gif',
-    desc: 'Making complex data feel simple. A real-time analytics dashboard with a clear view of revenue, customers, and the metrics that matter.',
+    desc: 'projects.portfolio.desc',
     stack: ['Angular', 'TypeScript'],
-    meta: 'Frontend development · !Data visualization · Responsive UI',
+    meta: 'projects.portfolio.meta',
     url: 'github.com/portfolio',
     status: 'in-progress'
   },
   {
     name: 'Template',
-    kind: 'EDITORIAL EXPERIENCE',
+    kind: 'projects.editorial.kind',
     image: '/projects/template.gif',
-    desc: 'A quieter corner of the internet. A content-driven travel journal with immersive storytelling, a custom CMS, and a focus on accessibility.',
+    desc: 'projects.editorial.desc',
     stack: ['Java', 'Swing', 'ESRI'],
-    meta: 'Frontend development · CMS integration · Accessible design',
+    meta: 'projects.editorial.meta',
     url: 'github.com/test1',
     status: 'done'
 
   },
   {
     name: 'Template',
-    kind: 'COLLABORATION TOOL',
+    kind: 'projects.collab.kind',
     image: '/projects/template.gif',
-    desc: 'Less busywork, more momentum. A collaborative project workspace with drag-and-drop boards, live updates, and a little room to breathe.',
+    desc: 'projects.collab.desc',
     stack: ['Java', 'Spring Boot', 'React'],
-    meta: 'Full-stack development · Real-time sync · Authentication',
+    meta: 'projects.collab.meta',
     url: 'github.com/test2',
     status: 'archived'
   },
   {
     name: 'Template',
-    kind: 'COLLABORATION TOOL',
+    kind: 'projects.collab.kind',
     image: '/projects/template.gif',
-    desc: 'Less busywork, more momentum. A collaborative project workspace with drag-and-drop boards, live updates, and a little room to breathe.',
+    desc: 'projects.collab.desc',
     stack: ['Kotlin', 'Android'],
-    meta: 'Full-stack development · Real-time sync · Authentication',
+    meta: 'projects.collab.meta',
     url: 'github.com/test2',
     status: 'done'
   },

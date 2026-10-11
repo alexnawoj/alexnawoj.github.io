@@ -1,3 +1,5 @@
+import type { Key } from '../../i18n/en';
+
 export type Category = 'languages' | 'frontend' | 'backend' | 'databases' | 'tools';
 export type Filter = Category | 'all';
 
@@ -45,13 +47,13 @@ export const SKILLS: Skill[] = [
 
 ];
 
-export const LABELS: Record<Filter, string> = {
-  all: 'All',
-  languages: 'Languages',
-  frontend: 'Frontend',
-  backend: 'Backend',
-  databases: 'Databases',
-  tools: 'Tools'
+export const LABELS: Record<Filter, Key> = {
+  all: 'tech.tab.all',
+  languages: 'tech.tab.languages',
+  frontend: 'tech.tab.frontend',
+  backend: 'tech.tab.backend',
+  databases: 'tech.tab.databases',
+  tools: 'tech.tab.tools'
 };
 
 export const TABS = (Object.keys(LABELS) as Filter[]).map((id) => ({
