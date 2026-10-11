@@ -115,10 +115,6 @@
       opacity: 0.85;
     }
 
-    .tile:hover img {
-      transform: rotate(-8deg) scale(1.18);
-    }
-
     .tile span {
       font-size: 12px;
       color: var(--mut);
