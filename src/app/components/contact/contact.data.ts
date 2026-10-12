@@ -1,4 +1,4 @@
-export const FORM_ENDPOINT = 'https://formspree.io/f/xljgnzrn';
+export const FORM_ENDPOINT = 'https://formspree.io/f/xbgdazed';
 
 export type Status = 'idle' | 'sending' | 'sent' | 'error';
 
