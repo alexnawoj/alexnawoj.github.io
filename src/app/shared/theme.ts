@@ -45,7 +45,7 @@ export class Theme {
       addEventListener(
         'pointerdown',
         (e) => (this.lastPointer = { x: e.clientX, y: e.clientY, at: performance.now() }),
-        { capture: true, passive: true },
+        { capture: true, passive: true }
       );
     });
   }
@@ -80,8 +80,8 @@ export class Theme {
     transition.ready.then(() =>
       root.animate(
         { clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${radius}px at ${x}px ${y}px)`] },
-        { duration: 750, easing: 'cubic-bezier(0.4, 0, 0.2, 1)', pseudoElement: '::view-transition-new(root)' },
-      ),
+        { duration: 750, easing: 'cubic-bezier(0.4, 0, 0.2, 1)', pseudoElement: '::view-transition-new(root)' }
+      )
     );
     transition.finished.finally(() => root.classList.remove('theme-switching'));
   }

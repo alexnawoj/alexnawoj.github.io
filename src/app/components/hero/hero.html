@@ -1,0 +1,19 @@
+<section class="sec hero" id="hello">
+  <p class="eyebrow"><b>01</b><u></u>{{ 'hero.eyebrow' | t }}</p>
+
+  <h1>
+    {{ 'hero.title' | t }}<br />
+    <span class="typed acc">{{ text() }}<span aria-hidden="true" class="caret"></span></span>
+  </h1>
+
+  <p class="lead">{{ 'hero.desc' | t }}</p>
+
+  <div class="btns">
+    <a appScrollTo="projects" class="btn primary" href="#projects">
+      {{ 'hero.cta.work' | t }} <span class="arr down">↓</span>
+    </a>
+    <a appScrollTo="contact" class="btn ghost" href="#contact">
+      {{ 'hero.cta.talk' | t }} <span class="arr">↗</span>
+    </a>
+  </div>
+</section>

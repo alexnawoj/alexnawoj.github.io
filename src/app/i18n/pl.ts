@@ -95,5 +95,5 @@ export const PL: Record<Key, string> = {
   'contact.footer.top': 'Do góry ↑',
 
   'ctl.musicPlay': 'Włącz muzykę',
-  'ctl.musicStop': 'Wyłącz muzykę',
+  'ctl.musicStop': 'Wyłącz muzykę'
 };

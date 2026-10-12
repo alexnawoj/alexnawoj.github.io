@@ -43,7 +43,7 @@ export const SKILLS: Skill[] = [
 
   // tools
   { name: 'Docker', category: 'tools', icon: devicon('docker/docker-original') },
-  { name: 'Git', category: 'tools', icon: devicon('git/git-original') },
+  { name: 'Git', category: 'tools', icon: devicon('git/git-original') }
 
 ];
 
@@ -59,5 +59,5 @@ export const LABELS: Record<Filter, Key> = {
 export const TABS = (Object.keys(LABELS) as Filter[]).map((id) => ({
   id,
   label: LABELS[id],
-  count: id === 'all' ? SKILLS.length : SKILLS.filter((s) => s.category === id).length,
+  count: id === 'all' ? SKILLS.length : SKILLS.filter((s) => s.category === id).length
 }));

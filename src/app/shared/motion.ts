@@ -5,6 +5,7 @@ import { afterNextRender, Injectable, signal } from '@angular/core';
  * CSS animation and transition) and the components that animate with JavaScript read `off()`.
  * First visit: follows the OS "reduce motion" setting (index.html applies it before first paint).
  */
+
 @Injectable({ providedIn: 'root' })
 export class Motion {
   readonly off = signal(false);

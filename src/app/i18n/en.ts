@@ -1,14 +1,7 @@
-/**
- * English texts: the source of truth. Components only ever use the keys (see `Key`).
- *
- * Adding a text:     add the key here, then to every other language file (TypeScript errors until you do).
- * Adding a language: copy pl.ts to xx.ts, translate it, and register it in shared/i18n.ts (DICTIONARIES).
- * `hero.words` is a list: words separated by `|`.
- */
 export const EN = {
   // nav
-  'nav.hello': 'Hero',
-  'nav.about': 'About me',
+  'nav.hello': 'HeroComponent',
+  'nav.about': 'AboutComponent me',
   'nav.tech': 'Tech stack',
   'nav.projects': 'Projects',
   'nav.contact': 'Contact',
@@ -99,7 +92,7 @@ export const EN = {
   'contact.footer.top': 'Back to top ↑',
 
   'ctl.musicPlay': 'Play music',
-  'ctl.musicStop': 'Stop music',
+  'ctl.musicStop': 'Stop music'
 } as const;
 
 export type Key = keyof typeof EN;

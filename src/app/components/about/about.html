@@ -1,0 +1,53 @@
+<section class="sec" id="about">
+  <p class="eyebrow"><b>02</b><u></u>{{ 'about.eyebrow' | t }}</p>
+
+  <h2>{{ 'about.title1' | t }}<br />{{ 'about.title2' | t }}</h2>
+
+  <div class="layout">
+    <div class="text">
+      <p class="body">{{ 'about.p1' | t }}</p>
+      <p class="body">{{ 'about.p2' | t }}</p>
+      <p class="acc small">{{ 'about.offscreen' | t }}</p>
+    </div>
+
+    <div class="tiles">
+      <a [class.closed]="!openToWork" appGlow appScrollTo="contact" class="tile status" href="#contact">
+        <span class="beacon"></span>
+        <span class="text">
+          <strong>{{ (openToWork ? 'about.status.open' : 'about.status.closed') | t }}</strong>
+          @if (openToWork) {
+            <small>{{ 'about.status.detail' | t }}</small>
+          }
+        </span>
+        <span class="go arr">↗</span>
+      </a>
+
+      <div appGlow class="tile stats">
+        @for (stat of stats; track stat.label) {
+          <div>
+            <span class="value">
+              <span [appCountUp]="stat.value">{{ stat.value }}</span
+              ><span class="suffix">{{ stat.suffix }}</span>
+            </span>
+            <span class="label mono">{{ stat.label | t }}</span>
+          </div>
+        }
+      </div>
+
+      <div appGlow class="tile exp">
+        <h4 class="mono">{{ 'about.exp.title' | t }}</h4>
+        <ol>
+          @for (job of experience; track $index) {
+            <li [class.now]="!job.to">
+              <div class="head">
+                <span class="role">{{ job.role | t }}</span>
+                <span class="period mono">{{ job.from }} — {{ job.to ?? ('about.exp.present' | t) }}</span>
+              </div>
+              <span class="place">{{ job.place }}</span>
+            </li>
+          }
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,310 @@
+.sub {
+  color: var(--mut);
+  font-size: 15px;
+  margin: -14px 0 34px;
+  max-width: 560px;
+}
+
+/* ── social tiles ── */
+.socials {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  margin-bottom: 22px;
+}
+
+.social {
+  align-items: center;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  display: flex;
+  gap: 16px;
+  padding: 22px;
+  transition:
+    transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+    border-color 0.3s,
+    box-shadow 0.4s;
+}
+
+.social:hover {
+  border-color: rgba(167, 139, 250, 0.5);
+  box-shadow: 0 24px 50px -24px rgba(139, 92, 246, 0.65);
+  transform: translateY(-6px);
+}
+
+.social .icon {
+  background: rgba(139, 92, 246, 0.12);
+  border-radius: 12px;
+  color: var(--acc);
+  display: grid;
+  flex: none;
+  height: 46px;
+  place-items: center;
+  transition:
+    color 0.3s,
+    background 0.3s,
+    transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  width: 46px;
+}
+
+.social:hover .icon {
+  background: var(--acc2);
+  color: #fff;
+}
+
+.social svg {
+  height: 22px;
+  width: 22px;
+}
+
+.social .text {
+  flex: 1;
+  min-width: 0;
+}
+
+.social strong {
+  display: block;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.social small {
+  color: var(--dim);
+  font-size: 11px;
+}
+
+.social .go {
+  color: var(--acc);
+}
+
+/* ── form ── */
+.sec {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+
+  /* the last section must be able to reach the top of the screen too */
+}
+
+.form {
+  background: var(--cta);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  margin-bottom: 50px;
+  padding: 40px 44px;
+}
+
+.form h3 {
+  font-size: 22px;
+  font-weight: 400;
+  margin-bottom: 6px;
+}
+
+.form .hint {
+  color: var(--mut);
+  font-size: 14px;
+  margin-bottom: 26px;
+}
+
+.row {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.field {
+  display: block;
+  margin-bottom: 18px;
+}
+
+.field > span {
+  color: var(--mut);
+  display: flex;
+  font-size: 11px;
+  justify-content: space-between;
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+}
+
+.field em {
+  font-style: normal;
+}
+
+.field input,
+.field textarea {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  color: var(--ink);
+  font: inherit;
+  font-size: 15px;
+  outline: none;
+  padding: 13px 15px;
+  transition:
+    border-color 0.25s,
+    background 0.25s,
+    box-shadow 0.25s;
+  width: 100%;
+}
+
+.field textarea {
+  min-height: 140px;
+  resize: vertical;
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+  color: var(--dim);
+}
+
+.field input:hover,
+.field textarea:hover {
+  border-color: rgba(167, 139, 250, 0.35);
+}
+
+.field input:focus,
+.field textarea:focus {
+  background: rgba(139, 92, 246, 0.07);
+  border-color: var(--acc);
+  box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.18);
+}
+
+.field.bad input,
+.field.bad textarea {
+  border-color: var(--err-line);
+}
+
+.error {
+  animation: slide 0.25s;
+  color: var(--err);
+  font-size: 12px;
+  margin-top: 6px;
+}
+
+@keyframes slide {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+
+.actions {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+}
+
+.send {
+  align-items: center;
+  background: var(--acc2);
+  border: 0;
+  border-radius: 8px;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  gap: 12px;
+  padding: 14px 26px;
+  transition:
+    transform 0.3s,
+    box-shadow 0.3s,
+    opacity 0.3s;
+}
+
+.send:hover:not(:disabled) {
+  box-shadow: 0 10px 32px -6px rgba(139, 92, 246, 0.75);
+  transform: translateY(-3px);
+}
+
+.send:hover:not(:disabled) .arr {
+  transform: translate(3px, -3px);
+}
+
+.send:disabled {
+  cursor: progress;
+  opacity: 0.6;
+}
+
+.send:focus-visible {
+  outline: 2px solid var(--acc);
+  outline-offset: 3px;
+}
+
+.alt {
+  color: var(--mut);
+  font-size: 13px;
+}
+
+.alt a {
+  color: var(--acc);
+}
+
+.fail {
+  color: var(--err);
+  font-size: 13px;
+  margin-top: 16px;
+}
+
+/* ── success state ── */
+.done {
+  animation: slide 0.5s;
+  padding: 20px 0;
+  text-align: center;
+}
+
+.done .star {
+  animation: twirl 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+  color: var(--acc);
+  display: inline-block;
+  font-size: 34px;
+  margin-bottom: 14px;
+}
+
+@keyframes twirl {
+  from {
+    opacity: 0;
+    transform: rotate(-180deg) scale(0.3);
+  }
+}
+
+.done p {
+  color: var(--mut);
+  margin: 0 auto 22px;
+  max-width: 420px;
+}
+
+.link {
+  background: none;
+  border: 0;
+  color: var(--acc);
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  padding: 0;
+}
+
+/* ── footer ── */
+footer {
+  border-top: 1px solid var(--line);
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 11px;
+  gap: 10px;
+  justify-content: space-between;
+  margin-top: auto;
+  padding: 36px 0;
+}
+
+footer a:hover {
+  color: var(--acc);
+}
+
+@media (max-width: 600px) {
+  .form {
+    padding: 28px 22px;
+  }
+}

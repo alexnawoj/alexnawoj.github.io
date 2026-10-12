@@ -1,6 +1,5 @@
 import { Injectable, signal } from '@angular/core';
 
-/** Put your track in the Angular `public/` folder (public/music/ambient.mp3 → '/music/ambient.mp3'). */
 const TRACK = '/music/bg.mp3';
 const VOLUME = 0.4;
 

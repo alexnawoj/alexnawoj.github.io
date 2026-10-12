@@ -38,7 +38,7 @@ export class CountUp {
           observer.disconnect();
           run();
         },
-        { threshold: 0.6 },
+        { threshold: 0.6 }
       );
       observer.observe(this.el);
 

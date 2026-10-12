@@ -1,0 +1,30 @@
+<section class="sec" id="tech">
+  <p class="eyebrow"><b>03</b><u></u>{{ 'tech.eyebrow' | t }}</p>
+
+  <h2>{{ 'tech.title' | t }}</h2>
+  <p class="sub">{{ 'tech.sub' | t }}</p>
+
+  <div aria-label="Filter tools by category" class="tabs" role="group">
+    @for (tab of tabs; track tab.id) {
+      <button
+        (click)="active.set(tab.id)"
+        [attr.aria-pressed]="active() === tab.id"
+        [class.on]="active() === tab.id"
+        class="tab"
+        type="button"
+      >
+        {{ tab.label | t }}
+        <small class="mono">{{ tab.count }}</small>
+      </button>
+    }
+  </div>
+
+  <div class="grid">
+    @for (item of visible(); track item.id; let i = $index) {
+      <div [style.--i]="i" appGlow class="tile">
+        <img [class.light]="item.skill.light" [src]="item.skill.icon" alt="" loading="lazy" />
+        <span class="mono">{{ item.skill.name }}</span>
+      </div>
+    }
+  </div>
+</section>

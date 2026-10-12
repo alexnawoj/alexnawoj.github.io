@@ -1,29 +1,30 @@
 @use '../../../styles/tokens' as *;
 
 .hero {
+  min-height: 100dvh;
   padding-top: 190px;
 }
 
 h1 {
-  margin-bottom: 40px;
   font-size: clamp(44px, 6vw, 76px);
   font-weight: 600;
-  line-height: 1.04;
   letter-spacing: -0.025em;
+  line-height: 1.04;
+  margin-bottom: 40px;
 
   .acc {
-    color: transparent;
     background: var(--grad);
     -webkit-background-clip: text;
     background-clip: text;
+    color: transparent;
   }
 }
 
 .lead {
-  max-width: 420px;
-  margin-bottom: 36px;
-  font-size: 17px;
   color: var(--mut);
+  font-size: 17px;
+  margin-bottom: 36px;
+  max-width: 420px;
 }
 
 .btns {
@@ -32,13 +33,13 @@ h1 {
 }
 
 .btn {
-  display: inline-flex;
   align-items: center;
-  gap: 14px;
-  padding: 14px 24px;
+  border-radius: 8px;
+  display: inline-flex;
   font-size: 14px;
   font-weight: 500;
-  border-radius: 8px;
+  gap: 14px;
+  padding: 14px 24px;
   transition:
     transform 0.3s,
     box-shadow 0.3s,
@@ -54,8 +55,8 @@ h1 {
   }
 
   &.primary {
-    color: #fff;
     background: var(--acc2);
+    color: #fff;
 
     &:hover {
       box-shadow: 0 10px 32px -6px rgba(139, 92, 246, 0.75);
@@ -74,24 +75,24 @@ h1 {
 }
 
 .typed {
-      contain: layout style; // typing changes never re-layout the rest of the page
-      display: block;
-      height: 1.1em;
-      white-space: nowrap;
-    }
+  contain: layout style;
+  display: block;
+  height: 1.1em;
+  white-space: nowrap;
+}
 
-  .caret {
-        display: inline-block;
-        width: 0.06em;
-        height: 0.85em;
-        margin-left: 0.06em;
-        vertical-align: -0.05em;
-        background: var(--acc);
-        animation: blink 1s steps(1) infinite;
-      }
+.caret {
+  animation: blink 1s steps(1) infinite;
+  background: var(--acc);
+  display: inline-block;
+  height: 0.85em;
+  margin-left: 0.06em;
+  vertical-align: -0.05em;
+  width: 0.06em;
+}
 
-      @keyframes blink {
-        50% {
-          opacity: 0;
-        }
-      }
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}

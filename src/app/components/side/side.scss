@@ -1,27 +1,27 @@
 @use '../../../styles/tokens' as *;
 
-// every row is exactly $row tall, so the travelling dot can be placed with plain maths
 $row: 21px;
 $gap: 56px;
 $step: $row + $gap;
+$stops: 4;
 
 .side {
-  position: fixed;
-  inset: 0 auto 0 0;
-  z-index: 15;
   display: grid;
   grid-template-rows: 1fr auto 1fr;
-  width: var(--side);
+  inset: 0 auto 0 0;
   padding: 0 0 28px 20px;
+  position: fixed;
+  width: var(--side);
+  z-index: 15;
 
   @media (max-width: #{$bp-mobile}) {
-    inset: 0 0 auto 0;
-    display: flex;
     align-items: center;
-    width: 100%;
-    height: 56px;
-    padding: 0 16px;
     background: color-mix(in srgb, var(--bg) 82%, transparent);
+    display: flex;
+    height: 56px;
+    inset: 0 0 auto 0;
+    padding: 0 16px;
+    width: 100%;
 
     nav {
       display: none;
@@ -34,22 +34,22 @@ $step: $row + $gap;
   }
 
   ul {
-    position: relative;
     display: flex;
     flex-direction: column;
     gap: $gap;
-    padding: 0;
     list-style: none;
+    padding: 0;
+    position: relative;
 
     // vertical guide line behind the dots
     &::before {
+      background: var(--line);
+      bottom: 10px;
       content: '';
+      left: 3px;
       position: absolute;
       top: 10px;
-      bottom: 10px;
-      left: 3px;
       width: 1px;
-      background: var(--line);
     }
   }
 
@@ -58,122 +58,129 @@ $step: $row + $gap;
   }
 
   li.active a {
-    font-weight: 500;
     color: var(--ink);
+    font-weight: 500;
   }
 
   // the dot that shows where you are on the page
   .marker {
-    position: absolute;
-    top: calc((#{$row} - 11px) / 2);
-    left: -2px;
-    z-index: 2;
-    width: 11px;
-    height: 11px;
     background: var(--acc);
     border-radius: 50%;
     box-shadow:
       0 0 0 4px color-mix(in srgb, var(--acc) 22%, transparent),
       0 0 14px var(--acc);
-    translate: 0 calc(var(--i, 0) * #{$step});
-    transition: translate 0.55s $ease;
+    height: 11px;
+    left: -2px;
     pointer-events: none;
+    position: absolute;
+    top: calc((#{$row} - 11px) / 2);
+    transition: translate 0.12s ease-out; // position is set from side.component.ts while scrolling
+    width: 11px;
+    z-index: 2;
+  }
+
+  // the part of the line you have already scrolled through
+  .fill {
+    background: var(--acc);
+    height: calc(#{$step} * #{$stops});
+    left: 3px;
+    pointer-events: none;
+    position: absolute;
+    scale: 1 0;
+    top: 10px;
+    transform-origin: top;
+    transition: scale 0.12s ease-out;
+    width: 1px;
+  }
+
+  // dots you have already passed
+  li.passed .dot {
+    background: color-mix(in srgb, var(--acc) 45%, var(--bg));
+    border-color: var(--acc);
   }
 
   a {
-      font-weight: 500;
-      color: var(--ink);
-    }
-
-    .dot {
-      background: var(--acc);
-      border-color: var(--acc);
-      box-shadow: 0 0 14px var(--acc);
-      transform: scale(1.5);
-    }
-  }
-
-  a {
-    display: flex;
     align-items: center;
-    height: 100%;
-    gap: 20px;
-    font-size: 13px;
     color: var(--dim);
+    display: flex;
+    font-size: 13px;
+    gap: 20px;
+    height: 100%;
     transition: color 0.3s;
 
     &:hover {
       color: var(--ink);
     }
   }
-
+}
 
 .dot {
-  z-index: 1;
-  width: 7px;
-  height: 7px;
   background: var(--bg);
   border: 1px solid var(--dim);
   border-radius: 50%;
+  height: 7px;
+  position: relative; // so it sits above the line and the progress fill
   transition:
     background 0.35s,
     border-color 0.35s,
     box-shadow 0.35s,
     transform 0.35s;
+  width: 7px;
+  z-index: 1;
 }
 
 // ─── buttons: menu (phones only), theme, language, animations ───
 .tools {
-  position: relative;
-  z-index: 2; // stays above the full-screen menu so it can be closed
-  grid-row: 3;
   align-self: end;
   display: flex;
   gap: 12px;
+  grid-row: 3;
+  position: relative;
+  z-index: 2;
 
   @media (max-width: #{$bp-mobile}) {
     align-self: auto;
-    width: 100%; // menu button on the left, the other three on the right
+    width: 100%;
   }
 }
 
 .round {
-  display: grid;
-  place-items: center;
-  width: 35px;
-  height: 35px;
-  padding: 0;
-  font: 500 11px/1 'JetBrains Mono', monospace;
-  letter-spacing: 0.04em;
-  color: var(--acc);
   background: transparent;
   border: 1px solid var(--acc2);
-  opacity: 0.5;
   border-radius: 50%;
+  color: var(--acc);
   cursor: pointer;
+  display: grid;
+  font: 500 11px/1 'JetBrains Mono', monospace;
+  height: 35px;
+  letter-spacing: 0.04em;
+  opacity: 0.5;
+  padding: 0;
+  place-items: center;
   transition:
     transform 0.3s $ease,
     background 0.3s,
     color 0.3s,
     box-shadow 0.3s;
+  width: 35px;
 
   svg {
-    width: 17px;
-    height: 17px;
     fill: none;
+    height: 17px;
     stroke: currentColor;
-    stroke-width: 1.8;
     stroke-linecap: round;
     stroke-linejoin: round;
+    stroke-width: 1.8;
     transition: transform 0.5s $ease;
+    width: 17px;
   }
 
   &:hover {
-    color: #fff;
     background: var(--acc2);
     box-shadow: 0 6px 22px -6px rgba(139, 92, 246, 0.8);
-    transform: translateY(-3px);
+    color: #fff;
     opacity: 1;
+    transform: translateY(-3px);
   }
 
   &:focus-visible {
@@ -196,18 +203,18 @@ $step: $row + $gap;
   display: none;
 
   @media (max-width: #{$bp-mobile}) {
-    position: fixed;
-    inset: 0;
-    z-index: 1;
-    display: flex;
     align-items: center;
-    padding: 0 12vw;
     background: var(--bg);
+    display: flex;
+    inset: 0;
     opacity: 0;
-    visibility: hidden;
+    padding: 0 12vw;
+    position: fixed;
     transition:
       opacity 0.3s,
       visibility 0.3s;
+    visibility: hidden;
+    z-index: 1;
 
     &.open {
       opacity: 1;
@@ -219,8 +226,8 @@ $step: $row + $gap;
     display: flex;
     flex-direction: column;
     gap: 26px;
-    padding: 0;
     list-style: none;
+    padding: 0;
   }
 
   li {
@@ -238,17 +245,17 @@ $step: $row + $gap;
   }
 
   a {
-    display: flex;
     align-items: baseline;
-    gap: 16px;
+    color: var(--mut);
+    display: flex;
     font-size: 30px;
     font-weight: 300;
-    color: var(--mut);
+    gap: 16px;
   }
 
   .num {
-    font-size: 11px;
     color: var(--acc);
+    font-size: 11px;
   }
 
   li.active a {

@@ -1,52 +1,55 @@
-import { Directive, ElementRef, inject } from '@angular/core';
+import { afterNextRender, DestroyRef, Directive, ElementRef, inject } from '@angular/core';
 import { Motion } from './motion';
 
 /**
- * Adds a soft highlight that follows the cursor (styles live in styles.scss under `.glow`).
- * With animations off the highlight stays put in the centre instead of following the mouse.
+ * Soft highlight that follows the cursor (the look is the `.glow` class in styles.scss).
+ * Plain DOM listeners on purpose: Angular listeners would start a change-detection run on every mouse move.
+ * With animations off the highlight stays in the centre.
  */
 @Directive({
   selector: '[appGlow]',
-  host: {
-    class: 'glow',
-    '(mouseenter)': 'onEnter()',
-    '(mousemove)': 'onMove($event)',
-  },
+  host: { class: 'glow' }
 })
 export class Glow {
-  private readonly el = inject<ElementRef<HTMLElement>>(ElementRef).nativeElement;
-  private readonly motion = inject(Motion);
-  private rect?: DOMRect;
-  private measuredAt = 0;
-  private frame = 0;
+  constructor() {
+    const el = inject<ElementRef<HTMLElement>>(ElementRef).nativeElement;
+    const motion = inject(Motion);
+    const destroyRef = inject(DestroyRef);
 
-  protected onEnter() {
-    if (this.motion.off()) {
-      // back to the CSS default (centre) in case it was following the mouse earlier
-      this.el.style.removeProperty('--mx');
-      this.el.style.removeProperty('--my');
-      return;
-    }
-    this.measure();
-  }
+    afterNextRender(() => {
+      let rect: DOMRect;
+      let frame = 0;
+      let x = 0;
+      let y = 0;
 
-  protected onMove(event: MouseEvent) {
-    if (this.motion.off() || this.frame) return; // no following when animations are off; one write per frame
+      const enter = () => {
+        rect = el.getBoundingClientRect();
+        if (motion.off()) {
+          el.style.removeProperty('--mx');
+          el.style.removeProperty('--my');
+        }
+      };
 
-    const { clientX, clientY } = event;
-    this.frame = requestAnimationFrame(() => {
-      this.frame = 0;
-      if (this.motion.off()) return; // switched off while waiting for the frame
+      const paint = () => {
+        frame = 0;
+        el.style.setProperty('--mx', `${x - rect.left}px`);
+        el.style.setProperty('--my', `${y - rect.top}px`);
+      };
 
-      // re-measure only now and then (the page may have scrolled) instead of on every event
-      if (!this.rect || performance.now() - this.measuredAt > 250) this.measure();
-      this.el.style.setProperty('--mx', `${clientX - this.rect!.left}px`);
-      this.el.style.setProperty('--my', `${clientY - this.rect!.top}px`);
+      const move = (e: MouseEvent) => {
+        if (motion.off()) return;
+        x = e.clientX;
+        y = e.clientY;
+        if (!frame) frame = requestAnimationFrame(paint); // one style write per frame
+      };
+
+      el.addEventListener('mouseenter', enter);
+      el.addEventListener('mousemove', move, { passive: true });
+      destroyRef.onDestroy(() => {
+        cancelAnimationFrame(frame);
+        el.removeEventListener('mouseenter', enter);
+        el.removeEventListener('mousemove', move);
+      });
     });
-  }
-
-  private measure() {
-    this.rect = this.el.getBoundingClientRect();
-    this.measuredAt = performance.now();
   }
 }

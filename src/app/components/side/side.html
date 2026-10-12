@@ -1,0 +1,114 @@
+<aside class="side">
+  <!-- desktop: section list -->
+  <nav aria-label="Sections">
+    <ul>
+      <!-- live position: the line fills and the dot moves as you scroll -->
+      <li #fill aria-hidden="true" class="fill"></li>
+      <li #marker aria-hidden="true" class="marker"></li>
+
+      @for (section of sections; track section.id; let i = $index) {
+        <li [class.active]="active() === section.id" [class.passed]="i < activeIndex()">
+          <a [appScrollTo]="section.id" [href]="'#' + section.id">
+            <span class="dot"></span>
+            {{ section.label | t }}
+          </a>
+        </li>
+      }
+    </ul>
+  </nav>
+
+  <!-- phones: full-screen menu -->
+  <div [attr.inert]="menuOpen() ? null : ''" [class.open]="menuOpen()" class="overlay" id="mobile-menu">
+    <ul>
+      @for (section of sections; track section.id; let i = $index) {
+        <li [class.active]="active() === section.id" [style.--i]="i">
+          <a (click)="setMenu(false)" [appScrollTo]="section.id" [href]="'#' + section.id">
+            <span class="num mono">0{{ i + 1 }}</span>
+            {{ section.label | t }}
+          </a>
+        </li>
+      }
+    </ul>
+  </div>
+
+  <div class="tools">
+    <button
+      (click)="setMenu(!menuOpen())"
+      [attr.aria-expanded]="menuOpen()"
+      [attr.aria-label]="(menuOpen() ? 'ctl.menuClose' : 'ctl.menuOpen') | t"
+      aria-controls="mobile-menu"
+      class="round menu"
+      type="button"
+    >
+      <svg aria-hidden="true" viewBox="0 0 24 24">
+        @if (menuOpen()) {
+          <path d="M6 6l12 12M18 6L6 18" />
+        } @else {
+          <path d="M4 7h16M4 12h16M4 17h16" />
+        }
+      </svg>
+    </button>
+
+    <button
+      (click)="theme.toggle()"
+      [attr.aria-label]="(theme.mode() === 'dark' ? 'ctl.themeLight' : 'ctl.themeDark') | t"
+      [title]="(theme.mode() === 'dark' ? 'ctl.themeLight' : 'ctl.themeDark') | t"
+      class="round"
+      type="button"
+    >
+      <svg aria-hidden="true" viewBox="0 0 24 24">
+        @if (theme.mode() === 'dark') {
+          <circle cx="12" cy="12" r="4" />
+          <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
+        } @else {
+          <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
+        }
+      </svg>
+    </button>
+
+    <button
+      (click)="i18n.toggle()"
+      [attr.aria-label]="'ctl.language' | t"
+      [title]="'ctl.language' | t"
+      class="round"
+      type="button"
+    >
+      {{ i18n.lang().toUpperCase() }}
+    </button>
+
+    <button
+      (click)="motion.toggle()"
+      [attr.aria-label]="(motion.off() ? 'ctl.motionPlay' : 'ctl.motionPause') | t"
+      [attr.aria-pressed]="motion.off()"
+      [title]="(motion.off() ? 'ctl.motionPlay' : 'ctl.motionPause') | t"
+      class="round"
+      type="button"
+    >
+      <svg aria-hidden="true" viewBox="0 0 24 24">
+        @if (motion.off()) {
+          <path d="M8 5v14l11-7z" />
+        } @else {
+          <path d="M9 5v14M15 5v14" />
+        }
+      </svg>
+    </button>
+
+    <button
+      (click)="music.toggle()"
+      [attr.aria-label]="(music.playing() ? 'ctl.musicStop' : 'ctl.musicPlay') | t"
+      [attr.aria-pressed]="music.playing()"
+      [title]="(music.playing() ? 'ctl.musicStop' : 'ctl.musicPlay') | t"
+      class="round"
+      type="button"
+    >
+      <svg aria-hidden="true" viewBox="0 0 24 24">
+        <path d="M11 5L6 9H2v6h4l5 4V5z" />
+        @if (music.playing()) {
+          <path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13" />
+        } @else {
+          <path d="M22 9l-6 6M16 9l6 6" />
+        }
+      </svg>
+    </button>
+  </div>
+</aside>

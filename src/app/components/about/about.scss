@@ -1,0 +1,200 @@
+.layout {
+  align-items: start;
+  display: grid;
+  gap: 56px;
+  grid-template-columns: minmax(0, 1.1fr) minmax(300px, 1fr);
+}
+
+@media (max-width: 1100px) {
+  .layout {
+    gap: 36px;
+    grid-template-columns: 1fr;
+  }
+}
+
+.tiles {
+  display: grid;
+  gap: 16px;
+}
+
+/* ── shared tile look ── */
+.tile {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  display: block;
+  padding: 22px;
+  transition:
+    transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+    border-color 0.3s,
+    box-shadow 0.35s;
+}
+
+.tile:hover {
+  border-color: rgba(167, 139, 250, 0.45);
+  box-shadow: 0 22px 44px -24px rgba(139, 92, 246, 0.6);
+  transform: translateY(-4px);
+}
+
+/* ── open to opportunities ── */
+.status {
+  align-items: center;
+  display: flex;
+  gap: 16px;
+}
+
+.beacon {
+  background: var(--state);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--state);
+  flex: none;
+  height: 10px;
+  position: relative;
+  width: 10px;
+}
+
+.beacon::after {
+  animation: ping 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+  background: var(--state);
+  border-radius: 50%;
+  content: '';
+  inset: 0;
+  position: absolute;
+}
+
+@keyframes ping {
+  from {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: scale(3.2);
+  }
+}
+
+.status {
+  --state: #22c55e;
+}
+
+.status.closed {
+  --state: #9ca3af;
+}
+
+.status .text {
+  flex: 1;
+  min-width: 0;
+}
+
+.status strong {
+  display: block;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.status small {
+  color: var(--mut);
+  font-size: 12px;
+}
+
+.status .go {
+  color: var(--acc);
+}
+
+/* ── numbers ── */
+.stats {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.value {
+  display: block;
+  font-size: 34px;
+  font-weight: 300;
+  line-height: 1.1;
+}
+
+.value .suffix {
+  color: var(--acc);
+}
+
+.stats .label {
+  color: var(--dim);
+  display: block;
+  font-size: 10px;
+  line-height: 1.4;
+  margin-top: 6px;
+}
+
+/* ── experience ── */
+.exp h4 {
+  font-size: 10px;
+  font-weight: 400;
+  margin-bottom: 18px;
+}
+
+.exp ol {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  list-style: none;
+  padding: 0;
+  position: relative;
+}
+
+/* vertical line behind the dots */
+.exp ol::before {
+  background: var(--line);
+  bottom: 8px;
+  content: '';
+  left: 3px;
+  position: absolute;
+  top: 8px;
+  width: 1px;
+}
+
+.exp li {
+  padding-left: 22px;
+  position: relative;
+}
+
+.exp li::before {
+  background: var(--bg);
+  border: 1px solid var(--dim);
+  border-radius: 50%;
+  content: '';
+  height: 7px;
+  left: 0;
+  position: absolute;
+  top: 6px;
+  width: 7px;
+}
+
+.exp li.now::before {
+  background: var(--acc);
+  border-color: var(--acc);
+  box-shadow: 0 0 10px var(--acc);
+}
+
+.exp .head {
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+}
+
+.exp .role {
+  font-size: 14px;
+}
+
+.exp .place {
+  color: var(--mut);
+  font-size: 12px;
+}
+
+.exp .period {
+  color: var(--dim);
+  flex: none;
+  font-size: 10px;
+}

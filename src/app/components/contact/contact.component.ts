@@ -1,20 +1,16 @@
-import { Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { Glow } from '../../shared/glow';
 import { T } from '../../shared/i18n';
 import { ScrollTo } from '../../shared/scroll-to';
-import { SOCIALS } from './contact.data';
-
-const FORM_ENDPOINT = 'https://formspree.io/f/xljgnzrn';
-
-type Status = 'idle' | 'sending' | 'sent' | 'error';
+import { FORM_ENDPOINT, SOCIALS, type Status } from './contact.data';
 
 @Component({
   selector: 'app-contact',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Glow, ScrollTo, T],
-  styleUrl: 'contact.style.scss',
-  templateUrl: 'contact.template.html',
+  styleUrl: 'contact.scss',
+  templateUrl: './contact.html'
 })
-
 export class ContactComponent {
   protected readonly socials = SOCIALS;
   protected readonly maxMessage = 1000;
@@ -24,14 +20,13 @@ export class ContactComponent {
   protected readonly message = signal('');
   protected readonly status = signal<Status>('idle');
 
-  // errors appear after a field was left once, or after the first submit attempt
   private readonly touched = signal<Record<string, boolean>>({});
   private readonly attempted = signal(false);
 
   private readonly valid = computed(() => ({
     name: this.name().trim().length >= 2,
     email: /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(this.email().trim()),
-    message: this.message().trim().length >= 10,
+    message: this.message().trim().length >= 10
   }));
 
   protected read(event: Event) {
@@ -69,7 +64,7 @@ export class ContactComponent {
       const res = await fetch(FORM_ENDPOINT, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify(payload),
+        body: JSON.stringify(payload)
       });
       if (!res.ok) throw new Error(String(res.status));
       this.status.set('sent');

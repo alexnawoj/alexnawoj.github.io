@@ -16,7 +16,7 @@ export interface Project {
 export const STATUS_LABELS: Record<Project['status'], Key> = {
   'in-progress': 'projects.status.progress',
   done: 'projects.status.done',
-  archived: 'projects.status.archived',
+  archived: 'projects.status.archived'
 };
 
 export const PROJECTS: Project[] = [
@@ -28,7 +28,7 @@ export const PROJECTS: Project[] = [
     stack: ['Angular', 'TypeScript'],
     meta: 'projects.portfolio.meta',
     url: 'github.com/portfolio',
-    status: 'in-progress',
+    status: 'in-progress'
   },
   {
     name: 'Template',
@@ -38,7 +38,7 @@ export const PROJECTS: Project[] = [
     stack: ['Java', 'Swing', 'ESRI'],
     meta: 'projects.editorial.meta',
     url: 'github.com/test1',
-    status: 'done',
+    status: 'done'
   },
   {
     name: 'Template',
@@ -48,7 +48,7 @@ export const PROJECTS: Project[] = [
     stack: ['Java', 'Spring Boot', 'React'],
     meta: 'projects.collab.meta',
     url: 'github.com/test2',
-    status: 'archived',
+    status: 'archived'
   },
   {
     name: 'Template',
@@ -58,6 +58,6 @@ export const PROJECTS: Project[] = [
     stack: ['Kotlin', 'Android'],
     meta: 'projects.collab.meta',
     url: 'github.com/test2',
-    status: 'done',
-  },
+    status: 'done'
+  }
 ];

@@ -1,45 +1,63 @@
+// Hover effects that MOVE things are cancelled when animations are off
+// (colour / border / shadow changes still apply).
+$hover-movers:
+  '.btn',
+  '.tab',
+  '.tile',
+  '.card',
+  '.social',
+  '.round',
+  '.proj',
+  '.chips span',
+  '.links a',
+  '.soc a',
+  '.email',
+  '.send',
+  'footer a';
+
 // Global styles: tokens, base, and primitives shared by several sections.
 // Everything section-specific lives in the component's own .scss file.
-
 :root {
-  color-scheme: dark;
-  --bg: #0a0912;
-  --ink: #f1eefb;
-  --mut: #a39fb8;
-  --dim: #6d6985;
   --acc: #a78bfa;
   --acc2: #8b5cf6;
-  --line: rgba(255, 255, 255, 0.08);
+  --bg: #0a0912;
   --card: rgba(20, 17, 36, 0.72);
-  --surface: rgba(255, 255, 255, 0.03);
-  --surface-2: rgba(255, 255, 255, 0.07);
-  --overlay: rgba(10, 9, 18, 0.6);
   --cta: linear-gradient(135deg, rgba(40, 28, 78, 0.7), rgba(16, 13, 30, 0.8));
-  --grad: linear-gradient(100deg, #c4b5fd, #8b5cf6 70%);
+  --dim: #6d6985;
   --err: #fca5a5;
   --err-line: #f87171;
+  --grad: linear-gradient(100deg, #c4b5fd, #8b5cf6 70%);
+  --ink: #f1eefb;
+  --line: rgba(255, 255, 255, 0.08);
   --logo-filter: brightness(0) invert(1); // turns dark logos white
+  --mut: #a39fb8;
+  --overlay: rgba(10, 9, 18, 0.6);
   --side: 240px;
+  --surface: rgba(255, 255, 255, 0.03);
+  --surface-2: rgba(255, 255, 255, 0.07);
+
+  color-scheme: dark;
 }
 
 :root[data-theme='light'] {
-  color-scheme: light;
-  --bg: #f5f3fb;
-  --ink: #1b1630;
-  --mut: #5a5573;
-  --dim: #8c87a6;
   --acc: #7c3aed;
   --acc2: #7c3aed;
-  --line: rgba(27, 22, 48, 0.12);
+  --bg: #f5f3fb;
   --card: rgba(255, 255, 255, 0.85);
-  --surface: rgba(27, 22, 48, 0.04);
-  --surface-2: rgba(27, 22, 48, 0.08);
-  --overlay: rgba(255, 255, 255, 0.78);
   --cta: linear-gradient(135deg, rgba(237, 233, 254, 0.95), rgba(255, 255, 255, 0.9));
-  --grad: linear-gradient(100deg, #6d28d9, #a78bfa 90%);
+  --dim: #8c87a6;
   --err: #b91c1c;
   --err-line: #dc2626;
+  --grad: linear-gradient(100deg, #6d28d9, #a78bfa 90%);
+  --ink: #1b1630;
+  --line: rgba(27, 22, 48, 0.12);
   --logo-filter: brightness(0); // turns light logos dark
+  --mut: #5a5573;
+  --overlay: rgba(255, 255, 255, 0.78);
+  --surface: rgba(27, 22, 48, 0.04);
+  --surface-2: rgba(27, 22, 48, 0.08);
+
+  color-scheme: light;
 
   // stars make no sense on a light page (and hiding the sky also stops its animation)
   app-sky {
@@ -115,7 +133,7 @@ a {
 // ─── Section scaffolding ───────────────────────────────
 .sec {
   max-width: 1180px;
-  padding: 140px 0 0;
+  padding: 96px 0 0;
 }
 
 :root:not([data-motion='off']) .sec:hover .eyebrow u {
@@ -123,41 +141,41 @@ a {
 }
 
 .eyebrow {
+  align-items: center;
+  color: var(--mut);
   contain: layout;
   display: flex;
-  align-items: center;
-  gap: 14px;
-  margin-bottom: 28px;
   font: 400 11px 'JetBrains Mono', monospace;
+  gap: 14px;
   letter-spacing: 0.1em;
-  color: var(--mut);
+  margin-bottom: 28px;
 
   b {
-    font-weight: 400;
     color: var(--acc);
+    font-weight: 400;
   }
 
   u {
-    width: 34px;
-    height: 1px;
     background: var(--acc);
+    height: 1px;
     transition: width 0.5s;
+    width: 34px;
   }
 }
 
 h2 {
-  margin-bottom: 34px;
   font-size: clamp(30px, 3.6vw, 44px);
   font-weight: 300;
-  line-height: 1.2;
   letter-spacing: -0.01em;
+  line-height: 1.2;
+  margin-bottom: 34px;
 }
 
 .body {
-  max-width: 980px;
-  margin-bottom: 22px;
-  font-size: 15px;
   color: var(--mut);
+  font-size: 15px;
+  margin-bottom: 22px;
+  max-width: 980px;
 
   &.sm {
     font-size: 14px;
@@ -166,21 +184,21 @@ h2 {
 
 // ─── Cursor-follow glow (see the `Glow` directive) ─────
 .glow {
-  position: relative;
   overflow: hidden;
+  position: relative;
 
   &::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.35s;
     background: radial-gradient(
       320px circle at var(--mx, 50%) var(--my, 50%),
       rgba(167, 139, 250, 0.18),
       transparent 70%
     );
+    content: '';
+    inset: 0;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    transition: opacity 0.35s;
   }
 
   &:hover::after {
@@ -192,8 +210,8 @@ h2 {
 // Applies when the visitor flips the switch, or (until they choose) when the OS asks for reduced motion.
 @mixin no-motion {
   animation: none !important;
-  transition: none !important;
   scroll-behavior: auto !important;
+  transition: none !important;
 }
 
 :root[data-motion='off'] {
@@ -216,20 +234,14 @@ h2 {
   }
 }
 
-// Hover effects that MOVE things are cancelled when animations are off
-// (colour / border / shadow changes still apply).
-$hover-movers:
-  '.btn', '.tab', '.tile', '.card', '.social', '.round', '.proj', '.chips span', '.links a', '.soc a', '.email',
-  '.send', 'footer a';
-
 :root[data-motion='off'] {
   @each $selector in $hover-movers {
     #{$selector}:hover,
     #{$selector}:hover * {
-      transform: none !important;
-      translate: none !important;
       rotate: none !important;
       scale: none !important;
+      transform: none !important;
+      translate: none !important;
     }
   }
 }

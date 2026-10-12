@@ -30,7 +30,7 @@ export class I18n {
   private styled = false;
 
   constructor() {
-    // browser only: restore the saved choice, otherwise follow the browser language
+    // restore the saved choice, otherwise follow the browser language
     afterNextRender(() => {
       let saved: string | null = null;
       try {
@@ -66,14 +66,6 @@ export class I18n {
       .finished.finally(() => root.classList.remove('lang-switching'));
   }
 
-  private addStyle() {
-    if (this.styled) return;
-    this.styled = true;
-    const style = document.createElement('style');
-    style.textContent = SWITCH_STYLE;
-    document.head.appendChild(style);
-  }
-
   translate(key: Key) {
     return DICTIONARIES[this.lang()][key];
   }
@@ -81,6 +73,14 @@ export class I18n {
   /** For keys that hold a list ("a|b|c"). */
   list(key: Key) {
     return this.translate(key).split('|');
+  }
+
+  private addStyle() {
+    if (this.styled) return;
+    this.styled = true;
+    const style = document.createElement('style');
+    style.textContent = SWITCH_STYLE;
+    document.head.appendChild(style);
   }
 
   private set(lang: Lang, save = false) {

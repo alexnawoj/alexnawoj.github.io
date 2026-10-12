@@ -1,0 +1,92 @@
+app-cursor {
+  display: contents;
+}
+
+/* the native cursor is hidden only once the custom one is running (not on touch, not without JS) */
+html.has-cursor,
+html.has-cursor * {
+  cursor: none !important;
+}
+
+.cur-ring,
+.cur-dot,
+.cur-ripple {
+  border-radius: 50%;
+  left: 0;
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  z-index: 9999;
+}
+
+.cur-ring,
+.cur-dot {
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.cur-ring.on,
+.cur-dot.on {
+  opacity: 1;
+}
+
+/* over a playing preview: no cursor at all (must stay after the .on rule) */
+.cur-ring.gone,
+.cur-dot.gone {
+  opacity: 0;
+}
+
+/* dot: follows the pointer exactly */
+.cur-dot {
+  background: var(--acc);
+  height: 6px;
+  margin: -5px 0 0 -5px;
+  transition:
+    opacity 0.2s,
+    scale 0.2s,
+    width 0.2s,
+    height 0.2s,
+    margin 0.2s,
+    border-radius 0.2s;
+  width: 6px;
+}
+
+/* ring: chases the pointer (see the animation loop below) */
+.cur-ring {
+  border: 1.5px solid var(--acc);
+  height: 30px;
+  margin: -17px 0 0 -17px;
+  transition:
+    opacity 0.2s,
+    scale 0.25s cubic-bezier(0.2, 0.8, 0.2, 1),
+    background 0.25s;
+  width: 30px;
+}
+
+/* over links / buttons */
+.cur-ring.hover {
+  background: color-mix(in srgb, var(--acc) 15%, transparent);
+  scale: 1.6;
+}
+
+.cur-dot.hover {
+  scale: 0.5;
+}
+
+.cur-ring.down {
+  opacity: 0;
+  transition-duration: 0s;
+}
+
+.cur-dot.down {
+  scale: 2;
+}
+
+/* the ripple sent out on click: starts as an exact copy of the ring */
+.cur-ripple {
+  border: 1px solid var(--acc);
+  height: 30px;
+  margin: 0;
+  translate: -50% -50%;
+  width: 30px;
+}

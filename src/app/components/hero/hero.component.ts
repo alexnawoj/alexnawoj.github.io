@@ -1,4 +1,4 @@
-import { afterNextRender, Component, DestroyRef, effect, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, afterNextRender, Component, DestroyRef, effect, inject, signal } from '@angular/core';
 import { I18n, T } from '../../shared/i18n';
 import { Motion } from '../../shared/motion';
 import { ScrollTo } from '../../shared/scroll-to';
@@ -9,39 +9,13 @@ const HOLD_MS = 1800; // pause on a finished word
 const GAP_MS = 350; // pause on an empty line
 
 @Component({
-  selector: 'app-hello',
+  selector: 'app-hero',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ScrollTo, T],
   styleUrl: './hero.scss',
-  template: `
-    <section id="hello" class="sec hero">
-      <p class="eyebrow"><b>01</b><u></u>{{ 'hero.eyebrow' | t }}</p>
-
-      <h1>
-        {{ 'hero.title' | t }}<br />
-        <span class="typed acc">
-          {{ text() }}<span class="caret" aria-hidden="true"></span>
-        </span>
-      </h1>
-
-      <p class="lead">
-        {{
-          'hero.desc'
-            | t
-        }}
-      </p>
-
-      <div class="btns">
-        <a class="btn primary" href="#projects" appScrollTo="projects">
-          {{ 'hero.cta.work' | t }} <span class="arr down">↓</span>
-        </a>
-        <a class="btn ghost" href="#contact" appScrollTo="contact">
-          {{ 'hero.cta.talk' | t }} <span class="arr">↗</span>
-        </a>
-      </div>
-    </section>
-  `,
+  templateUrl: 'hero.html'
 })
-export class Hero {
+export class HeroComponent {
   protected readonly text = signal(inject(I18n).list('hero.words')[0]);
   private state = { index: 0, chars: 0, deleting: true };
 
