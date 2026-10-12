@@ -1,4 +1,4 @@
-import { afterNextRender, Component, DestroyRef, inject, signal } from '@angular/core';
+import { afterNextRender, Component, computed, DestroyRef, inject, signal } from '@angular/core';
 import { I18n, T } from '../../shared/i18n';
 import { Motion } from '../../shared/motion';
 import { Music } from '../../shared/music';
@@ -22,7 +22,10 @@ const SECTIONS = [
     <aside class="side">
       <!-- desktop: section list -->
       <nav aria-label="Sections">
-        <ul>
+        <ul [style.--i]="activeIndex()">
+          <!-- the travelling dot: slides to the section you are reading -->
+          <span class="marker" aria-hidden="true"></span>
+
           @for (section of sections; track section.id) {
             <li [class.active]="active() === section.id">
               <a [href]="'#' + section.id" [appScrollTo]="section.id">
@@ -134,6 +137,7 @@ const SECTIONS = [
 export class Side {
   protected readonly sections = SECTIONS;
   protected readonly active = signal<string>(SECTIONS[0].id);
+  protected readonly activeIndex = computed(() => SECTIONS.findIndex((s) => s.id === this.active()));
   protected readonly menuOpen = signal(false);
   protected readonly theme = inject(Theme);
   protected readonly i18n = inject(I18n);

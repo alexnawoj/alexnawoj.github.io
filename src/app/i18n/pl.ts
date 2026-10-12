@@ -33,6 +33,17 @@ export const PL: Record<Key, string> = {
   'about.p1': 'Uwielbiam moment, w którym dobry pomysł staje się czymś, z czego ludzie naprawdę korzystają. Tworzę szybkie, dostępne produkty webowe z czystym interfejsem i jeszcze czystszym kodem.',
   'about.p2': 'Od pierwszego szkicu po finalne wdrożenie dbam o szczegóły: jak to się czuje, jak się skaluje i jak ułatwia komuś dzień.',
   'about.offscreen': '✧ Poza ekranem: kawa, nocne spacery i jeszcze jeden projekt poboczny.',
+  'about.status.open': 'Otwarty na propozycje',
+  'about.status.closed': 'Teraz nie szukam',
+  'about.status.detail': 'Pełny etat, freelance albo dobry projekt poboczny.',
+  'about.stats.years': 'Lat kodowania',
+  'about.stats.projects': 'Ukończonych projektów',
+  'about.stats.tech': 'Technologii',
+  'about.exp.title': 'DOŚWIADCZENIE',
+  'about.exp.present': 'teraz',
+  'about.exp.1': 'Inżynier oprogramowania',
+  'about.exp.2': 'Freelancer — strony i aplikacje',
+  'about.exp.3': 'Licencjat z informatyki',
 
   // tech
   'tech.eyebrow': 'MOJE NARZĘDZIA',

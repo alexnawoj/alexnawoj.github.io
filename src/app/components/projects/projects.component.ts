@@ -20,9 +20,12 @@ import { type Project, PROJECTS, STATUS_LABELS } from './projects.data';
             <div
               class="thumb"
               appGlow
+              [attr.data-cursor]="project.animation ? 'hidden' : null"
               [style.background-image]="background(project, i)"
-              (mouseenter)="hovered.set(i)"
-              (mouseleave)="hovered.set(null)"
+              (pointerenter)="hovered.set(i)"
+              (pointerdown)="hovered.set(i)"
+              (pointerleave)="hovered.set(null)"
+              (pointercancel)="hovered.set(null)"
             >
               <span class="status mono" [attr.data-status]="project.status">
                 <i class="dot"></i>

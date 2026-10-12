@@ -1,6 +1,7 @@
 import { afterNextRender, Component, DestroyRef, ElementRef, inject, viewChild, ViewEncapsulation } from '@angular/core';
 import { Motion } from './motion';
 
+const HIDDEN = '[data-cursor="hidden"]'; // e.g. a project preview that is playing
 const INTERACTIVE = 'a[href], button, [role="button"], select, summary, input, textarea'; // only things you can click
 
 /**
@@ -46,6 +47,12 @@ const INTERACTIVE = 'a[href], button, [role="button"], select, summary, input, t
     .cur-ring.on,
     .cur-dot.on {
       opacity: 1;
+    }
+
+    /* over a playing preview: no cursor at all (must stay after the .on rule) */
+    .cur-ring.gone,
+    .cur-dot.gone {
+      opacity: 0;
     }
 
     /* dot: follows the pointer exactly */
@@ -129,6 +136,7 @@ export class Cursor {
       let ringX = 0;
       let ringY = 0;
       let frame = 0;
+      let hiding = false;
 
       // the ring eases towards the pointer a bit every frame; the loop stops once it has caught up
       const chase = () => {
@@ -157,14 +165,16 @@ export class Cursor {
         if (!frame) frame = requestAnimationFrame(chase);
 
         const target = e.target as Element | null;
+        hiding = !!target?.closest?.(HIDDEN);
         parts.forEach((p) => {
           p.classList.toggle('hover', !!target?.closest?.(INTERACTIVE));
+          p.classList.toggle('gone', hiding);
         });
       };
 
       const down = () => {
         parts.forEach((p) => p.classList.add('down'));
-        if (!this.motion.off()) this.ripple(ringX, ringY);
+        if (!this.motion.off() && !hiding) this.ripple(ringX, ringY);
       };
       const up = () => parts.forEach((p) => p.classList.remove('down'));
       const leave = () => parts.forEach((p) => p.classList.remove('on'));

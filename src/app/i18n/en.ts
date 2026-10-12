@@ -37,6 +37,17 @@ export const EN = {
   'about.p1': 'I love the space where a good idea becomes something people can actually use. I build fast, accessible web products with clean interfaces and even cleaner code.',
   'about.p2': 'From the first sketch to the final deployment, I care about the details: how it feels, how it scales, and how it makes someone\'s day a little easier.',
   'about.offscreen': '✧ Off-screen: coffee, night walks, and one more side project.',
+  'about.status.open': 'Open to opportunities',
+  'about.status.closed': 'Not looking right now',
+  'about.status.detail': 'Full-time, freelance or a good side project.',
+  'about.stats.years': 'Years coding',
+  'about.stats.projects': 'Projects shipped',
+  'about.stats.tech': 'Technologies',
+  'about.exp.title': 'EXPERIENCE',
+  'about.exp.present': 'now',
+  'about.exp.1': 'Software Engineer',
+  'about.exp.2': 'Freelance Web Developer',
+  'about.exp.3': 'BSc Computer Science',
 
   // tech
   'tech.eyebrow': 'MY TOOLKIT',
