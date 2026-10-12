@@ -19,6 +19,10 @@ const VT_STYLE = `
   html.theme-switching *::after {
     transition: none !important;
   }
+
+  ::view-transition {
+  pointer-events: none;
+}
 `;
 
 type ViewTransitionDoc = Document & {
