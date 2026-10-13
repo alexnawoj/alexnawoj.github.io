@@ -6,7 +6,6 @@ export interface Social {
   name: string;
   handle: string;
   href: string;
-  /** '_blank' opens in a new tab; leave it out for mailto: links */
   target?: '_blank';
   icon: { viewBox: string; path: string };
 }

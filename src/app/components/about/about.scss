@@ -146,7 +146,6 @@
 
 /* vertical line behind the dots */
 .exp ol::before {
-  background: var(--line);
   bottom: 8px;
   content: '';
   left: 3px;

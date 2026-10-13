@@ -9,15 +9,6 @@ export const PL: Record<Key, string> = {
   'nav.projects': 'Projekty',
   'nav.contact': 'Kontakt',
 
-  // ctl
-  'ctl.themeLight': 'Przełącz na jasny motyw',
-  'ctl.themeDark': 'Przełącz na ciemny motyw',
-  'ctl.language': 'Zmień język',
-  'ctl.menuOpen': 'Otwórz menu',
-  'ctl.menuClose': 'Zamknij menu',
-  'ctl.motionPause': 'Wstrzymaj animacje',
-  'ctl.motionPlay': 'Włącz animacje',
-
   // hero
   'hero.eyebrow': 'CZEŚĆ, ŚWIECIE',
   'hero.title': 'Tworzę rzeczy dla',
@@ -93,7 +84,4 @@ export const PL: Record<Key, string> = {
   'contact.form.fail': 'Coś poszło nie tak. Spróbuj ponownie lub napisz do mnie bezpośrednio.',
   'contact.footer.built': 'Zbudowane z namysłem. Z odrobiną gwiezdnego pyłu. ✦',
   'contact.footer.top': 'Do góry ↑',
-
-  'ctl.musicPlay': 'Włącz muzykę',
-  'ctl.musicStop': 'Wyłącz muzykę'
 };

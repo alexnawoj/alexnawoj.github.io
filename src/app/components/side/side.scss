@@ -157,6 +157,8 @@ $stops: 4;
   opacity: 0.5;
   padding: 0;
   place-items: center;
+  position: relative;
+  text-indent: 0.04em; // letter-spacing also adds space after the last letter; this balances it so EN / PL sit centred
   transition:
     transform 0.3s $ease,
     background 0.3s,
@@ -225,9 +227,21 @@ $stops: 4;
   ul {
     display: flex;
     flex-direction: column;
-    gap: 26px;
+    gap: 34px;
     list-style: none;
     padding: 0;
+    position: relative;
+
+    // the same vertical line as on desktop
+    &::before {
+      background: var(--line);
+      bottom: 13px;
+      content: '';
+      left: 3px;
+      position: absolute;
+      top: 13px;
+      width: 1px;
+    }
   }
 
   li {
@@ -245,20 +259,20 @@ $stops: 4;
   }
 
   a {
-    align-items: baseline;
+    align-items: center;
     color: var(--mut);
     display: flex;
-    font-size: 30px;
-    font-weight: 300;
-    gap: 16px;
-  }
-
-  .num {
-    color: var(--acc);
-    font-size: 11px;
+    font-size: 17px;
+    gap: 20px;
   }
 
   li.active a {
     color: var(--ink);
+  }
+
+  li.active .dot {
+    background: var(--acc);
+    border-color: var(--acc);
+    box-shadow: 0 0 10px var(--acc);
   }
 }

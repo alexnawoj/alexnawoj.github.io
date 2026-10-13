@@ -7,7 +7,7 @@
       <li #marker aria-hidden="true" class="marker"></li>
 
       @for (section of sections; track section.id; let i = $index) {
-        <li [class.active]="active() === section.id" [class.passed]="i < activeIndex()">
+        <li [class.active]="active() === section.id" [class.passed]="i <= activeIndex()">
           <a [appScrollTo]="section.id" [href]="'#' + section.id">
             <span class="dot"></span>
             {{ section.label | t }}
@@ -21,9 +21,9 @@
   <div [attr.inert]="menuOpen() ? null : ''" [class.open]="menuOpen()" class="overlay" id="mobile-menu">
     <ul>
       @for (section of sections; track section.id; let i = $index) {
-        <li [class.active]="active() === section.id" [style.--i]="i">
+        <li [class.active]="active() === section.id" [class.passed]="i <= activeIndex()" [style.--i]="i">
           <a (click)="setMenu(false)" [appScrollTo]="section.id" [href]="'#' + section.id">
-            <span class="num mono">0{{ i + 1 }}</span>
+            <span class="dot"></span>
             {{ section.label | t }}
           </a>
         </li>
@@ -35,7 +35,6 @@
     <button
       (click)="setMenu(!menuOpen())"
       [attr.aria-expanded]="menuOpen()"
-      [attr.aria-label]="(menuOpen() ? 'ctl.menuClose' : 'ctl.menuOpen') | t"
       aria-controls="mobile-menu"
       class="round menu"
       type="button"
@@ -51,8 +50,6 @@
 
     <button
       (click)="theme.toggle()"
-      [attr.aria-label]="(theme.mode() === 'dark' ? 'ctl.themeLight' : 'ctl.themeDark') | t"
-      [title]="(theme.mode() === 'dark' ? 'ctl.themeLight' : 'ctl.themeDark') | t"
       class="round"
       type="button"
     >
@@ -68,8 +65,6 @@
 
     <button
       (click)="i18n.toggle()"
-      [attr.aria-label]="'ctl.language' | t"
-      [title]="'ctl.language' | t"
       class="round"
       type="button"
     >
@@ -78,15 +73,13 @@
 
     <button
       (click)="motion.toggle()"
-      [attr.aria-label]="(motion.off() ? 'ctl.motionPlay' : 'ctl.motionPause') | t"
       [attr.aria-pressed]="motion.off()"
-      [title]="(motion.off() ? 'ctl.motionPlay' : 'ctl.motionPause') | t"
       class="round"
       type="button"
     >
       <svg aria-hidden="true" viewBox="0 0 24 24">
         @if (motion.off()) {
-          <path d="M8 5v14l11-7z" />
+          <path d="M7.5 5v14l11-7z" />
         } @else {
           <path d="M9 5v14M15 5v14" />
         }
@@ -95,9 +88,7 @@
 
     <button
       (click)="music.toggle()"
-      [attr.aria-label]="(music.playing() ? 'ctl.musicStop' : 'ctl.musicPlay') | t"
       [attr.aria-pressed]="music.playing()"
-      [title]="(music.playing() ? 'ctl.musicStop' : 'ctl.musicPlay') | t"
       class="round"
       type="button"
     >
