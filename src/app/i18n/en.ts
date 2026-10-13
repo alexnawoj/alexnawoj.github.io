@@ -6,6 +6,15 @@ export const EN = {
   'nav.projects': 'Projects',
   'nav.contact': 'Contact',
 
+  // ctl
+  'ctl.themeLight': 'Switch to light theme',
+  'ctl.themeDark': 'Switch to dark theme',
+  'ctl.language': 'Switch language',
+  'ctl.menuOpen': 'Open menu',
+  'ctl.menuClose': 'Close menu',
+  'ctl.motionPause': 'Pause animations',
+  'ctl.motionPlay': 'Play animations',
+
   // hero
   'hero.eyebrow': 'HELLO, WORLD',
   'hero.title': 'Building things for',
@@ -82,6 +91,8 @@ export const EN = {
   'contact.footer.built': 'Music by Sub_Clair from Pixabay',
   'contact.footer.top': 'Back to top ↑',
 
+  'ctl.musicPlay': 'Play music',
+  'ctl.musicStop': 'Stop music'
 } as const;
 
 export type Key = keyof typeof EN;

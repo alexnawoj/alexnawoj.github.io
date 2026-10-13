@@ -35,6 +35,7 @@
     <button
       (click)="setMenu(!menuOpen())"
       [attr.aria-expanded]="menuOpen()"
+      [attr.aria-label]="(menuOpen() ? 'ctl.menuClose' : 'ctl.menuOpen') | t"
       aria-controls="mobile-menu"
       class="round menu"
       type="button"
@@ -50,6 +51,7 @@
 
     <button
       (click)="theme.toggle()"
+      [attr.aria-label]="(theme.mode() === 'dark' ? 'ctl.themeLight' : 'ctl.themeDark') | t"
       class="round"
       type="button"
     >
@@ -63,17 +65,14 @@
       </svg>
     </button>
 
-    <button
-      (click)="i18n.toggle()"
-      class="round"
-      type="button"
-    >
+    <button (click)="i18n.toggle()" [attr.aria-label]="'ctl.language' | t" class="round" type="button">
       {{ i18n.lang().toUpperCase() }}
     </button>
 
     <button
       (click)="motion.toggle()"
       [attr.aria-pressed]="motion.off()"
+      [attr.aria-label]="(motion.off() ? 'ctl.motionPlay' : 'ctl.motionPause') | t"
       class="round"
       type="button"
     >
@@ -89,6 +88,7 @@
     <button
       (click)="music.toggle()"
       [attr.aria-pressed]="music.playing()"
+      [attr.aria-label]="(music.playing() ? 'ctl.musicStop' : 'ctl.musicPlay') | t"
       class="round"
       type="button"
     >

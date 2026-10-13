@@ -29,7 +29,7 @@ const TWINKLERS = Array.from({ length: 28 }, () => ({
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './sky.scss',
   template: `
-    <canvas #canvas></canvas>
+    <canvas #canvas aria-hidden="true" role="presentation"></canvas>
     @for (star of twinklers; track $index) {
       <i [style.--d]="star.duration + 's'" [style.--delay]="star.delay + 's'" [style.--s]="star.size + 'px'" [style.--x]="star.x" [style.--y]="star.y"></i>
     }
