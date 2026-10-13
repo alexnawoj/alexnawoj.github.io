@@ -158,7 +158,9 @@ $stops: 4;
   padding: 0;
   place-items: center;
   position: relative;
+  -webkit-tap-highlight-color: transparent;
   text-indent: 0.04em; // letter-spacing also adds space after the last letter; this balances it so EN / PL sit centred
+  touch-action: manipulation; // no double-tap-to-zoom, which swallowed the 'finger lifted' event on fast taps
   transition:
     transform 0.3s $ease,
     background 0.3s,
@@ -169,6 +171,7 @@ $stops: 4;
   svg {
     fill: none;
     height: 17px;
+    pointer-events: none; // the finger always lands on the button, never on an icon that is about to be swapped
     stroke: currentColor;
     stroke-linecap: round;
     stroke-linejoin: round;
@@ -177,17 +180,53 @@ $stops: 4;
     width: 17px;
   }
 
-  &:hover {
+  // hover only on devices that really hover: on a touch screen it would stay stuck after a tap
+  @media (hover: hover) {
+    &:hover {
+      background: var(--acc2);
+      box-shadow: 0 6px 22px -6px rgba(139, 92, 246, 0.8);
+      color: #fff;
+      opacity: 1;
+      transform: translateY(-3px);
+    }
+  }
+
+  &:active {
     background: var(--acc2);
-    box-shadow: 0 6px 22px -6px rgba(139, 92, 246, 0.8);
     color: #fff;
     opacity: 1;
-    transform: translateY(-3px);
   }
 
   &:focus-visible {
     outline: 2px solid var(--acc);
     outline-offset: 3px;
+  }
+}
+
+/* tooltip with the button's label, for mouse users on desktop (phones have no hover) */
+.round::after {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  bottom: calc(100% + 10px);
+  color: var(--ink);
+  content: attr(aria-label);
+  font: 400 11px/1 'JetBrains Mono', monospace;
+  left: 0;
+  letter-spacing: 0;
+  opacity: 0;
+  padding: 7px 10px;
+  pointer-events: none;
+  position: absolute;
+  text-indent: 0;
+  transition: opacity 0.2s 0.35s;
+  white-space: nowrap;
+}
+
+@media (hover: hover) and (min-width: #{$bp-mobile + 1}) {
+  .round:hover::after,
+  .round:focus-visible::after {
+    opacity: 1;
   }
 }
 
@@ -227,7 +266,7 @@ $stops: 4;
   ul {
     display: flex;
     flex-direction: column;
-    gap: 34px;
+    gap: clamp(36px, 9vh, 80px); // grows with the screen height
     list-style: none;
     padding: 0;
     position: relative;
