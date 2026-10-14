@@ -10,54 +10,54 @@ export interface Project {
   stack: string[];
   meta: Key;
   url: string;
-  status: 'in-progress' | 'done' | 'archived';
+  status: 'in-progress' | 'maintaining' | 'archived';
 }
 
 export const STATUS_LABELS: Record<Project['status'], Key> = {
   'in-progress': 'projects.status.progress',
-  done: 'projects.status.done',
+  maintaining: 'projects.status.maintaining',
   archived: 'projects.status.archived'
 };
 
 export const PROJECTS: Project[] = [
   {
     name: 'This portfolio!',
-    image: '/projects/template.png',
-    animation: '/projects/template.gif',
+    image: '/projects/portfolio.png',
+    animation: '/projects/portfolio.webp',
     desc: 'projects.portfolio.desc',
     stack: ['Angular', 'TypeScript'],
     meta: 'projects.portfolio.meta',
-    url: 'github.com/portfolio',
-    status: 'in-progress'
+    url: 'github.com/alexnawoj/alexnawoj.github.io',
+    status: 'maintaining'
   },
   {
-    name: 'Template',
-    image: '/projects/template.png',
-    animation: '/projects/template.gif',
-    desc: 'projects.editorial.desc',
+    name: 'Asteroid Simulation',
+    image: '/projects/asteroid-sim.png',
+    animation: '/projects/asteroid-sim.webp',
+    desc: 'projects.asteroid-sim.desc',
     stack: ['Java', 'Swing', 'ESRI'],
-    meta: 'projects.editorial.meta',
-    url: 'github.com/test1',
-    status: 'done'
-  },
-  {
-    name: 'Template',
-    image: '/projects/template.png',
-    animation: '/projects/template.gif',
-    desc: 'projects.collab.desc',
-    stack: ['Java', 'Spring Boot', 'React'],
-    meta: 'projects.collab.meta',
-    url: 'github.com/test2',
+    meta: 'projects.asteroid-sim.meta',
+    url: 'github.com/alexnawoj/asteroid-simulation',
     status: 'archived'
   },
   {
-    name: 'Template',
-    image: '/projects/template.png',
-    animation: '/projects/template.gif',
-    desc: 'projects.collab.desc',
+    name: 'Yet Another Launcher',
+    image: '/projects/yal.png',
+    animation:'/projects/yal.webp',
+    desc: 'projects.yal.desc',
     stack: ['Kotlin', 'Android'],
-    meta: 'projects.collab.meta',
-    url: 'github.com/test2',
-    status: 'done'
+    meta: 'projects.yal.meta',
+    url: 'github.com/to-be-published',
+    status: 'in-progress'
+  },
+  {
+    name: 'Quantum Mail',
+    image: '/projects/qm.png',
+    animation: '/projects/qm.webp',
+    desc: 'projects.qm.desc',
+    stack: ['Java', 'Spring Boot', 'React', 'JavaScript'],
+    meta: 'projects.qm.meta',
+    url: 'github.com/alexnawoj/quantum-mail',
+    status: 'archived'
   }
 ];
