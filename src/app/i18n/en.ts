@@ -14,6 +14,8 @@ export const EN = {
   'ctl.menuClose': 'Close menu',
   'ctl.motionPause': 'Pause animations',
   'ctl.motionPlay': 'Play animations',
+  'ctl.musicPlay': 'Play music',
+  'ctl.musicStop': 'Stop music',
 
   // hero
   'hero.eyebrow': 'HELLO, WORLD',
@@ -27,13 +29,13 @@ export const EN = {
   'about.eyebrow': 'A BIT ABOUT ME',
   'about.title1': 'Curious by nature.',
   'about.title2': 'Builder by choice.',
-  'about.p1': 'I got into software at 13, because I wanted to understand how things work - not just use them. That curiosity dragged me through languages, new technologies, solving bugs at 2am. It still does.',
-  'about.p2': 'To this day, I enjoy turning ideas into working solutions. For me, this is the best part of development - understanding a problem, exploring possible outcomes and building a working application from top to bottom.',
+  'about.p1': 'I got into software at 13, because I wanted to understand how things work, not just use them. That curiosity dragged me through languages, new technologies, solving bugs at 2am. It still does.',
+  'about.p2': 'To this day, I enjoy turning ideas into working solutions. For me, this is the best part of development: understanding a problem, exploring possible outcomes and building a working application from top to bottom.',
   'about.p3': 'I\'m looking for internship opportunities where I can apply my skills, work on meaningful software, and continue growing as a developer.',
-  'about.offscreen': '✧ Off-screen: coffee, night walks, and one more side project.',
+  'about.offscreen': '✧ Off-screen: good book, writing and nature dwelling',
   'about.status.open': 'Open to opportunities',
   'about.status.closed': 'Not looking right now',
-  'about.status.detail': 'Currently interested in internships.',
+  'about.status.detail': 'Currently interested in internships',
   'about.stats.years': 'Years coding',
   'about.stats.projects': 'Projects shipped',
   'about.stats.tech': 'Technologies',
@@ -41,7 +43,7 @@ export const EN = {
   'about.exp.present': 'now',
   'about.exp.1': 'Computer Science',
   'about.exp.2': 'Internship',
-  'about.exp.3': 'Technical Secondary School',
+  'about.exp.3': 'IT Technical Secondary School',
 
   // skills
   'tech.eyebrow': 'MY TOOLKIT',
@@ -90,9 +92,6 @@ export const EN = {
   'contact.form.fail': 'Something went wrong. Please try again, or email me directly.',
   'contact.footer.built': 'Music by Sub_Clair from Pixabay',
   'contact.footer.top': 'Back to top ↑',
-
-  'ctl.musicPlay': 'Play music',
-  'ctl.musicStop': 'Stop music'
 } as const;
 
 export type Key = keyof typeof EN;

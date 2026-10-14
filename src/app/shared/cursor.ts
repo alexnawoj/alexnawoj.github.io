@@ -52,7 +52,7 @@ export class Cursor {
 
       // the ring eases towards the pointer a bit every frame; the loop stops once it has caught up
       const chase = () => {
-        const speed = this.motion.off() ? 1 : 0.1;
+        const speed = this.motion.off() ? 1.5 : 0.1;
         ringX += (x - ringX) * speed;
         ringY += (y - ringY) * speed;
         ring.style.translate = `${ringX}px ${ringY}px`;
