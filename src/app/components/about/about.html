@@ -39,11 +39,9 @@
         <ol>
           @for (job of experience; track $index) {
             <li [class.now]="!job.to">
-              <div class="head">
                 <span class="role">{{ job.role | t }}</span>
+                <span class="place">{{ job.place }}</span>
                 <span class="period mono">{{ job.from }} — {{ job.to ?? ('about.exp.present' | t) }}</span>
-              </div>
-              <span class="place">{{ job.place }}</span>
             </li>
           }
         </ol>

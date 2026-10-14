@@ -9,8 +9,8 @@ export interface Stat {
 }
 
 export const STATS: Stat[] = [
-  { value: 3, suffix: '+', label: 'about.stats.years' },
-  { value: 12, suffix: '+', label: 'about.stats.projects' },
+  { value: 9, suffix: '+', label: 'about.stats.years' },
+  { value: 10, suffix: '+', label: 'about.stats.projects' },
   { value: 20, suffix: '+', label: 'about.stats.tech' }
 ];
 
@@ -22,7 +22,7 @@ export interface Job {
 }
 
 export const EXPERIENCE: Job[] = [
-  { role: 'about.exp.1', place: 'Company Name', from: 2025 },
-  { role: 'about.exp.2', place: 'Company Name', from: 2024, to: 2025 },
-  { role: 'about.exp.3', place: 'University Name', from: 2021, to: 2025 }
+  { role: 'about.exp.1', place: 'Akademia Tarnowska', from: 2024 },
+  { role: 'about.exp.2', place: 'CHIP Computers', from: 2022 },
+  { role: 'about.exp.3', place: 'Radomyśl Wielki', from: 2019, to: 2024 }
 ];
