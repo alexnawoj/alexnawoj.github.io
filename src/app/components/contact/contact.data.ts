@@ -14,8 +14,8 @@ export interface Social {
 export const SOCIALS: Social[] = [
   {
     name: 'Email',
-    handle: 'alex@morgan.com',
-    href: 'mailto:alex@morgan.com',
+    handle: 'alex.nawoj@protonmail.com',
+    href: 'mailto:alex.nawoj@protonmail.com',
     icon: {
       viewBox: '0 0 24 24',
       path: 'M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z'
@@ -23,8 +23,8 @@ export const SOCIALS: Social[] = [
   },
   {
     name: 'GitHub',
-    handle: '@alexmorgan',
-    href: 'https://github.com/alexmorgan',
+    handle: '@alexnawoj',
+    href: 'https://github.com/alexnawoj',
     target: '_blank',
     icon: {
       viewBox: '0 0 16 16',
@@ -33,8 +33,8 @@ export const SOCIALS: Social[] = [
   },
   {
     name: 'LinkedIn',
-    handle: 'in/alexmorgan',
-    href: 'https://linkedin.com/in/alexmorgan',
+    handle: 'in/alexnawoj',
+    href: 'https://linkedin.com/in/alexnawoj',
     target: '_blank',
     icon: {
       viewBox: '0 0 24 24',
