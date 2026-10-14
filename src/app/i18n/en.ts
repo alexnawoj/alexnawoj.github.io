@@ -65,12 +65,12 @@ export const EN = {
   'projects.source': 'Source code',
   'projects.portfolio.desc': 'My beautiful portfolio',
   'projects.portfolio.meta': 'Frontend development · Data visualization · Responsive UI',
-  'projects.asteroid-sim.desc': 'A quieter corner of the internet. A content-driven travel journal with immersive storytelling, a custom CMS, and a focus on accessibility.',
-  'projects.asteroid-sim.meta': 'Frontend development · CMS integration · Accessible design',
-  'projects.yal.desc': 'Less busywork, more momentum. A collaborative project workspace with drag-and-drop boards, live updates, and a little room to breathe.',
-  'projects.yal.meta': 'Full-stack development · Real-time sync · Authentication',
-  'projects.qm.desc': "qm desc",
-  'projects.qm.meta': 'qm meta',
+  'projects.asteroid-sim.desc': 'Desktop application for simulating the impact of an asteroid at a selected location on Earth at set parameters. The simulation combines a fourth-order Runge-Kutta numerical integration method with an impact-crater scaling model based on Holsapple (1993).',
+  'projects.asteroid-sim.meta': 'Frontend development · Simulation · Physics',
+  'projects.yal.desc': 'Android Launcher app that allows user to customize about anything – from list of apps\' appearance through behavior on swipes to widget properties. Bundled with ability to import or export settings to convenient JSON.',
+  'projects.yal.meta': 'Frontend development · Data Store · Customization',
+  'projects.qm.desc': "A full-stack email client for managing multiple email accounts from a single interface. Features include email composition and organization, attachment handling, dynamic search, contact management, and customizable themes. Supports Google integration and IMAP/POP accounts.",
+  'projects.qm.meta': 'Full-stack development ',
 
   // contact
   'contact.eyebrow': 'LET\'S CONNECT',
@@ -90,7 +90,7 @@ export const EN = {
   'contact.form.sending': 'Sending…',
   'contact.form.send': 'Send message',
   'contact.form.fail': 'Something went wrong. Please try again, or email me directly.',
-  'contact.footer.built': 'Music by Sub_Clair from Pixabay',
+  'contact.footer.built': 'Built with ♥ and icons by jsDelivr, music from Pixabay',
   'contact.footer.top': 'Back to top ↑',
 } as const;
 
