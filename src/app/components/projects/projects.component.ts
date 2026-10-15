@@ -19,9 +19,13 @@ export class ProjectsComponent {
   protected readonly hovered = signal<number | null>(null);
   private readonly motion = inject(Motion);
 
-  /** the still image, or the animated one while the card is hovered (and animations are on) */
+  /** true while the animated preview is playing: the card is hovered / held, has an animation, and animations are on */
+  protected isPlaying(project: Project, index: number) {
+    return this.hovered() === index && !!project.animation && !this.motion.off();
+  }
+
+  /** the still image, or the animated one while it is playing */
   protected background(project: Project, index: number) {
-    const animate = this.hovered() === index && !!project.animation && !this.motion.off();
-    return `url(${animate ? project.animation : project.image})`;
+    return `url(${this.isPlaying(project, index) ? project.animation : project.image})`;
   }
 }

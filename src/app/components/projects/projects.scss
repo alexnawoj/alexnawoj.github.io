@@ -132,7 +132,16 @@
   position: absolute;
   text-transform: uppercase;
   top: 12px;
+  transition:
+    opacity 0.25s,
+    transform 0.25s;
   z-index: 3;
+}
+
+/* the label steps aside while the preview plays (mouse hover, or a finger held on the card) */
+.thumb.playing .status {
+  opacity: 0;
+  transform: translateY(-6px);
 }
 
 .status[data-status='in-progress'] {

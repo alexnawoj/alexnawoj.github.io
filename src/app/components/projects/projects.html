@@ -13,6 +13,7 @@
           (pointerleave)="hovered.set(null)"
           [attr.data-cursor]="project.animation ? 'hidden' : null"
           [style.background-image]="background(project, i)"
+          [class.playing]="isPlaying(project, i)"
           appGlow
           class="thumb"
         >
