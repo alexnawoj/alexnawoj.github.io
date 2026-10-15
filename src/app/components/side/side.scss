@@ -1,8 +1,7 @@
 @use '../../../styles/tokens' as *;
 
 $row: 21px;
-$gap: 56px;
-$step: $row + $gap;
+$gap: clamp(32px, 10vh, 200px);
 $stops: 4;
 
 .side {
@@ -82,7 +81,7 @@ $stops: 4;
   // the part of the line you have already scrolled through
   .fill {
     background: var(--acc);
-    height: calc(#{$step} * #{$stops});
+    height: calc((#{$row} + #{$gap}) * #{$stops});
     left: 3px;
     pointer-events: none;
     position: absolute;
