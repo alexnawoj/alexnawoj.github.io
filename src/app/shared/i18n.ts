@@ -2,8 +2,12 @@ import { afterNextRender, ApplicationRef, inject, Injectable, Pipe, type PipeTra
 import { EN, type Key } from '../i18n/en';
 import { PL } from '../i18n/pl';
 import { Motion } from './motion';
+import { Meta, Title } from '@angular/platform-browser';
 
 export type Lang = 'en' | 'pl';
+
+/** Value of <meta property="og:locale"> for each language. */
+const OG_LOCALES: Record<Lang, string> = { en: 'en_US', pl: 'pl_PL' };
 
 /** Register new languages here. */
 const DICTIONARIES: Record<Lang, Record<Key, string>> = { en: EN, pl: PL };
@@ -28,6 +32,8 @@ export class I18n {
   private readonly motion = inject(Motion);
   private readonly appRef = inject(ApplicationRef);
   private styled = false;
+  private readonly title = inject(Title);
+  private readonly meta = inject(Meta);
 
   constructor() {
     // restore the saved choice, otherwise follow the browser language
@@ -83,9 +89,26 @@ export class I18n {
     document.head.appendChild(style);
   }
 
+  /** Page title, description and social-preview tags follow the language (keys `site.title`, `site.desc`). */
+  private updateHead(lang: Lang) {
+    const title = this.translate('site.title');
+    const desc = this.translate('site.desc');
+    this.title.setTitle(title);
+    this.meta.updateTag({ name: 'description', content: desc });
+    this.meta.updateTag({ property: 'og:title', content: title });
+    this.meta.updateTag({ property: 'og:description', content: desc });
+    this.meta.updateTag({ property: 'og:locale', content: OG_LOCALES[lang] });
+    // og:locale:alternate lists every OTHER language
+    this.meta.getTags('property="og:locale:alternate"').forEach((tag) => this.meta.removeTagElement(tag));
+    LANGUAGES.filter((l) => l !== lang).forEach((l) =>
+      this.meta.addTag({ property: 'og:locale:alternate', content: OG_LOCALES[l] })
+    );
+  }
+
   private set(lang: Lang, save = false) {
     this.lang.set(lang);
     document.documentElement.lang = lang;
+    this.updateHead(lang);
     if (!save) return;
     try {
       localStorage.setItem('lang', lang);

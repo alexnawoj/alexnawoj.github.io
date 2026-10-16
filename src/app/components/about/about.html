@@ -38,11 +38,11 @@
         <h4 class="mono">{{ 'about.exp.title' | t }}</h4>
         <ol>
           @for (job of experience; track $index) {
-            <li [class.now]="!job.to">
-                <span class="role">{{ job.role | t }}</span>
-                <span class="place">{{ job.place }}</span>
-                <span class="period mono">{{ job.from }} — {{ job.to ?? ('about.exp.present' | t) }}</span>
-            </li>
+          <li [class.now]="job.to === 'now'">
+            <span class="role">{{ job.role | t }}</span>
+            <span class="period mono">{{ job.from }}@if (job.to) { — {{ job.to === 'now' ? ('about.exp.present' | t) : job.to }} }</span>
+            <span class="place">{{ job.place }}</span>
+          </li>
           }
         </ol>
       </div>
