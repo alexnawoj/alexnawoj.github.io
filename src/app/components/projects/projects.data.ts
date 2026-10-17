@@ -21,11 +21,11 @@ export const STATUS_LABELS: Record<Project['status'], Key> = {
 
 export const PROJECTS: Project[] = [
   {
-    name: 'This portfolio!',
+    name: 'Portfolio',
     image: '/projects/portfolio.png',
-    animation: '/projects/portfolio.webp',
+    animation: '/projects/portfolio.png', // TODO add a webp
     desc: 'projects.portfolio.desc',
-    stack: ['Angular', 'TypeScript'],
+    stack: ['Angular', 'TypeScript', 'SCSS'],
     meta: 'projects.portfolio.meta',
     url: 'github.com/alexnawoj/alexnawoj.github.io',
     status: 'maintaining'
