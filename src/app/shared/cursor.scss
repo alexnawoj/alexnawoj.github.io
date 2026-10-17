@@ -4,10 +4,13 @@ app-cursor {
   display: contents;
 }
 
-// The native cursor is hidden only once the custom one is running (not on touch, not without JS).
-html.has-cursor,
-html.has-cursor * {
-  cursor: none !important;
+// The native cursor is hidden only once the custom one is running (not on touch, not without JS,
+// and not while animations are off, when the system cursor is back).
+html.has-cursor:not([data-motion='off']) {
+  &,
+  * {
+    cursor: none !important;
+  }
 }
 
 .cur-ring,
@@ -89,4 +92,13 @@ html.has-cursor * {
   margin: 0;
   translate: -50% -50%;
   width: 30px;
+}
+
+// Animations off: the custom cursor disappears.
+:root[data-motion='off'] {
+  .cur-ring,
+  .cur-dot,
+  .cur-ripple {
+    display: none;
+  }
 }

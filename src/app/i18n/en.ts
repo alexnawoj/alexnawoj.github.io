@@ -94,7 +94,7 @@ export const EN = {
   'contact.form.sending': 'Sending…',
   'contact.form.send': 'Send message',
   'contact.form.fail': 'Something went wrong. Please try again, or email me directly.',
-  'contact.footer.built': 'Built with ♥ and icons by jsDelivr, music from Pixabay',
+  'contact.footer.built': 'Built with ♥',
   'contact.footer.top': 'Back to top ↑'
 } as const;
 
