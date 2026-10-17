@@ -3,7 +3,7 @@ import type { Key } from './en';
 /** Polish. Typed so that a missing key is a compile error. */
 export const PL: Record<Key, string> = {
 
-  'site.title': 'Alex Morgan – Full-stack developer',
+  'site.title': 'Aleksander Nawój – programista full-stack',
   'site.desc': 'Programista full-stack tworzący szybkie, dostępne produkty webowe.',
 
   // nav

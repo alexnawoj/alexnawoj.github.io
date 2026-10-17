@@ -1,6 +1,6 @@
 export const EN = {
 
-  'site.title': 'Alex Morgan – Full-stack developer',
+  'site.title': 'Aleksander Nawój – Full-stack developer',
   'site.desc': 'Full-stack developer building fast, accessible web products.',
 
   // nav
