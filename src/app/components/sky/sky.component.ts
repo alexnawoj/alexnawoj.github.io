@@ -1,4 +1,12 @@
-import { afterNextRender, ChangeDetectionStrategy, Component, DestroyRef, ElementRef, inject, viewChild } from '@angular/core';
+import {
+  afterNextRender,
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  ElementRef,
+  inject,
+  viewChild
+} from '@angular/core';
 
 const STATIC_STARS = 110;
 const COLORS = ['#ffffff', '#ffffff', '#ffffff', '#ddd6fe', '#c4b5fd'];

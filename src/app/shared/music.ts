@@ -3,6 +3,7 @@ import { Injectable, signal } from '@angular/core';
 const TRACK = '/music/bg.mp3';
 const VOLUME = 0.4;
 
+/** Background music: created on the first click, looped, started and stopped from the sidebar. */
 @Injectable({ providedIn: 'root' })
 export class Music {
   readonly playing = signal(false);
@@ -19,7 +20,7 @@ export class Music {
     }
   }
 
-  // created on the first click, so nothing is downloaded until the visitor asks for music
+  // nothing is downloaded until the visitor asks for music
   private create() {
     const audio = new Audio(TRACK);
     audio.loop = true;
@@ -31,8 +32,7 @@ export class Music {
     audio.addEventListener('pause', () => !audio.ended && this.playing.set(false)); // a track ending is not a pause
     audio.addEventListener('error', () => this.playing.set(false));
 
-    // `loop` can silently fail (for example when the server can't seek inside the file), and then the
-    // track just ends. So when that happens, start it again by hand.
+    // `loop` can silently fail (e.g. a server that can't seek inside the file), so restart the track by hand
     audio.addEventListener('ended', () => {
       audio.currentTime = 0;
       audio.play().catch(() => {

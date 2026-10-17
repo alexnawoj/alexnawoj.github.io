@@ -1,25 +1,16 @@
-// Hover effects that MOVE things are cancelled when animations are off
-// (colour / border / shadow changes still apply).
-$hover-movers:
-  '.btn',
-  '.tab',
-  '.tile',
-  '.card',
-  '.social',
-  '.round',
-  '.proj',
-  '.chips span',
-  '.links a',
-  '.soc a',
-  '.email',
-  '.send',
-  'footer a';
-
-// Global styles: tokens, base, and primitives shared by several sections.
+// Global styles: theme variables, base, and primitives shared by several sections.
 // Everything section-specific lives in the component's own .scss file.
+
+@use 'styles/mixins' as *;
+
+// Hover effects on these selectors move things, so they are cancelled when animations are off
+// (colour, border and shadow changes still apply).
+$hover-movers: '.btn', '.tab', '.tile', '.social', '.round', '.proj', '.chips span', '.links a', '.send';
+
+// ─── Themes ───────────────────────────────────────────
 :root {
-  --acc: #a78bfa;
-  --acc2: #8b5cf6;
+  --acc: #{$lilac};
+  --acc2: #{$violet};
   --bg: #0a0912;
   --card: rgba(20, 17, 36, 0.72);
   --cta: linear-gradient(135deg, rgba(40, 28, 78, 0.7), rgba(16, 13, 30, 0.8));
@@ -59,13 +50,13 @@ $hover-movers:
 
   color-scheme: light;
 
-  // stars make no sense on a light page (and hiding the sky also stops its animation)
+  // Stars make no sense on a light page; hiding the sky also stops its animation.
   app-sky {
     display: none;
   }
 }
 
-// ─── Base ──────────────────────────────────────────────
+// ─── Base ─────────────────────────────────────────────
 * {
   box-sizing: border-box;
   margin: 0;
@@ -78,34 +69,33 @@ html {
 body {
   background: var(--bg);
   color: var(--ink);
-  font: 400 16px/1.6 Inter, system-ui, sans-serif;
+  font: 400 16px/1.6 $font-sans;
   -webkit-font-smoothing: antialiased;
-  transition: background-color 0.3s, color 0.3s;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
 }
 
 a {
   color: inherit;
   text-decoration: none;
 
-  &:focus-visible {
-    outline: 2px solid var(--acc);
-    outline-offset: 3px;
-  }
+  @include focus-ring;
 
   &:hover > .arr {
     transform: translate(3px, -3px);
   }
 }
 
-// ─── Utilities ─────────────────────────────────────────
+// ─── Utilities ────────────────────────────────────────
 .mono {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: $font-mono;
   font-size: 11px;
   letter-spacing: 0.06em;
 }
 
 .sans {
-  font-family: Inter, sans-serif;
+  font-family: $font-sans;
   letter-spacing: 0;
 }
 
@@ -125,27 +115,25 @@ a {
   font-size: 14px;
 }
 
+// Arrow glyph that nudges when its link is hovered (see `a:hover > .arr`).
 .arr {
   display: inline-block;
   transition: transform 0.3s;
 }
 
-// ─── Section scaffolding ───────────────────────────────
+// ─── Section scaffolding ──────────────────────────────
 .sec {
   max-width: 1180px;
   padding: 96px 0 0;
 }
 
-:root:not([data-motion='off']) .sec:hover .eyebrow u {
-  width: 56px;
-}
-
+// Small label above a section title, with a line that grows while the section is hovered.
 .eyebrow {
   align-items: center;
   color: var(--mut);
   contain: layout;
   display: flex;
-  font: 400 11px 'JetBrains Mono', monospace;
+  font: 400 11px $font-mono;
   gap: 14px;
   letter-spacing: 0.1em;
   margin-bottom: 28px;
@@ -163,12 +151,24 @@ a {
   }
 }
 
+:root:not([data-motion='off']) .sec:hover .eyebrow u {
+  width: 56px;
+}
+
 h2 {
   font-size: clamp(30px, 3.6vw, 44px);
   font-weight: 300;
   letter-spacing: -0.01em;
   line-height: 1.2;
   margin-bottom: 34px;
+}
+
+// Short line under a section title.
+.sub {
+  color: var(--mut);
+  font-size: 15px;
+  margin: -14px 0 34px;
+  max-width: 560px;
 }
 
 .body {
@@ -182,7 +182,7 @@ h2 {
   }
 }
 
-// ─── Cursor-follow glow (see the `Glow` directive) ─────
+// ─── Cursor-follow glow (see the `Glow` directive) ────
 .glow {
   overflow: hidden;
   position: relative;
@@ -190,7 +190,7 @@ h2 {
   &::after {
     background: radial-gradient(
       320px circle at var(--mx, 50%) var(--my, 50%),
-      rgba(167, 139, 250, 0.18),
+      rgba($lilac, 0.18),
       transparent 70%
     );
     content: '';
@@ -206,7 +206,20 @@ h2 {
   }
 }
 
-// ─── Animations off ────────────────────────────────────
+// ─── Shared keyframes (Angular scopes keyframes per component, so shared ones live here) ───
+@keyframes ping {
+  from {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: scale(3);
+  }
+}
+
+// ─── Animations off ───────────────────────────────────
 // Applies when the visitor flips the switch, or (until they choose) when the OS asks for reduced motion.
 @mixin no-motion {
   animation: none !important;
@@ -221,6 +234,16 @@ h2 {
   *::after {
     @include no-motion;
   }
+
+  @each $selector in $hover-movers {
+    #{$selector}:hover,
+    #{$selector}:hover * {
+      rotate: none !important;
+      scale: none !important;
+      transform: none !important;
+      translate: none !important;
+    }
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -234,14 +257,14 @@ h2 {
   }
 }
 
-:root[data-motion='off'] {
-  @each $selector in $hover-movers {
-    #{$selector}:hover,
-    #{$selector}:hover * {
-      rotate: none !important;
-      scale: none !important;
-      transform: none !important;
-      translate: none !important;
-    }
+main {
+  margin-left: var(--side);
+  padding: 0 60px 0 48px;
+  position: relative;
+  z-index: 5;
+
+  @include below($bp-mobile) {
+    margin-left: 0;
+    padding: 0 24px;
   }
 }

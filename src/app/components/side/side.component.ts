@@ -1,4 +1,15 @@
-import { ChangeDetectionStrategy, afterNextRender, Component, computed, DestroyRef, ElementRef, inject, signal, viewChild } from '@angular/core';
+import {
+  afterNextRender,
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  DestroyRef,
+  ElementRef,
+  inject,
+  signal,
+  viewChild
+} from '@angular/core';
+import { injectElement } from '../../shared/dom';
 import { I18n, T } from '../../shared/i18n';
 import { Motion } from '../../shared/motion';
 import { Music } from '../../shared/music';
@@ -27,7 +38,7 @@ export class SideComponent {
   protected readonly motion = inject(Motion);
   protected readonly music = inject(Music);
 
-  private readonly host = inject<ElementRef<HTMLElement>>(ElementRef).nativeElement;
+  private readonly host = injectElement();
   private readonly marker = viewChild.required<ElementRef<HTMLElement>>('marker');
   private readonly fill = viewChild.required<ElementRef<HTMLElement>>('fill');
 
@@ -39,7 +50,7 @@ export class SideComponent {
       const fill = this.fill().nativeElement;
       const sections = SECTIONS.map((s) => document.getElementById(s.id)!);
       const last = SECTIONS.length - 1;
-      let step = 0; // distance between two dots, read from the real layout
+      let step = 0; // distance between two dots, measured from the layout
       let shown = -1;
       let frame = 0;
 

@@ -24,13 +24,13 @@
 
       <div appGlow class="tile stats">
         @for (stat of stats; track stat.label) {
-          <div>
+        <div>
             <span class="value">
               <span [appCountUp]="stat.value">{{ stat.value }}</span
               ><span class="suffix">{{ stat.suffix }}</span>
             </span>
-            <span class="label mono">{{ stat.label | t }}</span>
-          </div>
+          <span class="label mono">{{ stat.label | t }}</span>
+        </div>
         }
       </div>
 

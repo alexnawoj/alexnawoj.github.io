@@ -12,7 +12,6 @@ import { Cursor } from './shared/cursor';
   selector: 'app-root',
   imports: [SkyComponent, SideComponent, HeroComponent, AboutComponent, TechComponent, ProjectsComponent, ContactComponent, Cursor],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrl: './app.scss',
   template: `
     <app-sky />
     <app-cursor />
@@ -27,4 +26,5 @@ import { Cursor } from './shared/cursor';
     </main>
   `
 })
-export class App {}
+export class App {
+}

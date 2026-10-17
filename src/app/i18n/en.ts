@@ -73,7 +73,7 @@ export const EN = {
   'projects.asteroid-sim.meta': 'Frontend development · Simulation · Physics',
   'projects.yal.desc': 'Android Launcher app that allows user to customize about anything – from list of apps\' appearance through behavior on swipes to widget properties. Bundled with ability to import or export settings to convenient JSON.',
   'projects.yal.meta': 'Frontend development · Data Store · Customization',
-  'projects.qm.desc': "A full-stack email client for managing multiple email accounts from a single interface. Features include email composition and organization, attachment handling, dynamic search, contact management, and customizable themes. Supports Google integration and IMAP/POP accounts.",
+  'projects.qm.desc': 'A full-stack email client for managing multiple email accounts from a single interface. Features include email composition and organization, attachment handling, dynamic search, contact management, and customizable themes. Supports Google integration and IMAP/POP accounts.',
   'projects.qm.meta': 'Full-stack development ',
 
   // contact
@@ -95,7 +95,7 @@ export const EN = {
   'contact.form.send': 'Send message',
   'contact.form.fail': 'Something went wrong. Please try again, or email me directly.',
   'contact.footer.built': 'Built with ♥ and icons by jsDelivr, music from Pixabay',
-  'contact.footer.top': 'Back to top ↑',
+  'contact.footer.top': 'Back to top ↑'
 } as const;
 
 export type Key = keyof typeof EN;

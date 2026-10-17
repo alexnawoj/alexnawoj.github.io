@@ -1,2 +1,12 @@
+// Design tokens shared by every stylesheet (colour themes live in styles.scss as CSS variables).
+
+$violet: #8b5cf6;
+$lilac: #a78bfa;
+
 $ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+$font-sans: Inter, system-ui, sans-serif;
+$font-mono: 'JetBrains Mono', monospace;
+
 $bp-mobile: 900px;
+$bp-tablet: 1100px;

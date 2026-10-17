@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, afterNextRender, Component, DestroyRef, effect, inject, signal } from '@angular/core';
+import { afterNextRender, ChangeDetectionStrategy, Component, DestroyRef, effect, inject, signal } from '@angular/core';
 import { I18n, T } from '../../shared/i18n';
 import { Motion } from '../../shared/motion';
 import { ScrollTo } from '../../shared/scroll-to';
@@ -16,12 +16,13 @@ const GAP_MS = 350; // pause on an empty line
   templateUrl: 'hero.html'
 })
 export class HeroComponent {
-  protected readonly text = signal(inject(I18n).list('hero.words')[0]);
+  private readonly i18n = inject(I18n);
+  protected readonly text = signal(this.i18n.list('hero.words')[0]);
+  private readonly motion = inject(Motion);
   private state = { index: 0, chars: 0, deleting: true };
 
   constructor() {
-    const i18n = inject(I18n);
-    const motion = inject(Motion);
+    const { i18n, motion } = this;
     const destroyRef = inject(DestroyRef);
 
     // language or motion setting changed: show the first word right away and restart from it

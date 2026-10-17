@@ -5,12 +5,14 @@
   z-index: 0;
 }
 
+// static stars are painted on the canvas once
 canvas {
   display: block;
   height: 100%;
   width: 100%;
 }
 
+// the few twinkling stars; position, size and timing come from sky.component.ts
 i {
   animation: twinkle var(--d) ease-in-out var(--delay) infinite alternate;
   background: #fff;

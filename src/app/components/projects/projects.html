@@ -5,41 +5,41 @@
 
   <div class="grid">
     @for (project of projects; track $index; let i = $index) {
-      <article class="proj">
-        <div
-          (pointercancel)="hovered.set(null)"
-          (pointerdown)="hovered.set(i)"
-          (pointerenter)="hovered.set(i)"
-          (pointerleave)="hovered.set(null)"
-          [attr.data-cursor]="project.animation ? 'hidden' : null"
-          [style.background-image]="background(project, i)"
-          [class.playing]="isPlaying(project, i)"
-          appGlow
-          class="thumb"
-        >
+    <article class="proj">
+      <div
+        (pointercancel)="hovered.set(null)"
+        (pointerdown)="hovered.set(i)"
+        (pointerenter)="hovered.set(i)"
+        (pointerleave)="hovered.set(null)"
+        [attr.data-cursor]="project.animation ? 'hidden' : null"
+        [class.playing]="isPlaying(project, i)"
+        [style.background-image]="background(project, i)"
+        appGlow
+        class="thumb"
+      >
           <span [attr.data-status]="project.status" class="status mono">
             <i class="dot"></i>
             {{ statusLabels[project.status] | t }}
           </span>
-        </div>
+      </div>
 
-        <h3>{{ project.name }}</h3>
-        <p class="body sm">{{ project.desc | t }}</p>
+      <h3>{{ project.name }}</h3>
+      <p class="body sm">{{ project.desc | t }}</p>
 
-        <div class="chips">
-          @for (tech of project.stack; track tech) {
-            <span class="mono">{{ tech }}</span>
-          }
-        </div>
+      <div class="chips">
+        @for (tech of project.stack; track tech) {
+        <span class="mono">{{ tech }}</span>
+        }
+      </div>
 
-        <p class="mono dim tiny">{{ project.meta | t }}</p>
+      <p class="mono dim tiny">{{ project.meta | t }}</p>
 
-        <p class="links">
-          <a [href]="project.url" rel="noopener noreferrer" target="_blank">
-            {{ 'projects.source' | t }} <span class="arr">↗</span>
-          </a>
-        </p>
-      </article>
+      <p class="links">
+        <a [href]="project.url" rel="noopener noreferrer" target="_blank">
+          {{ 'projects.source' | t }} <span class="arr">↗</span>
+        </a>
+      </p>
+    </article>
     }
   </div>
 </section>

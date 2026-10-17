@@ -1,0 +1,129 @@
+// Mixins shared by the global and component styles. A component needs one import:
+//   @use '<path>/styles/mixins' as *;   (it also forwards the tokens)
+//
+// Convention inside a block: plain declarations first, then mixins that emit nested rules
+// (hover, focus, ::after), so no declaration ever follows a nested rule.
+
+@use 'tokens' as *;
+
+@forward 'tokens';
+
+// ─── Layout ───────────────────────────────────────────
+
+// Wraps content in a max-width media query.
+@mixin below($width) {
+  @media (max-width: #{$width}) {
+    @content;
+  }
+}
+
+// ─── Surfaces ─────────────────────────────────────────
+
+// Bordered, rounded surface used by tiles, cards, pills and inputs.
+@mixin card($radius: 14px, $bg: var(--card)) {
+  background: $bg;
+  border: 1px solid var(--line);
+  border-radius: $radius;
+}
+
+// Hover state for cards: accent border, soft violet shadow and a small lift.
+@mixin card-hover($rise: 6px, $speed: 0.35s) {
+  transition:
+    transform $speed $ease,
+    border-color 0.3s,
+    box-shadow $speed;
+
+  &:hover {
+    border-color: rgba($lilac, 0.5);
+    box-shadow: 0 22px 44px -22px rgba($violet, 0.7);
+    transform: translateY(-$rise);
+  }
+}
+
+// ─── Interaction ──────────────────────────────────────
+
+// Accent outline for keyboard focus.
+@mixin focus-ring {
+  &:focus-visible {
+    outline: 2px solid var(--acc);
+    outline-offset: 3px;
+  }
+}
+
+// Strips the browser look from a <button> so it can be styled from scratch.
+@mixin button-reset {
+  background: none;
+  border: 0;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  padding: 0;
+}
+
+// ─── Buttons ──────────────────────────────────────────
+
+$button-glow: 0 10px 32px -6px rgba($violet, 0.75);
+
+// Filled accent background of a primary button.
+@mixin button-fill {
+  background: var(--acc2);
+  color: #fff;
+}
+
+// Violet glow on hover.
+@mixin button-glow {
+  &:hover:not(:disabled) {
+    box-shadow: $button-glow;
+  }
+}
+
+// Button or link-button that lifts on hover; `$primary` adds the fill and the glow.
+@mixin button($padding: 14px 24px, $gap: 14px, $primary: false) {
+  @if $primary {
+    @include button-fill;
+  }
+
+  align-items: center;
+  border-radius: 8px;
+  display: inline-flex;
+  font-size: 14px;
+  font-weight: 500;
+  gap: $gap;
+  padding: $padding;
+  transition:
+    transform 0.3s,
+    box-shadow 0.3s,
+    background 0.3s,
+    border-color 0.3s,
+    opacity 0.3s;
+
+  &:hover:not(:disabled) {
+    transform: translateY(-3px);
+  }
+
+  @if $primary {
+    @include button-glow;
+  }
+}
+
+// ─── Indicators ───────────────────────────────────────
+
+// Glowing status dot with a ring that expands behind it (keyframes: `ping` in styles.scss).
+// The colour comes from the `--beacon` custom property of the element or an ancestor.
+@mixin beacon($size, $glow) {
+  background: var(--beacon);
+  border-radius: 50%;
+  box-shadow: 0 0 $glow var(--beacon);
+  height: $size;
+  position: relative;
+  width: $size;
+
+  &::after {
+    animation: ping 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+    background: var(--beacon);
+    border-radius: 50%;
+    content: '';
+    inset: 0;
+    position: absolute;
+  }
+}

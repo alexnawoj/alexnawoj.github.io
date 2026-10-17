@@ -8,11 +8,13 @@ import {
   viewChild,
   ViewEncapsulation
 } from '@angular/core';
+import { injectElement } from './dom';
 import { Motion } from './motion';
 
 const HIDDEN = '[data-cursor="hidden"]';
 const INTERACTIVE = 'a[href], button, [role="button"], select, summary, input, textarea';
 
+/** Custom cursor: a dot that follows the pointer and a ring that chases it. Fine pointers only. */
 @Component({
   selector: 'app-cursor',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -24,7 +26,7 @@ const INTERACTIVE = 'a[href], button, [role="button"], select, summary, input, t
   styleUrl: 'cursor.scss'
 })
 export class Cursor {
-  private readonly host = inject<ElementRef<HTMLElement>>(ElementRef).nativeElement;
+  private readonly host = injectElement();
   private readonly motion = inject(Motion);
   private readonly ring = viewChild.required<ElementRef<HTMLElement>>('ring');
   private readonly dot = viewChild.required<ElementRef<HTMLElement>>('dot');
@@ -33,7 +35,7 @@ export class Cursor {
     const destroyRef = inject(DestroyRef);
 
     afterNextRender(() => {
-      // touch screens have no pointer to draw
+      // no custom cursor on touch screens
       if (!matchMedia('(pointer: fine)').matches) return;
 
       const root = document.documentElement;
@@ -41,7 +43,7 @@ export class Cursor {
       const dot = this.dot().nativeElement;
       const parts = [ring, dot];
 
-      // position goes in `translate` (not `transform`), so the `scale` of the hover / click states grows around the centre
+      // Position goes in `translate` (not `transform`), so the hover / click `scale` grows around the centre.
       let x = 0;
       let y = 0;
       let ringX = 0;
@@ -50,7 +52,7 @@ export class Cursor {
       let hiding = false;
       let lastTarget: EventTarget | null = null;
 
-      // the ring eases towards the pointer a bit every frame; the loop stops once it has caught up
+      // Eases the ring towards the pointer every frame; the loop stops once it has caught up.
       const chase = () => {
         const speed = this.motion.off() ? 1.5 : 0.1;
         ringX += (x - ringX) * speed;
@@ -76,7 +78,7 @@ export class Cursor {
         dot.style.translate = `${x}px ${y}px`;
         if (!frame) frame = requestAnimationFrame(chase);
 
-        if (e.target === lastTarget) return; // still over the same element: nothing to update
+        if (e.target === lastTarget) return;
         lastTarget = e.target;
 
         const target = e.target as Element | null;

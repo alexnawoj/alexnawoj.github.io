@@ -1,4 +1,4 @@
-@use '../../../styles/tokens' as *;
+@use '../../../styles/mixins' as *;
 
 .grid {
   display: grid;
@@ -7,52 +7,31 @@
   max-width: 880px;
 }
 
+// ─── Project card ───
 .thumb {
   align-items: flex-end;
-  background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  background-size: cover;
   border: 1px solid var(--line);
   border-radius: 14px;
   display: flex;
   height: 210px;
   margin-bottom: 18px;
   padding: 22px;
-  touch-action: pan-y; // vertical scrolling still works
-  -webkit-touch-callout: none; // no callout menu when holding with a finger
+  touch-action: pan-y; // vertical scrolling still works while a finger holds the card
+  -webkit-touch-callout: none;
   transition:
     transform 0.5s $ease,
     box-shadow 0.5s;
   user-select: none;
 }
 
-.mock {
-  transition: transform 0.5s;
-
-  small {
-    display: block;
-    font-size: 13px;
-    opacity: 0.6;
-  }
-
-  b {
-    display: block;
-    font-size: 26px;
-    font-weight: 400;
-    line-height: 1.15;
-    max-width: 230px;
-  }
-}
-
 .proj {
   &:hover {
     .thumb {
-      box-shadow: 0 30px 60px -28px rgba(139, 92, 246, 0.7);
+      box-shadow: 0 30px 60px -28px rgba($violet, 0.7);
       transform: translateY(-6px) scale(1.02);
-    }
-
-    .mock {
-      transform: scale(1.06) translateX(4px);
     }
 
     h3 .arr {
@@ -80,9 +59,8 @@
   margin: 18px 0 10px;
 
   span {
-    background: var(--surface);
-    border: 1px solid var(--line);
-    border-radius: 5px;
+    @include card(5px, var(--surface));
+
     color: var(--mut);
     padding: 5px 10px;
     transition:
@@ -116,7 +94,7 @@
   }
 }
 
-/* ── status badge (top-left of the image) ── */
+// ─── Status badge (top-left of the image) ───
 .status {
   align-items: center;
   background: var(--overlay);
@@ -136,62 +114,36 @@
     opacity 0.25s,
     transform 0.25s;
   z-index: 3;
+
+  // the dot's colour and ping speed show the project state
+  &[data-status='in-progress'] {
+    --beacon: #fbbf24;
+
+    .dot::after {
+      animation-duration: 1.1s;
+    }
+  }
+
+  &[data-status='maintaining'] {
+    --beacon: #4ade80;
+  }
+
+  &[data-status='archived'] {
+    --beacon: #9ca3af;
+
+    .dot::after {
+      animation-duration: 3.6s;
+      opacity: 0.5;
+    }
+  }
+
+  .dot {
+    @include beacon(7px, 8px);
+  }
 }
 
-/* the label steps aside while the preview plays (mouse hover, or a finger held on the card) */
+// the badge steps aside while the preview plays (mouse hover, or a finger held on the card)
 .thumb.playing .status {
   opacity: 0;
   transform: translateY(-6px);
-}
-
-.status[data-status='in-progress'] {
-  --c: #fbbf24;
-}
-
-.status[data-status='maintaining'] {
-  --c: #4ade80;
-}
-
-.status[data-status='archived'] {
-  --c: #9ca3af;
-}
-
-.status .dot {
-  background: var(--c);
-  border-radius: 50%;
-  box-shadow: 0 0 8px var(--c);
-  height: 7px;
-  position: relative;
-  width: 7px;
-}
-
-/* expanding ring behind the dot */
-.status .dot::after {
-  animation: ping 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
-  background: var(--c);
-  border-radius: 50%;
-  content: '';
-  inset: 0;
-  position: absolute;
-}
-
-.status[data-status='in-progress'] .dot::after {
-  animation-duration: 1.1s;
-}
-
-.status[data-status='archived'] .dot::after {
-  animation-duration: 3.6s;
-  opacity: 0.5;
-}
-
-@keyframes ping {
-  from {
-    opacity: 0.7;
-    transform: scale(1);
-  }
-
-  to {
-    opacity: 0;
-    transform: scale(3);
-  }
 }

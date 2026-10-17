@@ -1,4 +1,5 @@
-import { afterNextRender, DestroyRef, Directive, ElementRef, inject } from '@angular/core';
+import { afterNextRender, DestroyRef, Directive, inject } from '@angular/core';
+import { injectElement } from './dom';
 import { Motion } from './motion';
 
 /**
@@ -12,7 +13,7 @@ import { Motion } from './motion';
 })
 export class Glow {
   constructor() {
-    const el = inject<ElementRef<HTMLElement>>(ElementRef).nativeElement;
+    const el = injectElement();
     const motion = inject(Motion);
     const destroyRef = inject(DestroyRef);
 

@@ -1,11 +1,6 @@
-.sub {
-  color: var(--mut);
-  font-size: 15px;
-  margin: -14px 0 34px;
-  max-width: 560px;
-}
+@use '../../../styles/mixins' as *;
 
-/* ── filter tabs ── */
+// ─── Filter tabs ───
 .tabs {
   display: flex;
   flex-wrap: wrap;
@@ -14,63 +9,53 @@
 }
 
 .tab {
+  @include button-reset;
+  @include card(99px, var(--surface));
+
   align-items: center;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 99px;
   color: var(--mut);
-  cursor: pointer;
   display: inline-flex;
-  font: inherit;
   font-size: 13px;
   gap: 8px;
   padding: 8px 16px;
   transition:
-    transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1),
+    transform 0.25s $ease,
     color 0.25s,
     background 0.25s,
     border-color 0.25s,
     box-shadow 0.25s;
+
+  small {
+    background: var(--surface-2);
+    border-radius: 99px;
+    font-size: 10px;
+    min-width: 20px;
+    padding: 1px 6px;
+    text-align: center;
+    transition: background 0.25s;
+  }
+
+  &:hover {
+    border-color: rgba($lilac, 0.55);
+    color: var(--ink);
+    transform: translateY(-2px);
+  }
+
+  @include focus-ring;
+
+  &.on {
+    background: var(--acc2);
+    border-color: var(--acc2);
+    box-shadow: 0 8px 26px -8px rgba($violet, 0.8);
+    color: #fff;
+
+    small {
+      background: rgba(255, 255, 255, 0.22);
+    }
+  }
 }
 
-.tab small {
-  background: var(--surface-2);
-  border-radius: 99px;
-  font-size: 10px;
-  min-width: 20px;
-  padding: 1px 6px;
-  text-align: center;
-  transition: background 0.25s;
-}
-
-.tab:hover {
-  border-color: rgba(167, 139, 250, 0.55);
-  color: var(--ink);
-  transform: translateY(-2px);
-}
-
-.tab:focus-visible {
-  outline: 2px solid var(--acc);
-  outline-offset: 3px;
-}
-
-.tab.on {
-  background: var(--acc2);
-  border-color: var(--acc2);
-  box-shadow: 0 8px 26px -8px rgba(139, 92, 246, 0.8);
-  color: #fff;
-}
-
-.tab.on small {
-  background: rgba(255, 255, 255, 0.22);
-}
-
-.meta {
-  font-size: 10px;
-  margin-bottom: 22px;
-}
-
-/* ── tool tiles ── */
+// ─── Tool tiles ───
 .grid {
   align-content: start;
   display: grid;
@@ -80,48 +65,39 @@
 }
 
 .tile {
+  @include card;
+
   align-items: center;
-  animation: pop 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
+  animation: pop 0.5s $ease backwards;
   animation-delay: calc(var(--i) * 28ms);
-  background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: 14px;
   display: flex;
   flex-direction: column;
   gap: 14px;
   padding: 24px 12px 18px;
-  transition:
-    transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
-    border-color 0.3s,
-    box-shadow 0.35s;
-}
 
-.tile:hover {
-  border-color: rgba(167, 139, 250, 0.5);
-  box-shadow: 0 22px 44px -22px rgba(139, 92, 246, 0.7);
-  transform: translateY(-6px);
-}
+  @include card-hover;
 
-.tile img {
-  height: 36px;
-  object-fit: contain;
-  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-  width: 36px;
-}
+  img {
+    height: 36px;
+    object-fit: contain;
+    transition: transform 0.4s $ease;
+    width: 36px;
 
-.tile img.light {
-  filter: var(--logo-filter);
-  opacity: 0.85;
-}
+    &.light {
+      filter: var(--logo-filter);
+      opacity: 0.85;
+    }
+  }
 
-.tile span {
-  color: var(--mut);
-  font-size: 12px;
-  transition: color 0.25s;
-}
+  span {
+    color: var(--mut);
+    font-size: 12px;
+    transition: color 0.25s;
+  }
 
-.tile:hover span {
-  color: var(--ink);
+  &:hover span {
+    color: var(--ink);
+  }
 }
 
 @keyframes pop {

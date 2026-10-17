@@ -1,5 +1,7 @@
 import { afterNextRender, inject, Injectable, signal } from '@angular/core';
+import { addStyleOnce, type ViewTransitionDoc } from './dom';
 import { Motion } from './motion';
+import { storage } from './storage';
 
 export type Mode = 'dark' | 'light';
 
@@ -21,19 +23,16 @@ const VT_STYLE = `
   }
 
   ::view-transition {
-  pointer-events: none;
-}
+    pointer-events: none;
+  }
 `;
 
-type ViewTransitionDoc = Document & {
-  startViewTransition?: (update: () => void) => { ready: Promise<void>; finished: Promise<void> };
-};
-
+/** Dark / light switch. The choice is stored on <html data-theme> and in localStorage. */
 @Injectable({ providedIn: 'root' })
 export class Theme {
   readonly mode = signal<Mode>('dark');
+
   private readonly motion = inject(Motion);
-  private styled = false;
   private lastPointer?: { x: number; y: number; at: number };
 
   constructor() {
@@ -41,7 +40,7 @@ export class Theme {
       // index.html already applied the saved theme before first paint; just sync the signal
       this.mode.set(document.documentElement.dataset['theme'] === 'light' ? 'light' : 'dark');
 
-      // remember where the last click happened, so the circle starts there even if the caller passes no event
+      // remember the last click, so the circle can start there when toggle() gets no event
       addEventListener(
         'pointerdown',
         (e) => (this.lastPointer = { x: e.clientX, y: e.clientY, at: performance.now() }),
@@ -56,9 +55,7 @@ export class Theme {
     const apply = () => {
       this.mode.set(next);
       document.documentElement.dataset['theme'] = next;
-      try {
-        localStorage.setItem('theme', next);
-      } catch {}
+      storage.set('theme', next);
     };
 
     const doc = document as ViewTransitionDoc;
@@ -69,7 +66,7 @@ export class Theme {
       return;
     }
 
-    this.addStyle();
+    addStyleOnce('theme-switch-style', VT_STYLE);
     const root = document.documentElement;
     const { x, y } = this.origin(event);
     const radius = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y)); // reaches the farthest corner
@@ -96,13 +93,5 @@ export class Theme {
       if (!recent) return { x: innerWidth / 2, y: innerHeight / 2 };
     }
     return { x: this.lastPointer!.x, y: this.lastPointer!.y };
-  }
-
-  private addStyle() {
-    if (this.styled) return;
-    this.styled = true;
-    const style = document.createElement('style');
-    style.textContent = VT_STYLE;
-    document.head.appendChild(style);
   }
 }

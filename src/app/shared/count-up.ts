@@ -1,4 +1,5 @@
-import { afterNextRender, DestroyRef, Directive, ElementRef, inject, input } from '@angular/core';
+import { afterNextRender, DestroyRef, Directive, inject, input } from '@angular/core';
+import { injectElement } from './dom';
 import { Motion } from './motion';
 
 /**
@@ -9,14 +10,14 @@ import { Motion } from './motion';
 export class CountUp {
   readonly appCountUp = input.required<number>();
 
-  private readonly el = inject<ElementRef<HTMLElement>>(ElementRef).nativeElement;
+  private readonly el = injectElement();
 
   constructor() {
     const motion = inject(Motion);
     const destroyRef = inject(DestroyRef);
 
     afterNextRender(() => {
-      if (motion.off()) return; // animations off: just show the final number
+      if (motion.off()) return; // the fallback content already shows the final number
 
       const target = this.appCountUp();
       let frame = 0;

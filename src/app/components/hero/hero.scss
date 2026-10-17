@@ -1,4 +1,4 @@
-@use '../../../styles/tokens' as *;
+@use '../../../styles/mixins' as *;
 
 .hero {
   padding: clamp(112px, 18vh, 200px) 0 clamp(48px, 8vh, 96px);
@@ -26,53 +26,35 @@ h1 {
   max-width: 420px;
 }
 
+// ─── Call-to-action buttons ───
 .btns {
   display: flex;
   gap: 14px;
 }
 
 .btn {
-  align-items: center;
-  border-radius: 8px;
-  display: inline-flex;
-  font-size: 14px;
-  font-weight: 500;
-  gap: 14px;
-  padding: 14px 24px;
-  transition:
-    transform 0.3s,
-    box-shadow 0.3s,
-    background 0.3s,
-    border-color 0.3s;
+  @include button;
 
-  &:hover {
-    transform: translateY(-3px);
-
-    .arr.down {
-      transform: translateY(4px);
-    }
+  &:hover .arr.down {
+    transform: translateY(4px);
   }
 
   &.primary {
-    background: var(--acc2);
-    color: #fff;
-
-    &:hover {
-      box-shadow: 0 10px 32px -6px rgba(139, 92, 246, 0.75);
-    }
+    @include button-fill;
+    @include button-glow;
   }
 
   &.ghost {
-    background: var(--surface);
-    border: 1px solid var(--line);
+    @include card(8px, var(--surface));
 
     &:hover {
-      background: rgba(139, 92, 246, 0.1);
+      background: rgba($violet, 0.1);
       border-color: var(--acc);
     }
   }
 }
 
+// ─── Typing effect (the text is driven by hero.component.ts) ───
 .typed {
   contain: layout style;
   display: block;

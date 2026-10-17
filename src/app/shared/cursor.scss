@@ -1,8 +1,10 @@
+@use '../../styles/mixins' as *;
+
 app-cursor {
   display: contents;
 }
 
-/* the native cursor is hidden only once the custom one is running (not on touch, not without JS) */
+// The native cursor is hidden only once the custom one is running (not on touch, not without JS).
 html.has-cursor,
 html.has-cursor * {
   cursor: none !important;
@@ -23,24 +25,22 @@ html.has-cursor * {
 .cur-dot {
   opacity: 0;
   transition: opacity 0.2s;
+
+  &.on {
+    opacity: 1;
+  }
+
+  // over a playing preview there is no cursor at all (must stay after the .on rule)
+  &.gone {
+    opacity: 0;
+  }
 }
 
-.cur-ring.on,
-.cur-dot.on {
-  opacity: 1;
-}
-
-/* over a playing preview: no cursor at all (must stay after the .on rule) */
-.cur-ring.gone,
-.cur-dot.gone {
-  opacity: 0;
-}
-
-/* dot: follows the pointer exactly */
+// Dot: follows the pointer exactly. Margins are always -(size / 2), which centres it on the pointer.
 .cur-dot {
   background: var(--acc);
   height: 6px;
-  margin: -3px 0 0 -3px; // always -(width / 2), so the dot is centred on the pointer
+  margin: -3px 0 0 -3px;
   transition:
     opacity 0.2s,
     scale 0.2s,
@@ -49,40 +49,40 @@ html.has-cursor * {
     margin 0.2s,
     border-radius 0.2s;
   width: 6px;
+
+  &.hover {
+    scale: 0.5;
+  }
+
+  &.down {
+    scale: 2;
+  }
 }
 
-/* ring: chases the pointer (see the animation loop below) */
+// Ring: chases the pointer (cursor.ts moves it a little every frame).
 .cur-ring {
   border: 1.5px solid var(--acc);
   height: 30px;
-  margin: -15px 0 0 -15px; // always -(width / 2), so the ring is centred on the pointer
+  margin: -15px 0 0 -15px;
   transition:
     opacity 0.2s,
-    scale 0.25s cubic-bezier(0.2, 0.8, 0.2, 1),
+    scale 0.25s $ease,
     background 0.25s;
   width: 30px;
+
+  // over links and buttons
+  &.hover {
+    background: color-mix(in srgb, var(--acc) 15%, transparent);
+    scale: 1.6;
+  }
+
+  &.down {
+    opacity: 0;
+    transition-duration: 0s;
+  }
 }
 
-/* over links / buttons */
-.cur-ring.hover {
-  background: color-mix(in srgb, var(--acc) 15%, transparent);
-  scale: 1.6;
-}
-
-.cur-dot.hover {
-  scale: 0.5;
-}
-
-.cur-ring.down {
-  opacity: 0;
-  transition-duration: 0s;
-}
-
-.cur-dot.down {
-  scale: 2;
-}
-
-/* the ripple sent out on click: starts as an exact copy of the ring */
+// Ripple sent out on click: starts as an exact copy of the ring.
 .cur-ripple {
   border: 1px solid var(--acc);
   height: 30px;

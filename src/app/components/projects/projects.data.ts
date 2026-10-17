@@ -43,7 +43,7 @@ export const PROJECTS: Project[] = [
   {
     name: 'Yet Another Launcher',
     image: '/projects/yal.png',
-    animation:'/projects/yal.webp',
+    animation: '/projects/yal.webp',
     desc: 'projects.yal.desc',
     stack: ['Kotlin', 'Android'],
     meta: 'projects.yal.meta',
