@@ -1,6 +1,6 @@
 export const EN = {
 
-  'site.title': 'Aleksander Nawój – Full-stack developer',
+  'site.title': 'Alex Nawój – Full-stack dev',
   'site.desc': 'Full-stack developer building fast, accessible web products.',
 
   // nav
@@ -25,7 +25,7 @@ export const EN = {
   'hero.eyebrow': 'HELLO, WORLD',
   'hero.title': 'Building things for',
   'hero.words': 'the web.|the world.|impact.|fun.|production.|research.|people.|me.|you.',
-  'hero.desc': 'Hi, I’m Alex, a full-stack developer who brings thoughtful design and solid engineering together.',
+  'hero.desc': 'Hi, I’m Aleksander, a full-stack developer who brings thoughtful design and solid engineering together.',
   'hero.cta.work': 'Explore my work',
   'hero.cta.talk': 'Get in touch',
 
@@ -74,7 +74,7 @@ export const EN = {
   'projects.yal.desc': 'Android launcher app that allows user to customize about anything – from list of apps\' appearance through behavior on swipes to widget properties. Bundled with ability to import or export settings to convenient JSON.',
   'projects.yal.meta': 'Frontend development · Data Store · Customization',
   'projects.qm.desc': 'A full-stack email client for managing multiple email accounts from a single interface. Features include email composition and organization, attachment handling, dynamic search, contact management, and customizable themes. Supports Google integration and IMAP/POP accounts.',
-  'projects.qm.meta': 'Full-stack development ',
+  'projects.qm.meta': 'Full-stack development · Security · Customization',
 
   // contact
   'contact.eyebrow': 'LET\'S CONNECT',
@@ -94,7 +94,7 @@ export const EN = {
   'contact.form.sending': 'Sending…',
   'contact.form.send': 'Send message',
   'contact.form.fail': 'Something went wrong. Please try again, or email me directly.',
-  'contact.footer.built': 'Built with ♥',
+  'contact.footer.built': 'Built with ❤︎ and Credits',
   'contact.footer.top': 'Back to top ↑'
 } as const;
 

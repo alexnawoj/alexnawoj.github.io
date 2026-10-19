@@ -237,6 +237,10 @@ footer {
   margin-top: auto;
   padding: 36px 0;
 
+  a:link, a:visited {
+    text-decoration: underline;
+  }
+
   a:hover {
     color: var(--acc);
   }

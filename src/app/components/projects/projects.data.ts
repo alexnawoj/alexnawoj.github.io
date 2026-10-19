@@ -27,7 +27,7 @@ export const PROJECTS: Project[] = [
     desc: 'projects.portfolio.desc',
     stack: ['Angular', 'TypeScript', 'SCSS'],
     meta: 'projects.portfolio.meta',
-    url: 'github.com/alexnawoj/alexnawoj.github.io',
+    url: 'https://github.com/alexnawoj/alexnawoj.github.io',
     status: 'maintaining'
   },
   {
@@ -37,27 +37,27 @@ export const PROJECTS: Project[] = [
     desc: 'projects.asteroid-sim.desc',
     stack: ['Java', 'Swing', 'ESRI'],
     meta: 'projects.asteroid-sim.meta',
-    url: 'github.com/alexnawoj/asteroid-simulation',
+    url: 'https://github.com/alexnawoj/asteroid-simulation',
     status: 'archived'
   },
   {
     name: 'Yet Another Launcher',
     image: '/projects/yal.png',
-    animation: '/projects/yal.webp',
+    animation: '/projects/yal.png', // TODO add a webp
     desc: 'projects.yal.desc',
     stack: ['Kotlin', 'Android'],
     meta: 'projects.yal.meta',
-    url: 'github.com/to-be-published',
+    url: '#',
     status: 'in-progress'
   },
   {
     name: 'Quantum Mail',
     image: '/projects/qm.png',
-    animation: '/projects/qm.webp',
+    animation: '/projects/qm.png',  // TODO add a webp
     desc: 'projects.qm.desc',
     stack: ['Java', 'Spring Boot', 'React', 'JavaScript'],
     meta: 'projects.qm.meta',
-    url: 'github.com/alexnawoj/quantum-mail',
+    url: 'https://github.com/alexnawoj/quantum-mail',
     status: 'archived'
   }
 ];
