@@ -123,8 +123,12 @@ a {
 
 // ─── Section scaffolding ──────────────────────────────
 .sec {
-  max-width: 1180px;
+  max-width: $content;
   padding: 96px 0 0;
+
+  @include above($bp-wide) {
+    max-width: none;
+  }
 }
 
 // Small label above a section title, with a line that grows while the section is hovered.

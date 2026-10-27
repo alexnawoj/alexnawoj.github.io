@@ -17,6 +17,13 @@
   }
 }
 
+// Wraps content in a min-width media query.
+@mixin above($width) {
+  @media (min-width: #{$width}) {
+    @content;
+  }
+}
+
 // ─── Surfaces ─────────────────────────────────────────
 
 // Bordered, rounded surface used by tiles, cards, pills and inputs.

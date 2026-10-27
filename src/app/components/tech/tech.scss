@@ -62,6 +62,11 @@
   gap: 14px;
   grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
   min-height: 300px;
+
+  // wide screens: a fixed seven columns that stretch to the section width (21 tools fill three full rows)
+  @include above($bp-wide) {
+    grid-template-columns: repeat(7, 1fr);
+  }
 }
 
 .tile {

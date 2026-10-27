@@ -5,6 +5,13 @@
   gap: 48px 26px;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   max-width: 880px;
+
+  // wide screens: cards share the full section width, however many there are (auto-fit drops empty columns)
+  @include above($bp-wide) {
+    gap: 64px 48px;
+    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+    max-width: none;
+  }
 }
 
 // ─── Project card ───
@@ -25,6 +32,12 @@
     transform 0.5s $ease,
     box-shadow 0.5s;
   user-select: none;
+
+  @include above($bp-wide) {
+    aspect-ratio: 16 / 7;
+    height: auto;
+    min-height: 210px;
+  }
 }
 
 .proj {
