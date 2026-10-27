@@ -13,7 +13,6 @@ import { Cursor } from './shared/cursor';
   imports: [SkyComponent, SideComponent, HeroComponent, AboutComponent, TechComponent, ProjectsComponent, ContactComponent, Cursor],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <app-sky />
     <app-cursor />
     <app-side />
 

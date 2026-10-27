@@ -12,7 +12,6 @@ import {
 import { injectElement } from '../../shared/dom';
 import { I18n, T } from '../../shared/i18n';
 import { Motion } from '../../shared/motion';
-import { Music } from '../../shared/music';
 import { ScrollTo } from '../../shared/scroll-to';
 import { Theme } from '../../shared/theme';
 import { SECTIONS } from './side.data';
@@ -36,7 +35,6 @@ export class SideComponent {
   protected readonly theme = inject(Theme);
   protected readonly i18n = inject(I18n);
   protected readonly motion = inject(Motion);
-  protected readonly music = inject(Music);
 
   private readonly host = injectElement();
   private readonly marker = viewChild.required<ElementRef<HTMLElement>>('marker');

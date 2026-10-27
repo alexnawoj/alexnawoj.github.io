@@ -6,7 +6,17 @@
     <span class="typed acc">{{ text() }}<span aria-hidden="true" class="caret"></span></span>
   </h1>
 
+  <div>
+    <a appGlow class="tile status" href="#contact">
+      <span class="beacon"></span>
+      <span class="text">
+            <strong>{{ 'about.status.open' | t }}</strong>
+          </span>
+    </a>
+  </div>
+
   <p class="lead">{{ 'hero.desc' | t }}</p>
+
 
   <div class="btns">
     <a appScrollTo="projects" class="btn primary" href="#projects">

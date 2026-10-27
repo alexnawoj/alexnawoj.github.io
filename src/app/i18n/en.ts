@@ -23,23 +23,21 @@ export const EN = {
 
   // hero
   'hero.eyebrow': 'HELLO, WORLD',
-  'hero.title': 'Building things for',
-  'hero.words': 'the web.|the world.|impact.|fun.|production.|research.|people.|me.|you.',
-  'hero.desc': 'Hi, I’m Aleksander, a full-stack developer who brings thoughtful design and solid engineering together.',
+  'hero.title': 'Aleksander Nawój',
+  'hero.words': 'full-stack developer|software builder|problem solver|creative thinker',
+  'hero.desc': 'I build end-to-end web applications with a focus on clean code, usability, and the details that make them work well.',
   'hero.cta.work': 'Explore my work',
   'hero.cta.talk': 'Get in touch',
 
   // about
   'about.eyebrow': 'A BIT ABOUT ME',
-  'about.title1': 'Curious by nature.',
-  'about.title2': 'Builder by choice.',
+  'about.title1': 'I\'m passionate about creating digital solutions',
+  'about.title2': '',
   'about.p1': 'I got into software at 13, because I wanted to understand how things work, not just use them. That curiosity dragged me through languages, new technologies, solving bugs at 2am. It still does.',
   'about.p2': 'To this day, I enjoy turning ideas into working solutions. For me, this is the best part of development: understanding a problem, exploring possible outcomes and building a working application from top to bottom.',
   'about.p3': 'I\'m looking for internship opportunities where I can apply my skills, work on meaningful software, and continue growing as a developer.',
   'about.offscreen': '✧ Off-screen: good book, writing and nature dwelling',
-  'about.status.open': 'Open to opportunities',
-  'about.status.closed': 'Not looking right now',
-  'about.status.detail': 'Currently interested in internships',
+  'about.status.open': 'Open to internship opportunities',
   'about.stats.years': 'Years coding',
   'about.stats.projects': 'Projects shipped',
   'about.stats.tech': 'Technologies',
@@ -50,9 +48,9 @@ export const EN = {
   'about.exp.3': 'IT Technical Secondary School',
 
   // skills
-  'tech.eyebrow': 'MY TOOLKIT',
-  'tech.title': 'Tools I think in.',
-  'tech.sub': 'From systems programming to orchestration to inference — the full picture.',
+  'tech.eyebrow': 'MY SKILLS',
+  'tech.title': 'Technologies I master',
+  'tech.sub': '',
   'tech.tab.all': 'All',
   'tech.tab.languages': 'Languages',
   'tech.tab.frontend': 'Frontend',
@@ -62,7 +60,7 @@ export const EN = {
 
   // projects
   'projects.eyebrow': 'SELECTED WORK',
-  'projects.title': 'Ideas shipped into the world.',
+  'projects.title': 'Ideas shipped into the world',
   'projects.status.progress': 'In progress',
   'projects.status.maintaining': 'Maintaining',
   'projects.status.archived': 'Archived',

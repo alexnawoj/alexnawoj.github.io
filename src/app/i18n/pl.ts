@@ -24,9 +24,9 @@ export const PL: Record<Key, string> = {
 
   // hero
   'hero.eyebrow': 'HELLO, WORLD',
-  'hero.title': 'Tworzę rzeczy dla',
-  'hero.words': 'sieci.|świata.|skali.|wpływu.|zabawy.|produkcji.|badań.|ludzi.|mnie.|ciebie.',
-  'hero.desc': 'Hej, jestem Aleksander, programista full-stack, który łączy przemyślany design z niezawodną inżynierią.',
+  'hero.title': 'Aleksander Nawój',
+  'hero.words': 'programista full-stack|pasjonat technologii|analityczny umysł|kreatywny z natury',
+  'hero.desc': 'Tworzę aplikacje webowe od pomysłu po gotowe rozwiązanie, dbając o jakość kodu, wygodę użytkownika oraz detale.',
   'hero.cta.work': 'Zobacz moje projekty',
   'hero.cta.talk': 'Porozmawiajmy',
 
@@ -39,8 +39,6 @@ export const PL: Record<Key, string> = {
   'about.p3': 'Szukam możliwości odbycia praktyk, podczas których będę mógł wykorzystać swoje umiejętności, pracować nad wartościowymi projektami i rozwijać się jako programista.',
   'about.offscreen': '✧ Poza ekranem: dobra książka, pisarstwo oraz przebywanie z naturą',
   'about.status.open': 'Otwarty na nowe możliwości',
-  'about.status.closed': 'Obecnie nie szukam',
-  'about.status.detail': 'Obecnie interesują mnie praktyki',
   'about.stats.years': 'Lat programowania',
   'about.stats.projects': 'Zrealizowane projekty',
   'about.stats.tech': 'Technologie',

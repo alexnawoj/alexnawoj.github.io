@@ -13,7 +13,6 @@ import { EXPERIENCE, OPEN_TO_WORK, STATS } from './about.data';
   templateUrl: 'about.html'
 })
 export class AboutComponent {
-  protected readonly openToWork = OPEN_TO_WORK;
   protected readonly stats = STATS;
   protected readonly experience = EXPERIENCE;
 }

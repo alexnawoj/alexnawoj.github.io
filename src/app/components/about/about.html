@@ -11,17 +11,6 @@
     </div>
 
     <div class="tiles">
-      <a [class.closed]="!openToWork" appGlow appScrollTo="contact" class="tile status" href="#contact">
-        <span class="beacon"></span>
-        <span class="text">
-          <strong>{{ (openToWork ? 'about.status.open' : 'about.status.closed') | t }}</strong>
-          @if (openToWork) {
-            <small>{{ 'about.status.detail' | t }}</small>
-          }
-        </span>
-        <span class="go arr">↗</span>
-      </a>
-
       <div appGlow class="tile stats">
         @for (stat of stats; track stat.label) {
         <div>
