@@ -54,7 +54,7 @@ npm start
 
 <br />
 
-## Project structure
+### Project structure
 
 ```
 src/
@@ -68,13 +68,17 @@ src/
 
 Content (projects, skills, experience, links) lives in the `*.data.ts` files next to each component, and the strings are in `src/app/i18n`.
 
-## Credits
+<br />
+
+### Credits
 
 - Technology icons from [Devicon](https://devicon.dev), delivered by [jsDelivr](https://www.jsdelivr.com)
 - Fonts: [Inter](https://rsms.me/inter/) and [JetBrains Mono](https://www.jetbrains.com/lp/mono/), served by Google Fonts
 - Contact form by [Formspree](https://formspree.io)
 - Music by <a href="https://pixabay.com/users/arpmedia-56546950/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=569472">ARPMedia</a> from <a href="https://pixabay.com/music//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=569472">Pixabay</a>
 
-## License
+<br />
+
+### License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for the full license text.
