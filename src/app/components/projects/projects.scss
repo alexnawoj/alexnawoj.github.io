@@ -1,55 +1,65 @@
 @use '../../../styles/mixins' as *;
 
-.grid {
-  display: grid;
-  gap: 48px 26px;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  max-width: 880px;
+// ─── Project list: one row per project, preview left, text right ───
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  max-width: 980px;
 
-  // wide screens: cards share the full section width, however many there are (auto-fit drops empty columns)
   @include above($bp-wide) {
-    gap: 64px 48px;
-    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+    gap: 36px;
     max-width: none;
   }
 }
 
-// ─── Project card ───
+.proj {
+  @include card(16px);
+
+  display: grid;
+  gap: 28px;
+  grid-template-columns: clamp(280px, 34%, 460px) 1fr;
+  padding: 18px;
+
+  @include card-hover(4px);
+
+  // mobile: preview on top, text below
+  @include below($bp-mobile) {
+    gap: 20px;
+    grid-template-columns: 1fr;
+  }
+
+  &:hover h3 .arr {
+    transform: translate(3px, -3px);
+  }
+}
+
+// ─── Preview image ───
 .thumb {
   align-items: flex-end;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   border: 1px solid var(--line);
-  border-radius: 14px;
+  border-radius: 12px;
   display: flex;
-  height: 210px;
-  margin-bottom: 18px;
+  min-height: 210px;
   padding: 22px;
   touch-action: pan-y; // vertical scrolling still works while a finger holds the card
   -webkit-touch-callout: none;
-  transition:
-    transform 0.5s $ease,
-    box-shadow 0.5s;
   user-select: none;
-
-  @include above($bp-wide) {
-    aspect-ratio: 16 / 7;
-    height: auto;
-    min-height: 210px;
-  }
 }
 
-.proj {
-  &:hover {
-    .thumb {
-      box-shadow: 0 30px 60px -28px rgba($violet, 0.7);
-      transform: translateY(-6px) scale(1.02);
-    }
+// ─── Text column ───
+.info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  padding: 6px 10px 6px 0;
 
-    h3 .arr {
-      transform: translate(3px, -3px);
-    }
+  @include below($bp-mobile) {
+    padding: 0 4px 4px;
   }
 
   h3 {
@@ -57,7 +67,7 @@
     font-size: 22px;
     font-weight: 400;
     justify-content: space-between;
-    margin: 2px 0 8px;
+    margin: 0 0 8px;
 
     .arr {
       color: var(--acc);
@@ -69,7 +79,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin: 18px 0 10px;
+  margin: 16px 0 10px;
 
   span {
     @include card(5px, var(--surface));
