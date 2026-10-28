@@ -1,5 +1,7 @@
 @use '../../../styles/mixins' as *;
 
+$exp-stack: 400px; // below this tile width every entry stacks its date under the title
+
 .layout {
   align-items: stretch;
   display: grid;
@@ -12,88 +14,82 @@
   }
 }
 
-// ─── Tiles (shared look of the three cards on the right) ───
+// ─── Education tile ───
 .tiles {
-  align-content: space-between;
-  display: grid;
-  gap: 6px;
-}
-
-.tile {
   @include card(12px);
 
   display: block;
-  padding: 12px 14px;
-
   @include card-hover(3px);
 }
 
-// ─── Numbers ───
-.stats {
-  display: grid;
-  gap: 8px;
-  grid-template-columns: repeat(3, 1fr);
-
-  .label {
-    color: var(--dim);
-    display: block;
-    font-size: 10px;
-    line-height: 1.3;
-    margin-top: 1px;
-  }
-}
-
-.value {
-  display: block;
-  font-size: 22px;
-  font-weight: 300;
-  line-height: 1.1;
-
-  .suffix {
-    color: var(--acc);
-  }
-}
-
-// ─── Experience: one line per job (role, years, place) ───
+// ─── Experience: one entry per job (role, years, place) on a timeline ───
 .exp {
-  display: block;
-  padding: 0.9375rem;
+  container: exp / inline-size;
+  display: flex;
+  flex-direction: column;
+  padding: 1.25rem 1.25rem 0;
 
-  h4 {
-    font-size: 10px;
+    h4 {
+    align-items: center;
+    color: var(--acc);
+    display: flex;
+    font-size: 16px;
     font-weight: 400;
+    gap: 10.5px;
     line-height: 1.4;
     margin-bottom: 4px;
+
+    svg {
+      margin-left: -7px;
+      margin-top: -2px;
+      color: var(--acc);
+      fill: none;
+      filter: drop-shadow(0 0 3px color-mix(in srgb, var(--acc) 90%, transparent))
+        drop-shadow(0 0 9px color-mix(in srgb, var(--acc) 55%, transparent));
+      flex: none;
+      height: 22px;
+      stroke: currentColor;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 1.6;
+      width: 22px;
+    }
   }
 
   ol {
     display: flex;
+    flex: 1;
     flex-direction: column;
-    gap: 6px;
     list-style: none;
-    padding: 10px 0 0 0;
-    position: relative;
+    padding: 14px 0 0;
   }
 
   li {
+    align-content: flex-start;
     align-items: baseline;
     column-gap: 0.5rem;
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    padding-left: 1.25rem;
+    display: flex;
+    flex: 1;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding-left: 1.5rem;
     position: relative;
 
-    // timeline dot; the current job is highlighted
+    &:last-child {
+      flex: none;
+    }
+
     &::before {
       background: var(--bg);
-      border: 1px solid var(--dim);
+      border: 1px solid var(--acc);
       border-radius: 50%;
       content: '';
-      height: 3px;
+      height: 5px;
       left: 0;
       position: absolute;
-      top: 6px;
-      width: 3px;
+      top: 10px;
+      width: 5px;
     }
 
     &.now::before {
@@ -104,24 +100,35 @@
   }
 
   .role {
-    font-size: 13px;
+    flex: 1 0 auto;
+    font-size: 15px;
     line-height: 1.4;
-    white-space: nowrap;
-  }
-
-  .place {
-    color: var(--mut);
-    flex: 1;
-    font-size: 12px;
-    min-width: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    max-width: 100%;
   }
 
   .period {
     color: var(--dim);
     flex: none;
-    font-size: 10px;
+    font-size: 12px;
+    white-space: nowrap;
+  }
+
+  .place {
+    color: var(--mut);
+    flex: 1 1 100%;
+    font-size: 14px;
+    min-width: 0;
+    order: 3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+// narrow tile: all entries stack the same way, not only the ones that no longer fit
+// (after the .exp block on purpose: same specificity as `.exp .role`, so the later rule wins)
+@container exp (max-width: #{$exp-stack}) {
+  .exp .role {
+    flex-basis: 100%;
   }
 }

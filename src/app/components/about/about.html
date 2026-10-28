@@ -11,20 +11,15 @@
     </div>
 
     <div class="tiles">
-      <div appGlow class="tile stats">
-        @for (stat of stats; track stat.label) {
-        <div>
-            <span class="value">
-              <span [appCountUp]="stat.value">{{ stat.value }}</span
-              ><span class="suffix">{{ stat.suffix }}</span>
-            </span>
-          <span class="label mono">{{ stat.label | t }}</span>
-        </div>
-        }
-      </div>
-
       <div appGlow class="tile exp">
-        <h4 class="mono">{{ 'about.exp.title' | t }}</h4>
+        <h4 class="mono">
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <path d="M2 9l10-5 10 5-10 5z" />
+              <path d="M6 11.5V16c0 1.7 2.7 3 6 3s6-1.3 6-3v-4.5" />
+              <path d="M22 9v6" />
+            </svg>
+            {{ 'about.exp.title' | t }}
+        </h4>
         <ol>
           @for (job of experience; track $index) {
           <li [class.now]="job.to === 'now'">
