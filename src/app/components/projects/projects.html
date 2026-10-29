@@ -27,19 +27,19 @@
           <h3>{{ project.name }}</h3>
           <p class="body sm">{{ project.desc | t }}</p>
 
-          <div class="chips">
-            @for (tech of project.stack; track tech) {
+          <div class="foot">
+            <div class="chips">
+              @for (tech of project.stack; track tech) {
               <span class="mono">{{ tech }}</span>
-            }
+              }
+            </div>
+
+            <p class="links">
+              <a [href]="project.url" rel="noopener noreferrer" target="_blank">
+                {{ 'projects.source' | t }} <span class="arr">↗</span>
+              </a>
+            </p>
           </div>
-
-          <p class="mono dim tiny">{{ project.meta | t }}</p>
-
-          <p class="links">
-            <a [href]="project.url" rel="noopener noreferrer" target="_blank">
-              {{ 'projects.source' | t }} <span class="arr">↗</span>
-            </a>
-          </p>
         </div>
       </article>
     }

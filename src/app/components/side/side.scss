@@ -3,6 +3,9 @@
 $row: 21px;
 $gap: clamp(32px, 10vh, 200px);
 $stops: 4;
+$nav-indent: 30px;
+$dot: 7px;
+$round: 35px;
 
 // Vertical list with a thin guide line behind its dots.
 @mixin rail($gap, $inset) {
@@ -50,7 +53,7 @@ $stops: 4;
 
   nav {
     grid-row: 2;
-    padding-left: 30px;
+    padding-left: $nav-indent;
   }
 
   ul {
@@ -121,14 +124,14 @@ $stops: 4;
   background: var(--bg);
   border: 1px solid var(--dim);
   border-radius: 50%;
-  height: 7px;
-  position: relative; // sits above the guide line and the progress fill
+  height: $dot;
+  position: relative;
   transition:
     background 0.35s,
     border-color 0.35s,
     box-shadow 0.35s,
     transform 0.35s;
-  width: 7px;
+  width: $dot;
   z-index: 1;
 }
 
@@ -138,11 +141,13 @@ $stops: 4;
   display: flex;
   gap: 12px;
   grid-row: 3;
+  padding-left: $nav-indent + ($dot - $round) * 0.5;
   position: relative;
   z-index: 2;
 
   @include below($bp-mobile) {
     align-self: auto;
+    padding-left: 0;
     width: 100%;
   }
 }
@@ -155,25 +160,25 @@ $stops: 4;
   color: var(--acc);
   display: grid;
   font: 500 11px/1 $font-mono;
-  height: 35px;
+  height: $round;
   letter-spacing: 0.04em;
   opacity: 0.7;
   place-items: center;
   position: relative;
   -webkit-tap-highlight-color: transparent;
-  text-indent: 0.04em; // balances the letter-spacing after the last letter, so EN / PL sit centred
-  touch-action: manipulation; // no double-tap zoom, which swallowed the "finger lifted" event on fast taps
+  text-indent: 0.04em;
+  touch-action: manipulation;
   transition:
     transform 0.3s $ease,
     background 0.3s,
     color 0.3s,
     box-shadow 0.3s;
-  width: 35px;
+  width: $round;
 
   svg {
     fill: none;
     height: 17px;
-    pointer-events: none; // taps always land on the button, never on an icon that is about to be swapped
+    pointer-events: none;
     stroke: currentColor;
     stroke-linecap: round;
     stroke-linejoin: round;

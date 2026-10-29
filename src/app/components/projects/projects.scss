@@ -4,7 +4,7 @@
 .list {
   display: flex;
   flex-direction: column;
-  gap: 28px;
+  gap: 20px;
   max-width: 980px;
 
   @include above($bp-wide) {
@@ -14,11 +14,10 @@
 }
 
 .proj {
-  @include card(16px);
-
+  border-radius: 14px;
   display: grid;
-  gap: 28px;
-  grid-template-columns: clamp(280px, 34%, 460px) 1fr;
+  gap: 20px;
+  grid-template-columns: clamp(220px, 40%, 340px) 1fr;
   padding: 18px;
 
   @include card-hover(4px);
@@ -37,13 +36,14 @@
 // ─── Preview image ───
 .thumb {
   align-items: flex-end;
+  align-self: start; // keeps the aspect ratio instead of stretching to the row height
+  aspect-ratio: 16 / 10;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   border: 1px solid var(--line);
   border-radius: 12px;
   display: flex;
-  min-height: 210px;
   padding: 22px;
   touch-action: pan-y; // vertical scrolling still works while a finger holds the card
   -webkit-touch-callout: none;
@@ -54,7 +54,7 @@
 .info {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   min-width: 0;
   padding: 6px 10px 6px 0;
 
@@ -64,10 +64,10 @@
 
   h3 {
     display: flex;
-    font-size: 22px;
+    font-size: 26px;
     font-weight: 400;
     justify-content: space-between;
-    margin: 0 0 8px;
+    margin: 10px 0 8px;
 
     .arr {
       color: var(--acc);
@@ -75,11 +75,25 @@
   }
 }
 
-.chips {
+.foot {
+  align-items: flex-end;
+  align-self: stretch;
   display: flex;
   flex-wrap: wrap;
+  gap: 12px 18px;
+  width: 100%;
+
+   @include below($bp-mobile) {
+     align-items: flex-start;
+     flex-direction: column;
+   }
+}
+
+.chips {
+  display: flex;
+  flex: 0 1 auto;
+  flex-wrap: wrap;
   gap: 8px;
-  margin: 16px 0 10px;
 
   span {
     @include card(5px, var(--surface));
@@ -104,9 +118,14 @@
   display: flex;
   font-size: 13px;
   gap: 22px;
-  margin-top: 14px;
+  white-space: nowrap;
+  margin-left: auto;
+  margin-bottom: 5px;
 
-  // animated underline
+  @include below($bp-mobile) {
+    margin-left: 0;
+  }
+
   a {
     background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
     transition: background-size 0.3s;

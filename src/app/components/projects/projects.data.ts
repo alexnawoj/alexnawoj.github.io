@@ -8,7 +8,6 @@ export interface Project {
   animation?: string;
   desc: Key;
   stack: string[];
-  meta: Key;
   url: string;
   status: 'in-progress' | 'maintaining' | 'archived';
 }
@@ -26,7 +25,6 @@ export const PROJECTS: Project[] = [
     animation: '/projects/portfolio.png', // TODO add a webp
     desc: 'projects.portfolio.desc',
     stack: ['Angular', 'TypeScript', 'SCSS'],
-    meta: 'projects.portfolio.meta',
     url: 'https://github.com/alexnawoj/alexnawoj.github.io',
     status: 'maintaining'
   },
@@ -36,7 +34,6 @@ export const PROJECTS: Project[] = [
     animation: '/projects/asteroid-sim.webp',
     desc: 'projects.asteroid-sim.desc',
     stack: ['Java', 'Swing', 'ESRI'],
-    meta: 'projects.asteroid-sim.meta',
     url: 'https://github.com/alexnawoj/asteroid-simulation',
     status: 'archived'
   },
@@ -46,7 +43,6 @@ export const PROJECTS: Project[] = [
     animation: '/projects/yal.png', // TODO add a webp
     desc: 'projects.yal.desc',
     stack: ['Kotlin', 'Android'],
-    meta: 'projects.yal.meta',
     url: '#',
     status: 'in-progress'
   },
@@ -56,7 +52,6 @@ export const PROJECTS: Project[] = [
     animation: '/projects/qm.png',  // TODO add a webp
     desc: 'projects.qm.desc',
     stack: ['Java', 'Spring Boot', 'React', 'JavaScript'],
-    meta: 'projects.qm.meta',
     url: 'https://github.com/alexnawoj/quantum-mail',
     status: 'archived'
   }
