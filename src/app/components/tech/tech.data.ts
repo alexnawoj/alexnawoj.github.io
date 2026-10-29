@@ -21,13 +21,11 @@ export const SKILLS: Skill[] = [
   { name: 'Kotlin', category: 'languages', icon: devicon('kotlin/kotlin-original') },
   { name: 'Python', category: 'languages', icon: devicon('python/python-original') },
   { name: 'TypeScript', category: 'languages', icon: devicon('typescript/typescript-original') },
-  { name: 'Bash', category: 'languages', icon: devicon('bash/bash-original'), light: true },
 
   // frontend
   { name: 'React', category: 'frontend', icon: devicon('react/react-original') },
   { name: 'Angular', category: 'frontend', icon: devicon('angular/angular-original') },
   { name: 'React Native', category: 'frontend', icon: devicon('react/react-original') },
-  { name: 'Node.js', category: 'frontend', icon: devicon('nodejs/nodejs-original') },
   { name: 'HTML', category: 'frontend', icon: devicon('html5/html5-original') },
   { name: 'CSS', category: 'frontend', icon: devicon('css3/css3-original') },
   { name: 'Unity', category: 'frontend', icon: devicon('unity/unity-original'), light: true },
@@ -42,7 +40,6 @@ export const SKILLS: Skill[] = [
   { name: 'MySQL', category: 'databases', icon: devicon('mysql/mysql-original') },
 
   // tools
-  { name: 'Docker', category: 'tools', icon: devicon('docker/docker-original') },
   { name: 'Git', category: 'tools', icon: devicon('git/git-original') }
 
 ];
