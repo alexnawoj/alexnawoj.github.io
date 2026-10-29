@@ -76,11 +76,8 @@ export class I18n {
 
   /** Page title, description and social-preview tags follow the language (keys `site.title`, `site.desc`). */
   private updateHead(lang: Lang) {
-    const title = this.translate('site.title');
     const desc = this.translate('site.desc');
-    this.title.setTitle(title);
     this.meta.updateTag({ name: 'description', content: desc });
-    this.meta.updateTag({ property: 'og:title', content: title });
     this.meta.updateTag({ property: 'og:description', content: desc });
     this.meta.updateTag({ property: 'og:locale', content: OG_LOCALES[lang] });
     // og:locale:alternate lists every other language

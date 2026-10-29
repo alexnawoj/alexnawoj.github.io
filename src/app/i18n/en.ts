@@ -1,6 +1,5 @@
 export const EN = {
 
-  'site.title': 'Alex Nawój – Full-stack dev',
   'site.desc': 'Full-stack developer building fast, accessible web products.',
 
   // nav
